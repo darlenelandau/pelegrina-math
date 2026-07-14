@@ -1,0 +1,98 @@
+{
+  "assignments": [
+    {
+      "id": "dz1",
+      "title": "ДЗ №1 — простейшие уравнения (№6)",
+      "students": ["valera"],
+      "task_numbers": [6],
+      "deadline": "2026-07-20T21:00:00",
+      "intro": "Реши уравнения, ответ вводи числом (дробь через точку или запятую). Где просят выбрать корень, вводи именно его.",
+      "problems": [
+        {
+          "id": "dz1-p1",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $-\\dfrac{2}{9}x = 1\\dfrac{1}{9}$.",
+          "image": null,
+          "answer_hash": "37aa1ccf80e481832b2db282d4d4f895ee1e31219b7d0f6aee8dc8968828341b"
+        },
+        {
+          "id": "dz1-p2",
+          "task_number": 6,
+          "statement": "Решите уравнение $(2x+7)^2 = (2x-1)^2$.",
+          "image": null,
+          "answer_hash": "37c2b212b94e5372b33df924ea2a91182d90c237d0bf942c1768e794ebef2376"
+        },
+        {
+          "id": "dz1-p3",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\dfrac{1}{3}x^2 = 16\\dfrac{1}{3}$. Если уравнение имеет более одного корня, в ответе запишите меньший из корней.",
+          "image": null,
+          "answer_hash": "a770d3270c9dcdedf12ed9fd70444f7c8a95c26cae3cae9bd867499090a2f14b"
+        },
+        {
+          "id": "dz1-p4",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $(x-1)^3 = -8$.",
+          "image": null,
+          "answer_hash": "1bad6b8cf97131fceab8543e81f7757195fbb1d36b376ee994ad1cf17699c464"
+        },
+        {
+          "id": "dz1-p5",
+          "task_number": 6,
+          "statement": "Решите уравнение $\\dfrac{13x}{2x^2-7} = 1$. Если уравнение имеет более одного корня, в ответе запишите меньший из корней.",
+          "image": null,
+          "answer_hash": "1b07b0cffa0b3f596b5e048b0115168886cc5183dd518655b5515ee5dddac6d1"
+        },
+        {
+          "id": "dz1-p6",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\dfrac{1}{9x-7} = \\dfrac{1}{2}$.",
+          "image": null,
+          "answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "id": "dz1-p7",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\dfrac{1}{4x-1} = 5$.",
+          "image": null,
+          "answer_hash": "221764976efe04132774d96b0253cc31434c5261737469324f222621baf34b20"
+        },
+        {
+          "id": "dz1-p8",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\dfrac{1}{7x+3} = 5$.",
+          "image": null,
+          "answer_hash": "c38109680f66022f4b4f568fc202ebf3aab270427fe5e8e18024af726e9c7180"
+        },
+        {
+          "id": "dz1-p9",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\sqrt{\\dfrac{6}{4x-54}} = \\dfrac{1}{7}$.",
+          "image": null,
+          "answer_hash": "bdd2d3af3a5a1213497d4f1f7bfcda898274fe9cb5401bbc0190885664708fc2"
+        },
+        {
+          "id": "dz1-p10",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\sqrt{\\dfrac{2x+5}{3}} = 5$.",
+          "image": null,
+          "answer_hash": "9f14025af0065b30e47e23ebb3b491d39ae8ed17d33739e5ff3827ffb3634953"
+        },
+        {
+          "id": "dz1-p11",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\sqrt{3x-8} = 5$.",
+          "image": null,
+          "answer_hash": "4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8"
+        },
+        {
+          "id": "dz1-p12",
+          "task_number": 6,
+          "statement": "Решите уравнение $\\sqrt{x-2} = 6$.",
+          "image": null,
+          "answer_hash": "aea92132c4cbeb263e6ac2bf6c183b5d81737f179f21efdc5863739672f0f470"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pelegrina Math</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <span class="logo">Pelegrina Math</span>
+      <span class="user">Ученик: <b id="student-name">…</b>
+        <a href="#" id="logout" class="logout">сменить</a>
+      </span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>Мои задания</h1>
+    <div id="admin-bar" class="admin-bar hidden">
+      <span>Режим учителя: видны задания всех учеников.</span>
+      <a id="stats-link" class="stats-link hidden" href="#" target="_blank" rel="noopener">Открыть статистику ↗</a>
+    </div>
+    <div id="assignments" class="assignments">Загрузка…</div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/check.js"></script>
+  <script src="js/stats.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.getElementById("logout").addEventListener("click", e => {
+      e.preventDefault();
+      localStorage.removeItem("student");
+      location.reload();
+    });
+    renderIndex();
+  </script>
+</body>
+</html>
