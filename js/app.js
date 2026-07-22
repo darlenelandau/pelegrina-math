@@ -197,12 +197,55 @@ async function renderAssignment() {
 
   a.problems.forEach((p, i) => {
     const solved = !!progress[p.id];
+    const isWritten = p.mode === "written";
     const block = document.createElement("div");
     block.className = "problem" + (solved ? " solved" : "");
-    block.innerHTML = `
-      <div class="problem-head">Задача ${i + 1} <span class="tag">№${p.task_number}</span></div>
+
+    const tagText = isWritten ? `№${p.task_number} · письменно` : `№${p.task_number}`;
+    const head = `
+      <div class="problem-head">Задача ${i + 1} <span class="tag">${tagText}</span></div>
       <div class="problem-statement">${p.statement}</div>
-      ${p.image ? `<img class="problem-img" src="img/${p.image}" alt="рисунок к задаче">` : ""}
+      ${p.image ? `<img class="problem-img" src="img/${p.image}" alt="рисунок к задаче">` : ""}`;
+
+    // Письменная задача: не проверяем ответ, ученик отмечает, что сделал и прислал учителю.
+    if (isWritten) {
+      block.innerHTML = head + `
+        <div class="written-note">✍️ Реши письменно в тетради и пришли фото решения учителю. Здесь отметь, что сделал.</div>
+        <div class="answer-row">
+          <button class="written-btn" ${solved ? "disabled" : ""}>${solved ? "✓ отмечено" : "Отметить, что сделал"}</button>
+          <span class="feedback ok">${solved ? "решение отправлено учителю" : ""}</span>
+        </div>`;
+      root.appendChild(block);
+
+      const wbtn = block.querySelector(".written-btn");
+      const wfb = block.querySelector(".feedback");
+      wbtn.addEventListener("click", () => {
+        if (!student.admin) logAttempt({
+          student: student.name,
+          student_id: student.id || "",
+          assignment_id: a.id,
+          assignment_title: a.title,
+          problem_id: p.id,
+          task_number: p.task_number,
+          answer: "письменно (отмечено)",
+          correct: true,
+          attempt: 1,
+          on_time: !dl.overdue,
+          deadline: a.deadline,
+          time: new Date().toISOString()
+        });
+        block.classList.add("solved");
+        wbtn.textContent = "✓ отмечено";
+        wbtn.disabled = true;
+        wfb.textContent = "решение отправлено учителю";
+        markSolved(a.id, p.id, student);
+        attempted.add(p.id);
+        refreshFinish();
+      });
+      return;
+    }
+
+    block.innerHTML = head + `
       <div class="answer-row">
         <input type="text" class="answer-input" placeholder="ответ" ${solved ? "disabled" : ""}>
         <button class="check-btn" ${solved ? "disabled" : ""}>Проверить</button>

@@ -91,6 +91,17 @@ h1 { font-size: 22px; margin: 24px 0 8px; }
 .feedback.ok { color: var(--green); }
 .feedback.bad { color: var(--red); }
 
+/* Письменные задачи */
+.written-note {
+  background: #fff4e0; border: 1px solid #f0d9a8; color: #8a6100;
+  border-radius: 8px; padding: 8px 12px; margin: 4px 0 10px; font-size: 14px;
+}
+.written-btn {
+  padding: 9px 16px; font-size: 15px; font-weight: 600;
+  background: var(--amber); color: #fff; border: none; border-radius: 8px; cursor: pointer;
+}
+.written-btn:disabled { background: #dcc38a; cursor: default; }
+
 /* Кнопка "Закончить" и поздравление */
 .finish-wrap { text-align: center; margin: 24px 0 40px; }
 .finish-btn {
