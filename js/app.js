@@ -210,7 +210,7 @@ async function renderAssignment() {
     // Письменная задача: не проверяем ответ, ученик отмечает, что сделал и прислал учителю.
     if (isWritten) {
       block.innerHTML = head + `
-        <div class="written-note">✍️ Реши письменно в тетради и пришли фото решения учителю. Здесь отметь, что сделал.</div>
+        <div class="written-note">Реши письменно в тетради и пришли фото решения. Здесь отметь, что сделал.</div>
         <div class="answer-row">
           <button class="written-btn" ${solved ? "disabled" : ""}>${solved ? "✓ отмечено" : "Отметить, что сделал"}</button>
           <span class="feedback ok">${solved ? "решение отправлено учителю" : ""}</span>
