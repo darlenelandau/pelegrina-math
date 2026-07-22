@@ -213,7 +213,7 @@ async function renderAssignment() {
         <div class="written-note">Реши письменно в тетради и пришли фото решения. Здесь отметь, что сделал.</div>
         <div class="answer-row">
           <button class="written-btn" ${solved ? "disabled" : ""}>${solved ? "✓ отмечено" : "Отметить, что сделал"}</button>
-          <span class="feedback ok">${solved ? "решение отправлено учителю" : ""}</span>
+          <span class="feedback ok">${solved ? "решение отправлено" : ""}</span>
         </div>`;
       root.appendChild(block);
 
@@ -237,7 +237,7 @@ async function renderAssignment() {
         block.classList.add("solved");
         wbtn.textContent = "✓ отмечено";
         wbtn.disabled = true;
-        wfb.textContent = "решение отправлено учителю";
+        wfb.textContent = "решение отправлено";
         markSolved(a.id, p.id, student);
         attempted.add(p.id);
         refreshFinish();
