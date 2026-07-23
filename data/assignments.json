@@ -3,8 +3,12 @@
     {
       "id": "dz1",
       "title": "ДЗ №1 — простейшие уравнения (№6)",
-      "students": ["valera"],
-      "task_numbers": [6],
+      "students": [
+        "valera"
+      ],
+      "task_numbers": [
+        6
+      ],
       "deadline": "2026-07-20T12:55:00",
       "intro": "Реши уравнения, ответ вводи числом (дробь через точку или запятую). Где просят выбрать корень, вводи именно его.",
       "problems": [
@@ -97,45 +101,464 @@
     {
       "id": "dz2",
       "title": "ДЗ №2 — логарифмы: уравнения и выражения",
-      "students": ["valera"],
-      "task_numbers": [6, 7],
+      "students": [
+        "valera"
+      ],
+      "task_numbers": [
+        6,
+        7
+      ],
       "deadline": "2026-07-26T10:55:00",
       "intro": "Логарифмы. Сначала уравнения (найди x), потом выражения (найди значение), затем пара дробно-рациональных с выбором корня. В конце 3 письменных уравнения: их реши в тетради и пришли учителю, а тут отметь галочкой, что сделал. Ответ вводи числом, дробь через точку или запятую.",
       "problems": [
-        { "id": "dz2-p1", "task_number": 6, "statement": "Найдите корень уравнения $\\log_{5}(4+x) = 2$.", "image": null, "answer_hash": "6f4b6612125fb3a0daecd2799dfd6c9c299424fd920f9b308110a2c1fbd8f443" },
-        { "id": "dz2-p2", "task_number": 6, "statement": "Найдите корень уравнения $\\log_{2}(15+x) = \\log_{2}3$.", "image": null, "answer_hash": "7ed00270e394c3e190d18a977f5d0e1ed889bdc03a637e8fe35f00946841b0bf" },
-        { "id": "dz2-p3", "task_number": 6, "statement": "Найдите корень уравнения $\\log_{4}(x+3) = \\log_{4}(4x-15)$.", "image": null, "answer_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683" },
-        { "id": "dz2-p4", "task_number": 6, "statement": "Найдите корень уравнения $\\log_{5}(5-x) = 2\\log_{5}3$.", "image": null, "answer_hash": "e5e0093f285a4fb94c3fcc2ad7fd04edd10d429ccda87a9aa5e4718efadf182e" },
-        { "id": "dz2-p5", "task_number": 6, "statement": "Решите уравнение $\\log_{5}(x^2+2x) = \\log_{5}(x^2+10)$.", "image": null, "answer_hash": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d" },
-        { "id": "dz2-p6", "task_number": 6, "statement": "Решите уравнение $\\log_{5}(7-x) = \\log_{5}(3-x) + 1$.", "image": null, "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35" },
-        { "id": "dz2-p7", "task_number": 6, "statement": "Найдите корень уравнения $2^{\\log_{8}(5x-3)} = 4$.", "image": null, "answer_hash": "b6b99d5f7c2118802110608c7253b87f7f83ef1656289f6795b531e0a2504d27" },
-        { "id": "dz2-p8", "task_number": 6, "statement": "Решите уравнение $\\log_{x}32 = 5$.", "image": null, "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35" },
-        { "id": "dz2-p9", "task_number": 7, "statement": "Найдите значение выражения $\\log_{a}(ab^3)$, если $\\log_{b}a = \\dfrac{1}{7}$.", "image": null, "answer_hash": "785f3ec7eb32f30b90cd0fcf3657d388b5ff4297f2f9716ff66e9b69c05ddd09" },
-        { "id": "dz2-p10", "task_number": 7, "statement": "Найдите значение выражения $\\log_{a}\\dfrac{a}{b^3}$, если $\\log_{a}b = 5$.", "image": null, "answer_hash": "dabc4b1c58574fe898c4c218a0856669d55f817ee7df27b63c534892fd1fb5d9" },
-        { "id": "dz2-p11", "task_number": 7, "statement": "Найдите значение выражения $\\log_{a}(a^2 b^3)$, если $\\log_{a}b = -2$.", "image": null, "answer_hash": "e5e0093f285a4fb94c3fcc2ad7fd04edd10d429ccda87a9aa5e4718efadf182e" },
-        { "id": "dz2-p12", "task_number": 7, "statement": "Найдите значение выражения $\\dfrac{\\log_{6}\\sqrt{13}}{\\log_{6}13}$.", "image": null, "answer_hash": "d2cbad71ff333de67d07ec676e352ab7f38248eb69c942950157220607c55e84" },
-        { "id": "dz2-p13", "task_number": 7, "statement": "Найдите значение выражения $\\log_{5}7 \\cdot \\log_{7}25$.", "image": null, "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35" },
-        { "id": "dz2-p14", "task_number": 7, "statement": "Найдите значение выражения $\\dfrac{\\log_{2}12{,}8 - \\log_{2}0{,}8}{5^{\\log_{5}2}}$.", "image": null, "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35" },
-        { "id": "dz2-p15", "task_number": 7, "statement": "Найдите значение выражения $3^{\\log_{3}5} + 49^{\\log_{7}\\sqrt{13}}$.", "image": null, "answer_hash": "4ec9599fc203d176a301536c2e091a19bc852759b255bd6818810a42c5fed14a" },
-        { "id": "dz2-p16", "task_number": 7, "statement": "Найдите значение выражения $7 \\cdot 5^{\\log_{5}4}$.", "image": null, "answer_hash": "59e19706d51d39f66711c2653cd7eb1291c94d9b55eb14bda74ce4dc636d015a" },
-        { "id": "dz2-p17", "task_number": 7, "statement": "Найдите значение выражения $36^{\\log_{6}5}$.", "image": null, "answer_hash": "b7a56873cd771f2c446d369b649430b65a756ba278ff97ec81bb6f55b2e73569" },
-        { "id": "dz2-p18", "task_number": 7, "statement": "Найдите значение выражения $\\log_{0{,}25}2$.", "image": null, "answer_hash": "1b07b0cffa0b3f596b5e048b0115168886cc5183dd518655b5515ee5dddac6d1" },
-        { "id": "dz2-p19", "task_number": 7, "statement": "Найдите значение выражения $\\log_{4}8$.", "image": null, "answer_hash": "9f29a130438b81170b92a42650f9a94291ecad60bd47af2a3886e75f7f728725" },
-        { "id": "dz2-p20", "task_number": 7, "statement": "Найдите значение выражения $\\log_{0{,}3}10 - \\log_{0{,}3}3$.", "image": null, "answer_hash": "1bad6b8cf97131fceab8543e81f7757195fbb1d36b376ee994ad1cf17699c464" },
-        { "id": "dz2-p21", "task_number": 7, "statement": "Найдите значение выражения $\\dfrac{\\log_{7}13}{\\log_{49}13}$.", "image": null, "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35" },
-        { "id": "dz2-p22", "task_number": 7, "statement": "Найдите значение выражения $6\\log_{7}\\sqrt[3]{7}$.", "image": null, "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35" },
-        { "id": "dz2-p23", "task_number": 7, "statement": "Найдите значение выражения $\\dfrac{\\log_{3}5}{\\log_{3}7} + \\log_{7}0{,}2$.", "image": null, "answer_hash": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9" },
-        { "id": "dz2-p24", "task_number": 7, "statement": "Найдите значение выражения $\\log_{0{,}8}3 \\cdot \\log_{3}1{,}25$.", "image": null, "answer_hash": "1bad6b8cf97131fceab8543e81f7757195fbb1d36b376ee994ad1cf17699c464" },
-        { "id": "dz2-p25", "task_number": 7, "statement": "Найдите значение выражения $5^{\\log_{25}49}$.", "image": null, "answer_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451" },
-        { "id": "dz2-p26", "task_number": 7, "statement": "Найдите значение выражения $5^{3+\\log_{5}2}$.", "image": null, "answer_hash": "1e472b39b105d349bcd069c4a711b44a2fffb8e274714bb07ecfff69a9a7f67b" },
-        { "id": "dz2-p27", "task_number": 7, "statement": "Найдите значение выражения $8^{2\\log_{8}3}$.", "image": null, "answer_hash": "19581e27de7ced00ff1ce50b2047e7a567c76b1cbaebabe5ef03f7c3017bb5b7" },
-        { "id": "dz2-p28", "task_number": 7, "statement": "Найдите значение выражения $64^{\\log_{8}\\sqrt{3}}$.", "image": null, "answer_hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce" },
-        { "id": "dz2-p29", "task_number": 7, "statement": "Найдите значение выражения $\\log_{3}8{,}1 + \\log_{3}10$.", "image": null, "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a" },
-        { "id": "dz2-p30", "task_number": 6, "statement": "Решите уравнение $\\dfrac{9x}{2x^2-5} = 1$. Если уравнение имеет более одного корня, в ответе запишите меньший из корней.", "image": null, "answer_hash": "1b07b0cffa0b3f596b5e048b0115168886cc5183dd518655b5515ee5dddac6d1" },
-        { "id": "dz2-p31", "task_number": 6, "statement": "Решите уравнение $\\dfrac{x}{x^2-6} = 1$. Если уравнение имеет более одного корня, в ответе запишите больший из корней.", "image": null, "answer_hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce" },
-        { "id": "dz2-p32", "task_number": 13, "mode": "written", "answer_hash": null, "image": null, "statement": "а) Решите уравнение $\\log_{2}(x^2-14x)=5$.<br>б) Укажите корни этого уравнения, принадлежащие отрезку $\\left[\\log_{3}0{,}1;\\ 5\\sqrt{10}\\right]$." },
-        { "id": "dz2-p33", "task_number": 13, "mode": "written", "answer_hash": null, "image": null, "statement": "а) Решите уравнение $\\log_{7}(x+2)=\\log_{49}(x^4)$.<br>б) Найдите все корни этого уравнения, принадлежащие отрезку $\\left[\\log_{6}\\dfrac{1}{7};\\ \\log_{6}35\\right]$." },
-        { "id": "dz2-p34", "task_number": 13, "mode": "written", "answer_hash": null, "image": null, "statement": "а) Решите уравнение $(x^2+2x-1)\\left(\\log_{2}(x^2-3)+\\log_{0{,}5}(\\sqrt{3}-x)\\right)=0$.<br>б) Найдите все корни этого уравнения, принадлежащие отрезку $[-2{,}5;\\ -1{,}5]$." }
+        {
+          "id": "dz2-p1",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\log_{5}(4+x) = 2$.",
+          "image": null,
+          "answer_hash": "6f4b6612125fb3a0daecd2799dfd6c9c299424fd920f9b308110a2c1fbd8f443"
+        },
+        {
+          "id": "dz2-p2",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\log_{2}(15+x) = \\log_{2}3$.",
+          "image": null,
+          "answer_hash": "7ed00270e394c3e190d18a977f5d0e1ed889bdc03a637e8fe35f00946841b0bf"
+        },
+        {
+          "id": "dz2-p3",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\log_{4}(x+3) = \\log_{4}(4x-15)$.",
+          "image": null,
+          "answer_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+        },
+        {
+          "id": "dz2-p4",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\log_{5}(5-x) = 2\\log_{5}3$.",
+          "image": null,
+          "answer_hash": "e5e0093f285a4fb94c3fcc2ad7fd04edd10d429ccda87a9aa5e4718efadf182e"
+        },
+        {
+          "id": "dz2-p5",
+          "task_number": 6,
+          "statement": "Решите уравнение $\\log_{5}(x^2+2x) = \\log_{5}(x^2+10)$.",
+          "image": null,
+          "answer_hash": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+        },
+        {
+          "id": "dz2-p6",
+          "task_number": 6,
+          "statement": "Решите уравнение $\\log_{5}(7-x) = \\log_{5}(3-x) + 1$.",
+          "image": null,
+          "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+        },
+        {
+          "id": "dz2-p7",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $2^{\\log_{8}(5x-3)} = 4$.",
+          "image": null,
+          "answer_hash": "b6b99d5f7c2118802110608c7253b87f7f83ef1656289f6795b531e0a2504d27"
+        },
+        {
+          "id": "dz2-p8",
+          "task_number": 6,
+          "statement": "Решите уравнение $\\log_{x}32 = 5$.",
+          "image": null,
+          "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+        },
+        {
+          "id": "dz2-p9",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\log_{a}(ab^3)$, если $\\log_{b}a = \\dfrac{1}{7}$.",
+          "image": null,
+          "answer_hash": "785f3ec7eb32f30b90cd0fcf3657d388b5ff4297f2f9716ff66e9b69c05ddd09"
+        },
+        {
+          "id": "dz2-p10",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\log_{a}\\dfrac{a}{b^3}$, если $\\log_{a}b = 5$.",
+          "image": null,
+          "answer_hash": "dabc4b1c58574fe898c4c218a0856669d55f817ee7df27b63c534892fd1fb5d9"
+        },
+        {
+          "id": "dz2-p11",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\log_{a}(a^2 b^3)$, если $\\log_{a}b = -2$.",
+          "image": null,
+          "answer_hash": "e5e0093f285a4fb94c3fcc2ad7fd04edd10d429ccda87a9aa5e4718efadf182e"
+        },
+        {
+          "id": "dz2-p12",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{\\log_{6}\\sqrt{13}}{\\log_{6}13}$.",
+          "image": null,
+          "answer_hash": "d2cbad71ff333de67d07ec676e352ab7f38248eb69c942950157220607c55e84"
+        },
+        {
+          "id": "dz2-p13",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\log_{5}7 \\cdot \\log_{7}25$.",
+          "image": null,
+          "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+        },
+        {
+          "id": "dz2-p14",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{\\log_{2}12{,}8 - \\log_{2}0{,}8}{5^{\\log_{5}2}}$.",
+          "image": null,
+          "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+        },
+        {
+          "id": "dz2-p15",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $3^{\\log_{3}5} + 49^{\\log_{7}\\sqrt{13}}$.",
+          "image": null,
+          "answer_hash": "4ec9599fc203d176a301536c2e091a19bc852759b255bd6818810a42c5fed14a"
+        },
+        {
+          "id": "dz2-p16",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $7 \\cdot 5^{\\log_{5}4}$.",
+          "image": null,
+          "answer_hash": "59e19706d51d39f66711c2653cd7eb1291c94d9b55eb14bda74ce4dc636d015a"
+        },
+        {
+          "id": "dz2-p17",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $36^{\\log_{6}5}$.",
+          "image": null,
+          "answer_hash": "b7a56873cd771f2c446d369b649430b65a756ba278ff97ec81bb6f55b2e73569"
+        },
+        {
+          "id": "dz2-p18",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\log_{0{,}25}2$.",
+          "image": null,
+          "answer_hash": "1b07b0cffa0b3f596b5e048b0115168886cc5183dd518655b5515ee5dddac6d1"
+        },
+        {
+          "id": "dz2-p19",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\log_{4}8$.",
+          "image": null,
+          "answer_hash": "9f29a130438b81170b92a42650f9a94291ecad60bd47af2a3886e75f7f728725"
+        },
+        {
+          "id": "dz2-p20",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\log_{0{,}3}10 - \\log_{0{,}3}3$.",
+          "image": null,
+          "answer_hash": "1bad6b8cf97131fceab8543e81f7757195fbb1d36b376ee994ad1cf17699c464"
+        },
+        {
+          "id": "dz2-p21",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{\\log_{7}13}{\\log_{49}13}$.",
+          "image": null,
+          "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+        },
+        {
+          "id": "dz2-p22",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $6\\log_{7}\\sqrt[3]{7}$.",
+          "image": null,
+          "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+        },
+        {
+          "id": "dz2-p23",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{\\log_{3}5}{\\log_{3}7} + \\log_{7}0{,}2$.",
+          "image": null,
+          "answer_hash": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+        },
+        {
+          "id": "dz2-p24",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\log_{0{,}8}3 \\cdot \\log_{3}1{,}25$.",
+          "image": null,
+          "answer_hash": "1bad6b8cf97131fceab8543e81f7757195fbb1d36b376ee994ad1cf17699c464"
+        },
+        {
+          "id": "dz2-p25",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $5^{\\log_{25}49}$.",
+          "image": null,
+          "answer_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+        },
+        {
+          "id": "dz2-p26",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $5^{3+\\log_{5}2}$.",
+          "image": null,
+          "answer_hash": "1e472b39b105d349bcd069c4a711b44a2fffb8e274714bb07ecfff69a9a7f67b"
+        },
+        {
+          "id": "dz2-p27",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $8^{2\\log_{8}3}$.",
+          "image": null,
+          "answer_hash": "19581e27de7ced00ff1ce50b2047e7a567c76b1cbaebabe5ef03f7c3017bb5b7"
+        },
+        {
+          "id": "dz2-p28",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $64^{\\log_{8}\\sqrt{3}}$.",
+          "image": null,
+          "answer_hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+        },
+        {
+          "id": "dz2-p29",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\log_{3}8{,}1 + \\log_{3}10$.",
+          "image": null,
+          "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+        },
+        {
+          "id": "dz2-p30",
+          "task_number": 6,
+          "statement": "Решите уравнение $\\dfrac{9x}{2x^2-5} = 1$. Если уравнение имеет более одного корня, в ответе запишите меньший из корней.",
+          "image": null,
+          "answer_hash": "1b07b0cffa0b3f596b5e048b0115168886cc5183dd518655b5515ee5dddac6d1"
+        },
+        {
+          "id": "dz2-p31",
+          "task_number": 6,
+          "statement": "Решите уравнение $\\dfrac{x}{x^2-6} = 1$. Если уравнение имеет более одного корня, в ответе запишите больший из корней.",
+          "image": null,
+          "answer_hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+        },
+        {
+          "id": "dz2-p32",
+          "task_number": 13,
+          "mode": "written",
+          "answer_hash": null,
+          "image": null,
+          "statement": "а) Решите уравнение $\\log_{2}(x^2-14x)=5$.<br>б) Укажите корни этого уравнения, принадлежащие отрезку $\\left[\\log_{3}0{,}1;\\ 5\\sqrt{10}\\right]$."
+        },
+        {
+          "id": "dz2-p33",
+          "task_number": 13,
+          "mode": "written",
+          "answer_hash": null,
+          "image": null,
+          "statement": "а) Решите уравнение $\\log_{7}(x+2)=\\log_{49}(x^4)$.<br>б) Найдите все корни этого уравнения, принадлежащие отрезку $\\left[\\log_{6}\\dfrac{1}{7};\\ \\log_{6}35\\right]$."
+        },
+        {
+          "id": "dz2-p34",
+          "task_number": 13,
+          "mode": "written",
+          "answer_hash": null,
+          "image": null,
+          "statement": "а) Решите уравнение $(x^2+2x-1)\\left(\\log_{2}(x^2-3)+\\log_{0{,}5}(\\sqrt{3}-x)\\right)=0$.<br>б) Найдите все корни этого уравнения, принадлежащие отрезку $[-2{,}5;\\ -1{,}5]$."
+        }
+      ]
+    },
+    {
+      "id": "krisdz1",
+      "title": "ДЗ №1 — равнобедренные треугольники, тренировочный вариант и наиб/наим значение",
+      "students": [
+        "kristina"
+      ],
+      "task_numbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "deadline": "2026-07-30T09:55:00",
+      "intro": "Три блока: (1) 9 задач на равнобедренные треугольники (задача №1 ЕГЭ), (2) тестовая часть тренировочного варианта — 12 задач, (3) ещё 5 задач на наибольшее/наименьшее значение функции. Ответ вводи числом, дробь через точку или запятую.",
+      "problems": [
+        {
+          "id": "krisdz1-p1",
+          "task_number": 1,
+          "statement": "В тупоугольном треугольнике $ABC$ $AC = BC = 4\\sqrt{5}$, высота $AH$ равна $4$. Найдите $\\operatorname{tg} \\angle ACB$.",
+          "image": "isoc_21.png",
+          "answer_hash": "1b07b0cffa0b3f596b5e048b0115168886cc5183dd518655b5515ee5dddac6d1"
+        },
+        {
+          "id": "krisdz1-p2",
+          "task_number": 1,
+          "statement": "В тупоугольном треугольнике $ABC$ $AC = BC = \\sqrt{17}$, $AH$ — высота, $CH = 4$. Найдите $\\operatorname{tg} \\angle ACB$.",
+          "image": "isoc_23.png",
+          "answer_hash": "c39e10a12e907115c23f0597a37ba310350471a14f107c08bc831478d0114554"
+        },
+        {
+          "id": "krisdz1-p3",
+          "task_number": 1,
+          "statement": "Угол при вершине, противолежащей основанию равнобедренного треугольника, равен $30°$. Боковая сторона треугольника равна $10$. Найдите площадь этого треугольника.",
+          "image": "isoc_27.png",
+          "answer_hash": "b7a56873cd771f2c446d369b649430b65a756ba278ff97ec81bb6f55b2e73569"
+        },
+        {
+          "id": "krisdz1-p4",
+          "task_number": 1,
+          "statement": "Боковая сторона равнобедренного треугольника равна $5$, а основание равно $6$. Найдите площадь этого треугольника.",
+          "image": "isoc_29.png",
+          "answer_hash": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918"
+        },
+        {
+          "id": "krisdz1-p5",
+          "task_number": 1,
+          "statement": "Угол при вершине, противолежащей основанию равнобедренного треугольника, равен $30°$. Найдите боковую сторону треугольника, если его площадь равна $25$.",
+          "image": "isoc_30.png",
+          "answer_hash": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5"
+        },
+        {
+          "id": "krisdz1-p6",
+          "task_number": 1,
+          "statement": "Угол при вершине, противолежащей основанию равнобедренного треугольника, равен $150°$. Найдите боковую сторону треугольника, если его площадь равна $100$.",
+          "image": "isoc_31.png",
+          "answer_hash": "f5ca38f748a1d6eaf726b8a42fb575c3c71f1864a8143301782de13da2d9202b"
+        },
+        {
+          "id": "krisdz1-p7",
+          "task_number": 1,
+          "statement": "В треугольнике $ABC$ угол $A$ равен $38°$, $AC = BC$. Найдите угол $C$. Ответ дайте в градусах.",
+          "image": "isoc_32.png",
+          "answer_hash": "5ef6fdf32513aa7cd11f72beccf132b9224d33f271471fff402742887a171edf"
+        },
+        {
+          "id": "krisdz1-p8",
+          "task_number": 1,
+          "statement": "В треугольнике $ABC$ угол $C$ равен $118°$, $AC = BC$. Найдите угол $A$. Ответ дайте в градусах.",
+          "image": "isoc_33.png",
+          "answer_hash": "eb1e33e8a81b697b75855af6bfcdbcbf7cbbde9f94962ceaec1ed8af21f5a50f"
+        },
+        {
+          "id": "krisdz1-p9",
+          "task_number": 1,
+          "statement": "В треугольнике $ABC$ $AC = BC$, угол $C$ равен $52°$. Найдите внешний угол $CBD$. Ответ дайте в градусах.",
+          "image": "isoc_34.png",
+          "answer_hash": "e5b861a6d8a966dfca7e7341cd3eb6be9901688d547a72ebed0b1f5e14f3d08d"
+        },
+        {
+          "id": "krisdz1-t1",
+          "task_number": 1,
+          "statement": "Два угла вписанного в окружность четырёхугольника равны $21°$ и $49°$. Найдите больший из оставшихся углов. Ответ дайте в градусах.",
+          "image": "train_p1.png",
+          "answer_hash": "ff2ccb6ba423d356bd549ed4bfb76e96976a0dcde05a09996a1cdb9f83422ec4"
+        },
+        {
+          "id": "krisdz1-t2",
+          "task_number": 2,
+          "statement": "На координатной плоскости изображены векторы $\\vec{a}$, $\\vec{b}$ и $\\vec{c}$. Найдите значение выражения $\\left(\\vec{a} - \\vec{b}\\right) \\cdot \\vec{c}$.",
+          "image": "train_p2.png",
+          "answer_hash": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918"
+        },
+        {
+          "id": "krisdz1-t3",
+          "task_number": 3,
+          "statement": "Шар вписан в цилиндр. Площадь полной поверхности цилиндра равна $54$. Найдите площадь поверхности шара.",
+          "image": "train_p3.png",
+          "answer_hash": "76a50887d8f1c2e9301755428990ad81479ee21c25b43215cf524541e0503269"
+        },
+        {
+          "id": "krisdz1-t4",
+          "task_number": 4,
+          "statement": "В группе туристов 24 человека. Их вертолётом доставляют в труднодоступный район, перевозя по 3 человека за рейс. Порядок, в котором вертолёт перевозит туристов, случаен. Найдите вероятность того, что турист Ф. полетит вторым рейсом вертолёта.",
+          "image": null,
+          "answer_hash": "52c003e77e74cbacd60930b997433027175ca60b20b7fbb4ec6073b2c4932bb9"
+        },
+        {
+          "id": "krisdz1-t5",
+          "task_number": 5,
+          "statement": "В коробке 11 синих, 6 красных и 8 зелёных фломастеров. Случайным образом выбирают два фломастера. Какова вероятность того, что окажутся выбраны один синий и один красный фломастер?",
+          "image": null,
+          "answer_hash": "dc08a4e8bbdd4019572c30507de074a79e24846715cd9028fb82bda6f3f8f9d7"
+        },
+        {
+          "id": "krisdz1-t6",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\log_2(4+x) = \\log_2(2-x) + 2$.",
+          "image": null,
+          "answer_hash": "1e9d7c27c8bbc8ddf0055c93e064a62fa995d177fee28cc8fa949bc8a4db06f4"
+        },
+        {
+          "id": "krisdz1-t7",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{2^{1{,}4} \\cdot 3^{3{,}4}}{6^{2{,}4}}$.",
+          "image": null,
+          "answer_hash": "9f29a130438b81170b92a42650f9a94291ecad60bd47af2a3886e75f7f728725"
+        },
+        {
+          "id": "krisdz1-t8",
+          "task_number": 8,
+          "statement": "На рисунке изображён график $y = f'(x)$ — производной функции $f(x)$, определённой на интервале $(-5;\\ 15)$. Найдите количество точек минимума функции $f(x)$, принадлежащих отрезку $[-4;\\ 14]$.",
+          "image": "train_p8.png",
+          "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+        },
+        {
+          "id": "krisdz1-t9",
+          "task_number": 9,
+          "statement": "Высота над землёй подброшенного вверх мяча меняется по закону $h(t) = 1{,}8 + 12t - 5t^2$, где $h$ — высота в метрах, $t$ — время в секундах, прошедшее с момента броска. Сколько секунд мяч будет находиться на высоте не менее $4$ метров?",
+          "image": null,
+          "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+        },
+        {
+          "id": "krisdz1-t10",
+          "task_number": 10,
+          "statement": "На изготовление 416 деталей первый рабочий тратит на 10 часов меньше, чем второй рабочий на изготовление 546 таких же деталей. Известно, что первый рабочий за час делает на 5 деталей больше, чем второй. Сколько деталей за час делает первый рабочий?",
+          "image": null,
+          "answer_hash": "5f9c4ab08cac7457e9111a30e4664920607ea2c115a1433d7be98e97e64244ca"
+        },
+        {
+          "id": "krisdz1-t11",
+          "task_number": 11,
+          "statement": "На рисунке изображены графики функций $f(x) = a\\sqrt{x}$ и $g(x) = kx + b$, которые пересекаются в точке $A$. Найдите ординату точки $A$.",
+          "image": "train_p11.png",
+          "answer_hash": "c171d4ec282b23db89a99880cd624e9ba2940c1d894783602edab5d7481dc1ea"
+        },
+        {
+          "id": "krisdz1-t12",
+          "task_number": 12,
+          "statement": "Найдите наименьшее значение функции $y = 5\\sin x + \\dfrac{36}{\\pi}\\,x + 6$ на отрезке $\\left[-\\dfrac{5\\pi}{6};\\ 0\\right]$.",
+          "image": null,
+          "answer_hash": "906ac88f4a293770dc3680fa68a69fa7315914afc65940bc95b7b4ca4295a9aa"
+        },
+        {
+          "id": "krisdz1-f1",
+          "task_number": 12,
+          "statement": "Найдите точку минимума функции $y = x^3 - 14x^2 + 49x + 3$.",
+          "image": null,
+          "answer_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+        },
+        {
+          "id": "krisdz1-f2",
+          "task_number": 12,
+          "statement": "Найдите наибольшее значение функции $y = 7 + 12x - 4x\\sqrt{x}$ на отрезке $[0;\\ 12]$.",
+          "image": null,
+          "answer_hash": "535fa30d7e25dd8a49f1536779734ec8286108d115da5045d77f3b4185d8f790"
+        },
+        {
+          "id": "krisdz1-f3",
+          "task_number": 12,
+          "statement": "Найдите точку минимума функции $y = x\\sqrt{x} - 3x + 17$.",
+          "image": null,
+          "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+        },
+        {
+          "id": "krisdz1-f4",
+          "task_number": 12,
+          "statement": "Найдите наименьшее значение функции $y = 9x - \\ln(x+5)^9$ на отрезке $[-4{,}5;\\ 0]$.",
+          "image": null,
+          "answer_hash": "fe64bc5494b5031c5f3093894cb52eb3f50e24d8da628627c30076fd3e2312fe"
+        },
+        {
+          "id": "krisdz1-f5",
+          "task_number": 12,
+          "statement": "Найдите точку максимума функции $y = (4-x)\\cdot e^{x+4}$.",
+          "image": null,
+          "answer_hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+        }
       ]
     }
   ]
