@@ -180,7 +180,7 @@
         <h2>Единичная окружность</h2>
         <svg id="circle" viewBox="0 0 320 320" aria-label="Единичная окружность с углом"></svg>
         <div class="legend">
-          <span><i style="background:var(--accent)"></i>опорная ось</span>
+          <span><i style="background:var(--accent)"></i>ось отсчёта</span>
           <span><i style="background:var(--alpha)"></i>угол α</span>
           <span><i style="background:var(--ink)"></i>конечный луч</span>
         </div>
@@ -230,7 +230,7 @@
                 <button data-fn="tg" aria-pressed="false">tg</button>
               </div>
             </div>
-            <div class="segrow"><span>Опорная ось</span>
+            <div class="segrow"><span>От какой оси отсчёт</span>
               <div class="seg" id="seg-ax">
                 <button data-ax="90" aria-pressed="true">π/2</button>
                 <button data-ax="180" aria-pressed="false">π</button>
@@ -267,7 +267,7 @@
       <div class="rules">
         <div class="rule">
           <h3>1. Меняется ли функция</h3>
-          <p>Смотрим на <b>опорную ось</b>.</p>
+          <p>Смотрим, <b>от какой оси отсчёт</b>.</p>
           <p><span class="k">π/2, 3π/2</span> — вертикаль, «голова кивает: да» → функция <b>меняется</b> (sin↔cos, tg↔ctg).</p>
           <p><span class="k">π, 2π</span> — горизонталь, «голова мотает: нет» → функция <b>остаётся</b>.</p>
         </div>
@@ -445,8 +445,8 @@
     function disable(c){var bs=c.querySelectorAll(".choice");for(var i=0;i<bs.length;i++) bs[i].disabled=true;}
     function showExplain(warm,html){tExplain.className="explain"+(warm?" warm":"");tExplain.classList.remove("hidden");tExplain.innerHTML=html;}
     function s1Explain(d){
-      if(d.changes) return 'Опорная ось <span class="tag">'+axisLabel[d.axis]+'</span> — <b>вертикальная</b> (голова кивает: да). Функция <b>меняется</b>: '+d.fn+' → <b>'+d.resFn+'</b>.';
-      return 'Опорная ось <span class="tag">'+axisLabel[d.axis]+'</span> — <b>горизонтальная</b> (голова мотает: нет). Функция <b>остаётся</b>: '+d.resFn+'.';
+      if(d.changes) return 'Отсчёт от оси <span class="tag">'+axisLabel[d.axis]+'</span> — это <b>вертикаль</b> (голова кивает: да). Функция <b>меняется</b>: '+d.fn+' → <b>'+d.resFn+'</b>.';
+      return 'Отсчёт от оси <span class="tag">'+axisLabel[d.axis]+'</span> — это <b>горизонталь</b> (голова мотает: нет). Функция <b>остаётся</b>: '+d.resFn+'.';
     }
     function s2Explain(d){
       return 'Считаем α острым: угол <span class="tag">'+axisLabel[d.axis]+' '+(d.dir>0?'+':'−')+' α</span> попадает в <b>'+ROMAN[d.q]+'</b> четверть. Там исходный <b>'+d.fn+'</b> '+(d.sign>0?'положителен':'отрицателен')+' → знак <b>'+(d.sign>0?'+':'−')+'</b>.';
