@@ -355,6 +355,83 @@
       ]
     },
     {
+      "id": "dz3",
+      "title": "ДЗ №3 — тригонометрия: приведение и двойной угол (№7)",
+      "students": [
+        "valera"
+      ],
+      "task_numbers": [
+        7
+      ],
+      "deadline": "2026-07-29T10:55:00",
+      "intro": "Небольшое ДЗ на два приёма. Сначала 5 выражений на формулы приведения (для буквенных сведи всё к функции острого угла), потом 4 на двойной угол. Перед решением можешь размяться на тренажёре приведения. Ответ вводи числом, дробь через точку или запятую.",
+      "problems": [
+        {
+          "id": "dz3-p1",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $4\\sqrt{3}\\,\\operatorname{tg}(-210^\\circ)$.",
+          "image": null,
+          "answer_hash": "e5e0093f285a4fb94c3fcc2ad7fd04edd10d429ccda87a9aa5e4718efadf182e"
+        },
+        {
+          "id": "dz3-p2",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $6\\sqrt{2}\\,\\cos(-315^\\circ)$.",
+          "image": null,
+          "answer_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+        },
+        {
+          "id": "dz3-p3",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{\\sin\\left(\\frac{\\pi}{2}+\\alpha\\right)}{\\cos(2\\pi-\\alpha)}$.",
+          "image": null,
+          "answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "id": "dz3-p4",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{3\\cos(\\pi-\\alpha)+\\sin\\left(\\frac{\\pi}{2}-\\alpha\\right)}{\\cos(\\alpha+2\\pi)}$.",
+          "image": null,
+          "answer_hash": "cf3bae39dd692048a8bf961182e6a34dfd323eeb0748e162eaf055107f1cb873"
+        },
+        {
+          "id": "dz3-p5",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{12\\sin\\left(\\frac{3\\pi}{2}+\\alpha\\right)}{\\cos\\alpha}$.",
+          "image": null,
+          "answer_hash": "7ed00270e394c3e190d18a977f5d0e1ed889bdc03a637e8fe35f00946841b0bf"
+        },
+        {
+          "id": "dz3-p6",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{40\\sin 8^\\circ\\cos 8^\\circ}{\\sin 16^\\circ}$.",
+          "image": null,
+          "answer_hash": "f5ca38f748a1d6eaf726b8a42fb575c3c71f1864a8143301782de13da2d9202b"
+        },
+        {
+          "id": "dz3-p7",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{18\\left(\\cos^2 23^\\circ-\\sin^2 23^\\circ\\right)}{\\cos 46^\\circ}$.",
+          "image": null,
+          "answer_hash": "4ec9599fc203d176a301536c2e091a19bc852759b255bd6818810a42c5fed14a"
+        },
+        {
+          "id": "dz3-p8",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\sqrt{2}\\cos^2\\dfrac{\\pi}{8}-\\sqrt{2}\\sin^2\\dfrac{\\pi}{8}$.",
+          "image": null,
+          "answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "id": "dz3-p9",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{\\sin 50^\\circ}{\\sin 25^\\circ\\cos 25^\\circ}$.",
+          "image": null,
+          "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+        }
+      ]
+    },
+    {
       "id": "krisdz1",
       "title": "ДЗ №1 — равнобедренные треугольники, тренировочный вариант и наиб/наим значение",
       "students": [

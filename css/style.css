@@ -158,3 +158,17 @@ h1 { font-size: 22px; margin: 24px 0 8px; }
   /* Кнопка статистики у админа на всю ширину */
   .stats-link { flex: 1 1 100%; text-align: center; }
 }
+
+/* Ссылка на тренажёр приведения (над списком заданий) */
+.trainer-link {
+  display: flex; align-items: center; gap: 14px; margin-top: 16px;
+  padding: 14px 16px; text-decoration: none; color: var(--ink);
+  background: linear-gradient(0deg, #eef3fb, #eef3fb), var(--card);
+  border: 1px solid #cfe0ff; border-left: 4px solid var(--accent); border-radius: 12px;
+}
+.trainer-link:hover { border-color: var(--accent); }
+.trainer-link .tl-ico { font-size: 26px; line-height: 1; }
+.trainer-link .tl-txt { display: flex; flex-direction: column; flex: 1; }
+.trainer-link .tl-txt b { font-size: 15px; }
+.trainer-link .tl-txt small { color: var(--muted); font-size: 13px; }
+.trainer-link .tl-go { color: var(--accent); font-weight: 600; font-size: 14px; white-space: nowrap; }
