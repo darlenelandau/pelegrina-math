@@ -134,7 +134,10 @@ async function renderIndex() {
 
     let statusClass = "status-open";
     let statusText = "в работе";
-    if (done && !isAdmin) { statusClass = "status-done"; statusText = "выполнено"; }
+    // Учитель может пометить задание выполненным вручную (поле "completed" в assignments.json) —
+    // например, если сделали в кабинете. Такой статус главнее дедлайна.
+    if (a.completed) { statusClass = "status-done"; statusText = "выполнено"; }
+    else if (done && !isAdmin) { statusClass = "status-done"; statusText = "выполнено"; }
     else if (dl.overdue) { statusClass = "status-overdue"; statusText = "просрочено"; }
 
     // Ученику показываем его прогресс; админу — кому адресовано (прогресс у админа локальный, не показываем)
