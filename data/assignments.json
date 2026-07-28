@@ -432,6 +432,108 @@
       ]
     },
     {
+      "id": "dz4",
+      "title": "ДЗ №4 — тригонометрия: смешанное + уравнения (№7, №13)",
+      "students": [
+        "valera"
+      ],
+      "task_numbers": [
+        7,
+        13
+      ],
+      "deadline": "2026-08-04T10:55:00",
+      "intro": "Смешанное ДЗ по всей тригонометрии с урока: приведение, двойной угол, вычисление по условию (следи за знаком по четверти) и комплементарные углы. Сначала 9 тестовых — ответ вводи числом (дробь через точку или запятую). В конце 3 письменных уравнения (№13, разложение на множители): реши их в тетради, пришли мне фото в чат, а тут отметь галочкой, что сделал. И не забудь пару раз открыть тренажёр приведения.",
+      "problems": [
+        {
+          "id": "dz4-p1",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{2\\sin(\\pi-\\alpha)-\\cos\\left(\\frac{\\pi}{2}+\\alpha\\right)}{\\sin(\\pi+\\alpha)}$.",
+          "image": null,
+          "answer_hash": "615bdd17c2556f82f384392ea8557f8cc88b03501c759e23093ab0b2a9b5cd48"
+        },
+        {
+          "id": "dz4-p2",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $8\\sqrt{2}\\,\\sin(-225^\\circ)$.",
+          "image": null,
+          "answer_hash": "2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fdefb64a3"
+        },
+        {
+          "id": "dz4-p3",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{6\\sin 10^\\circ\\cos 10^\\circ}{\\sin 20^\\circ}$.",
+          "image": null,
+          "answer_hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+        },
+        {
+          "id": "dz4-p4",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{10\\left(\\cos^2 40^\\circ-\\sin^2 40^\\circ\\right)}{\\cos 80^\\circ}$.",
+          "image": null,
+          "answer_hash": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5"
+        },
+        {
+          "id": "dz4-p5",
+          "task_number": 7,
+          "statement": "Найдите $\\operatorname{tg}\\alpha$, если $\\cos\\alpha=-\\dfrac{4}{5}$ и $\\alpha\\in\\left(\\frac{\\pi}{2};\\pi\\right)$.",
+          "image": null,
+          "answer_hash": "058de5bc9a2d3f824953cbf822932797dc33480198e0ae02b27cf73760a99f90"
+        },
+        {
+          "id": "dz4-p6",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $10\\cos\\alpha$, если $\\sin\\alpha=0{,}6$ и $\\alpha\\in\\left(\\frac{\\pi}{2};\\pi\\right)$.",
+          "image": null,
+          "answer_hash": "e91592205d3881e3ea35d66973bb4898d7282126ab5afcb355c95d2fc17f3822"
+        },
+        {
+          "id": "dz4-p7",
+          "task_number": 7,
+          "statement": "Найдите $\\sin 2\\alpha$, если $\\cos\\alpha=0{,}6$ и $\\alpha\\in\\left(\\frac{3\\pi}{2};2\\pi\\right)$.",
+          "image": null,
+          "answer_hash": "a16bd4e7b11b0743cb7d6a5ef7111a720d457899bca375830d86c643c25eeb9f"
+        },
+        {
+          "id": "dz4-p8",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $30\\,\\operatorname{tg}40^\\circ\\cdot\\operatorname{tg}50^\\circ+6$.",
+          "image": null,
+          "answer_hash": "76a50887d8f1c2e9301755428990ad81479ee21c25b43215cf524541e0503269"
+        },
+        {
+          "id": "dz4-p9",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{7}{\\sin^2 20^\\circ+\\sin^2 70^\\circ}$.",
+          "image": null,
+          "answer_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+        },
+        {
+          "id": "dz4-p10",
+          "task_number": 13,
+          "mode": "written",
+          "answer_hash": null,
+          "image": null,
+          "statement": "а) Решите уравнение $2\\sqrt{3}\\sin^2 x-\\sqrt{6}\\sin(2\\pi+x)-\\sin 2x=-\\sqrt{2}\\cos x$.<br>б) Найдите все корни этого уравнения, принадлежащие отрезку $\\left[-\\dfrac{\\pi}{2};\\ \\pi\\right]$."
+        },
+        {
+          "id": "dz4-p11",
+          "task_number": 13,
+          "mode": "written",
+          "answer_hash": null,
+          "image": null,
+          "statement": "а) Решите уравнение $2\\sin^2\\left(\\dfrac{3\\pi}{2}+x\\right)=\\sqrt{3}\\cos x$.<br>б) Найдите все его корни, принадлежащие промежутку $\\left[-\\dfrac{7\\pi}{2};\\ -2\\pi\\right]$."
+        },
+        {
+          "id": "dz4-p12",
+          "task_number": 13,
+          "mode": "written",
+          "answer_hash": null,
+          "image": null,
+          "statement": "а) Решите уравнение $5\\sin x+3\\sin^2 x=0$.<br>б) Найдите все его корни, принадлежащие промежутку $(-7;\\ 0)$."
+        }
+      ]
+    },
+    {
       "id": "krisdz1",
       "title": "ДЗ №1 — равнобедренные треугольники, тренировочный вариант и наиб/наим значение",
       "students": [
