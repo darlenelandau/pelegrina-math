@@ -4,7 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pelegrina Math</title>
-  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Антикэш: версия ассетов = момент загрузки страницы (?v=…), чтобы свежие
+    // стили и скрипты подхватывались сразу, без ручного сброса кэша браузера.
+    window.__ASSET_V = Date.now();
+    document.write('<link rel="stylesheet" href="css/style.css?v=' + window.__ASSET_V + '">');
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -33,10 +38,17 @@
     <div id="assignments" class="assignments">Загрузка…</div>
   </main>
 
-  <script src="js/config.js"></script>
-  <script src="js/check.js"></script>
-  <script src="js/stats.js"></script>
-  <script src="js/app.js"></script>
+  <script>
+    // Подключаем скрипты со свежей версией (?v=…) в том же порядке и синхронно,
+    // как обычные теги (document.write при разборе страницы не ломает порядок).
+    (function () {
+      var v = window.__ASSET_V || Date.now();
+      var files = ["js/config.js", "js/check.js", "js/stats.js", "js/app.js"];
+      for (var i = 0; i < files.length; i++) {
+        document.write('<script src="' + files[i] + '?v=' + v + '"><\/script>');
+      }
+    })();
+  </script>
   <script>
     document.getElementById("logout").addEventListener("click", e => {
       e.preventDefault();
