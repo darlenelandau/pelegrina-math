@@ -3,7 +3,7 @@
 // Пока адрес пустой, ответы проверяются, но статистика в таблицу не уходит.
 const CONFIG = {
   // Адрес веб-приложения Google Apps Script (заканчивается на /exec)
-  endpoint: "https://script.google.com/macros/s/AKfycbwe2eGLeOf2ScrpVAv028MCn9vg4_pCKHvHBtWaQiCxEdOrG514sGld3Mu-nep5J0mU/exec",
+  endpoint: "https://script.google.com/macros/s/AKfycbzXb6FCVMqPQyf874ZWcv7VvvXY2nYPZch6SiebfJ4xBiN-OSxv8hKL3mUXTw6oFV1w/exec",
 
   // Название платформы (показывается в шапке)
   title: "Pelegrina Math",
