@@ -194,3 +194,11 @@ h1 { font-size: 22px; margin: 24px 0 8px; }
 .section-note p { margin: 7px 0; }
 .section-note p:first-child { margin-top: 0; }
 .section-note p:last-child { margin-bottom: 0; }
+
+/* Задача с несколькими полями ввода (системы: a, b, c …) */
+.multi-row { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: 12px 0 4px; }
+.mfield { display: flex; align-items: center; gap: 7px; font-size: 15px; }
+.mfield > span { color: var(--ink); font-style: italic; white-space: nowrap; }
+.mfield .answer-input { width: 92px; }
+.answer-input.mf-ok  { border-color: var(--green); background: #f1fbf6; }
+.answer-input.mf-bad { border-color: var(--red);   background: #fdf2f2; }

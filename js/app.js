@@ -301,6 +301,76 @@ async function renderAssignment() {
       return;
     }
 
+    // Задача с несколькими полями (система: a, b, c … или координаты точки).
+    // Каждое поле проверяется по своему хешу; задача засчитывается, когда все верны.
+    const fields = Array.isArray(p.fields) ? p.fields : null;
+    if (fields) {
+      const cells = fields.map((f, k) => `
+        <label class="mfield">
+          <span>${f.label || f.name || ("x" + (k + 1))}${f.suffix ? " " + f.suffix : ""} =</span>
+          <input type="text" class="answer-input mf" data-hash="${f.answer_hash}" placeholder="?" ${solved ? "disabled" : ""}>
+        </label>`).join("");
+      block.innerHTML = head + `
+        <div class="multi-row">${cells}</div>
+        <div class="answer-row">
+          <button class="check-btn" ${solved ? "disabled" : ""}>Проверить</button>
+          <span class="feedback">${solved ? "✓ решено" : ""}</span>
+        </div>`;
+      root.appendChild(block);
+
+      const inputs = [...block.querySelectorAll(".mf")];
+      const mbtn = block.querySelector(".check-btn");
+      const mfb = block.querySelector(".feedback");
+      let mattempt = 0;
+
+      const submitMulti = async () => {
+        if (inputs.some(inp => !inp.value.trim())) {
+          mfb.textContent = "заполни все поля"; mfb.className = "feedback bad"; return;
+        }
+        mattempt++;
+        const res = await Promise.all(inputs.map(inp => checkAnswer(inp.value, inp.dataset.hash)));
+        res.forEach((ok, k) => {
+          inputs[k].classList.toggle("mf-ok", ok);
+          inputs[k].classList.toggle("mf-bad", !ok);
+        });
+        const allOk = res.every(Boolean);
+
+        if (!student.admin) logAttempt({
+          student: student.name,
+          student_id: student.id || "",
+          assignment_id: a.id,
+          assignment_title: a.title,
+          problem_id: p.id,
+          task_number: p.task_number,
+          answer: inputs.map((inp, k) => (fields[k].name || fields[k].label || ("x" + (k + 1))) + "=" + inp.value).join("; "),
+          correct: allOk,
+          attempt: mattempt,
+          on_time: !dl.overdue,
+          deadline: a.deadline,
+          time: new Date().toISOString()
+        });
+
+        if (allOk) {
+          mfb.textContent = "✓ верно"; mfb.className = "feedback ok";
+          block.classList.add("solved");
+          inputs.forEach(inp => inp.disabled = true);
+          mbtn.disabled = true;
+          markSolved(a.id, p.id, student);
+        } else {
+          const nbad = res.filter(r => !r).length;
+          mfb.textContent = CONFIG.allowRetries ? `неверно (ошибок: ${nbad}), попробуй ещё` : "неверно";
+          mfb.className = "feedback bad";
+          if (!CONFIG.allowRetries) { inputs.forEach(inp => inp.disabled = true); mbtn.disabled = true; }
+        }
+        attempted.add(p.id);
+        refreshFinish();
+      };
+
+      mbtn.addEventListener("click", submitMulti);
+      inputs.forEach(inp => inp.addEventListener("keydown", e => { if (e.key === "Enter") submitMulti(); }));
+      return;
+    }
+
     block.innerHTML = head + `
       <div class="answer-row">
         <input type="text" class="answer-input" placeholder="ответ" ${solved ? "disabled" : ""}>
