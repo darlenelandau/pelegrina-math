@@ -92,6 +92,26 @@ function markSolved(assignmentId, problemId, student) {
   localStorage.setItem(key, JSON.stringify(p));
 }
 
+// Подтягиваем прогресс с сервера (из таблицы) и сохраняем его в localStorage.
+// Так галочки не теряются при чистке браузера, приватном режиме или заходе с
+// другого устройства: локально пропало — восстановим из того, что реально решено.
+// Ошибки/недоступность сервера не мешают: тогда работаем как раньше, на локальном.
+async function syncProgressFromServer(student, assignments) {
+  if (!student || student.admin || !student.id) return;
+  let solvedIds = [];
+  try { solvedIds = await fetchServerProgress(student.id); }
+  catch (e) { return; }
+  if (!solvedIds.length) return;
+
+  // Сопоставляем id задачи -> id задания, чтобы записать в нужный ключ прогресса.
+  const byProblem = {};
+  assignments.forEach(a => (a.problems || []).forEach(p => { byProblem[p.id] = a.id; }));
+  solvedIds.forEach(pid => {
+    const aid = byProblem[pid];
+    if (aid) markSolved(aid, pid, student);
+  });
+}
+
 // ----- Страница со списком заданий -----
 async function renderIndex() {
   const student = requireStudent();
@@ -99,6 +119,8 @@ async function renderIndex() {
   document.getElementById("student-name").textContent = student.name + (isAdmin ? " (админ)" : "");
 
   const data = await loadData();
+  // Сначала восстановим прогресс с сервера, потом уже считаем галочки.
+  await syncProgressFromServer(student, data.assignments);
   const list = document.getElementById("assignments");
   list.innerHTML = "";
 
@@ -174,6 +196,9 @@ async function renderAssignment() {
     root.innerHTML = "<p>Это задание не для тебя. <a href='index.html'>К своим заданиям</a></p>";
     return;
   }
+
+  // Восстановим прогресс с сервера до отрисовки задач.
+  await syncProgressFromServer(student, data.assignments);
 
   const dl = deadlineInfo(a.deadline);
   document.getElementById("assignment-title").textContent = a.title;
