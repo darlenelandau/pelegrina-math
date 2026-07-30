@@ -172,3 +172,24 @@ h1 { font-size: 22px; margin: 24px 0 8px; }
 .trainer-link .tl-txt b { font-size: 15px; }
 .trainer-link .tl-txt small { color: var(--muted); font-size: 13px; }
 .trainer-link .tl-go { color: var(--accent); font-weight: 600; font-size: 14px; white-space: nowrap; }
+
+/* Разбиение задания по темам (секции в assignment.html) */
+.section-head {
+  margin: 30px 0 6px; padding: 11px 15px;
+  background: linear-gradient(0deg, #eef3fb, #eef3fb), var(--card);
+  border-left: 4px solid var(--accent); border-radius: 10px;
+  font-size: 16px; font-weight: 600; color: var(--ink);
+}
+.section-head:first-child { margin-top: 10px; }
+.section-head .section-ix {
+  display: inline-block; margin-right: 8px; font-size: 11px; font-weight: 600;
+  letter-spacing: .6px; text-transform: uppercase; color: var(--accent);
+}
+.section-note {
+  margin: 0 0 10px; padding: 12px 15px;
+  background: #f7faff; border: 1px solid #dbe6fb; border-radius: 10px;
+  font-size: 14px; color: var(--ink);
+}
+.section-note p { margin: 7px 0; }
+.section-note p:first-child { margin-top: 0; }
+.section-note p:last-child { margin-bottom: 0; }

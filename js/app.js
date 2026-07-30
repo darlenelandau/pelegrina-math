@@ -223,7 +223,25 @@ async function renderAssignment() {
 
   root.innerHTML = "";
 
+  // Разбиение задания по темам: когда у задачи меняется поле "section",
+  // рисуем заголовок темы (и, если задан, короткий блок теории section_note).
+  let currentSection = null;
+
   a.problems.forEach((p, i) => {
+    if (p.section && p.section !== currentSection) {
+      currentSection = p.section;
+      const sh = document.createElement("div");
+      sh.className = "section-head";
+      sh.innerHTML = `<span class="section-ix">Тема</span>${p.section}`;
+      root.appendChild(sh);
+      if (p.section_note) {
+        const sn = document.createElement("div");
+        sn.className = "section-note";
+        sn.innerHTML = p.section_note;
+        root.appendChild(sn);
+      }
+    }
+
     const solved = !!progress[p.id];
     const isWritten = p.mode === "written";
     const block = document.createElement("div");
