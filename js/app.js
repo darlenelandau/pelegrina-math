@@ -201,13 +201,23 @@ async function renderAssignment() {
   await syncProgressFromServer(student, data.assignments);
 
   const dl = deadlineInfo(a.deadline);
-  document.getElementById("assignment-title").textContent = a.title;
-  document.getElementById("assignment-deadline").textContent =
-    "Дедлайн: " + dl.text + (dl.overdue ? " — просрочено" : " (осталось " + dl.daysLeft + " дн.)");
-  if (a.intro) document.getElementById("assignment-intro").textContent = a.intro;
-
   const progress = getProgress(a.id, student);
   const total = a.problems.length;
+  const solvedCount = a.problems.filter(p => progress[p.id]).length;
+  // Задание выполнено, если учитель пометил его completed или ученик (не админ)
+  // решил все задачи. Тогда вверху показываем "Выполнено", а не "просрочено".
+  const isDone = !!a.completed || (!student.admin && total > 0 && solvedCount === total);
+
+  document.getElementById("assignment-title").textContent = a.title;
+  const dlEl = document.getElementById("assignment-deadline");
+  if (isDone) {
+    dlEl.textContent = "Выполнено ✓ (дедлайн был " + dl.text + ")";
+    dlEl.classList.add("done");
+  } else {
+    dlEl.textContent = "Дедлайн: " + dl.text + (dl.overdue ? ", просрочено" : " (осталось " + dl.daysLeft + " дн.)");
+  }
+  if (a.intro) document.getElementById("assignment-intro").textContent = a.intro;
+
   // Задачи, которые уже хотя бы попробованы (решённые ранее сразу считаем попробованными).
   const attempted = new Set(a.problems.filter(p => progress[p.id]).map(p => p.id));
 
