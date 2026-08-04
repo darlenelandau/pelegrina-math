@@ -147,22 +147,32 @@ async function renderIndex() {
     return;
   }
 
-  mine.forEach(a => {
+  // Задание выполнено, если помечено completed или ученик (не админ) решил все задачи.
+  function isDoneFor(a) {
+    if (a.completed) return true;
+    if (isAdmin) return false;
+    const progress = getProgress(a.id, student);
+    const solved = a.problems.filter(p => progress[p.id]).length;
+    return a.problems.length > 0 && solved === a.problems.length;
+  }
+  // Вкладка задания: варианты — в "variants", выполненные ДЗ — в "done", остальные — в "todo".
+  function categoryOf(a) {
+    if (a.kind === "variant") return "variants";
+    return isDoneFor(a) ? "done" : "todo";
+  }
+
+  function buildCard(a) {
     const dl = deadlineInfo(a.deadline);
     const progress = getProgress(a.id, student);
     const solved = a.problems.filter(p => progress[p.id]).length;
     const total = a.problems.length;
-    const done = solved === total;
+    const done = isDoneFor(a);
 
     let statusClass = "status-open";
     let statusText = "в работе";
-    // Учитель может пометить задание выполненным вручную (поле "completed" в assignments.json) —
-    // например, если сделали в кабинете. Такой статус главнее дедлайна.
-    if (a.completed) { statusClass = "status-done"; statusText = "выполнено"; }
-    else if (done && !isAdmin) { statusClass = "status-done"; statusText = "выполнено"; }
+    if (done) { statusClass = "status-done"; statusText = "выполнено"; }
     else if (dl.overdue) { statusClass = "status-overdue"; statusText = "просрочено"; }
 
-    // Ученику показываем его прогресс; админу — кому адресовано (прогресс у админа локальный, не показываем)
     const firstMeta = isAdmin
       ? `Для: ${audienceLabel(a)} · задач: ${total}`
       : `Задачи: ${solved}/${total}`;
@@ -179,8 +189,51 @@ async function renderIndex() {
         <span>${firstMeta}</span>
         <span>Дедлайн: ${dl.text}${dl.overdue ? "" : " (осталось " + dl.daysLeft + " дн.)"}</span>
       </div>`;
-    list.appendChild(card);
-  });
+    return card;
+  }
+
+  // Раскладываем задания по вкладкам
+  const groups = { todo: [], done: [], variants: [] };
+  mine.forEach(a => groups[categoryOf(a)].push(a));
+
+  const TABS = [
+    { key: "todo", label: "Нужно сделать" },
+    { key: "done", label: "Сделано" },
+    { key: "variants", label: "Варианты" }
+  ];
+
+  const tabsBar = document.getElementById("tabs");
+  // активная вкладка: из localStorage, иначе первая непустая
+  let active = localStorage.getItem("indexTab");
+  if (!TABS.some(t => t.key === active)) active = null;
+  if (!active) active = (TABS.find(t => groups[t.key].length) || TABS[0]).key;
+
+  function renderCards(cat) {
+    list.innerHTML = "";
+    const items = groups[cat];
+    if (!items.length) {
+      list.innerHTML = "<p class='empty-tab'>Здесь пока пусто.</p>";
+      return;
+    }
+    items.forEach(a => list.appendChild(buildCard(a)));
+  }
+  function renderTabs() {
+    tabsBar.innerHTML = "";
+    TABS.forEach(t => {
+      const b = document.createElement("button");
+      b.className = "tab" + (t.key === active ? " active" : "");
+      b.innerHTML = `${t.label} <span class="tab-count">${groups[t.key].length}</span>`;
+      b.addEventListener("click", () => {
+        active = t.key;
+        localStorage.setItem("indexTab", active);
+        renderTabs();
+        renderCards(active);
+      });
+      tabsBar.appendChild(b);
+    });
+  }
+  renderTabs();
+  renderCards(active);
 }
 
 // ----- Страница одного задания -----

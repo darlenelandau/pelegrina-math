@@ -202,3 +202,21 @@ h1 { font-size: 22px; margin: 24px 0 8px; }
 .mfield .answer-input { width: 92px; }
 .answer-input.mf-ok  { border-color: var(--green); background: #f1fbf6; }
 .answer-input.mf-bad { border-color: var(--red);   background: #fdf2f2; }
+
+/* Вкладки на главной: Нужно сделать / Сделано / Варианты */
+.tabs { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+.tab {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 16px; font-size: 14px; font-weight: 600;
+  color: var(--muted); background: var(--card);
+  border: 1px solid var(--line); border-radius: 999px; cursor: pointer;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.tab:hover { border-color: var(--accent); color: var(--ink); }
+.tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tab-count {
+  font-size: 12px; font-weight: 700; min-width: 18px; text-align: center;
+  padding: 1px 7px; border-radius: 999px; background: #eef2f8; color: var(--muted);
+}
+.tab.active .tab-count { background: rgba(255,255,255,.28); color: #fff; }
+.empty-tab { color: var(--muted); text-align: center; padding: 26px 0; }
