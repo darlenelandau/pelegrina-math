@@ -221,6 +221,10 @@ async function renderAssignment() {
   // Задачи, которые уже хотя бы попробованы (решённые ранее сразу считаем попробованными).
   const attempted = new Set(a.problems.filter(p => progress[p.id]).map(p => p.id));
 
+  // Род ученика для текстов письменных задач ("сделал" / "сделала").
+  const _stGender = ((CONFIG.students || []).find(s => s.id === student.id) || {}).gender;
+  const didWord = _stGender === "f" ? "сделала" : "сделал";
+
   // Блокируем "Закончить", пока попробованы не все задачи.
   function refreshFinish() {
     const btn = document.getElementById("finish-btn");
@@ -266,9 +270,9 @@ async function renderAssignment() {
     // Письменная задача: не проверяем ответ, ученик отмечает, что сделал и прислал учителю.
     if (isWritten) {
       block.innerHTML = head + `
-        <div class="written-note">Реши письменно в тетради и пришли фото решения. Здесь отметь, что сделал.</div>
+        <div class="written-note">Реши письменно и пришли своё решение учителю. Здесь отметь, что ${didWord}.</div>
         <div class="answer-row">
-          <button class="written-btn" ${solved ? "disabled" : ""}>${solved ? "✓ отмечено" : "Отметить, что сделал"}</button>
+          <button class="written-btn" ${solved ? "disabled" : ""}>${solved ? "✓ отмечено" : "Отметить, что " + didWord}</button>
           <span class="feedback ok">${solved ? "решение отправлено" : ""}</span>
         </div>`;
       root.appendChild(block);
