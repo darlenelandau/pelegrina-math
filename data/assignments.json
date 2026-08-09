@@ -599,6 +599,132 @@
       ]
     },
     {
+      "id": "dz6",
+      "title": "ДЗ №6 — тригонометрия (тест) + повторение логарифмов + уравнения №13 (на 2 недели)",
+      "students": [
+        "valera"
+      ],
+      "task_numbers": [
+        7,
+        6,
+        13
+      ],
+      "deadline": "2026-08-27T10:55:00",
+      "intro": "Большое ДЗ на две недели (учитель в отпуске, дедлайн 27 августа). Тестовая часть: 6 задач по тригонометрии + повторение логарифмов (2 выражения и 2 уравнения) — ответ вводи числом. Письменная часть: 5 уравнений №13, в основном на вспомогательный угол и прошлые темы; реши в тетради обязательно с отбором корней (пункт б), пришли фото в чат, а тут отметь галочкой. Отдельно тебе назначен «Тренировочный вариант 1» — сделай и его.",
+      "problems": [
+        {
+          "id": "dz6-p1",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $6\\sqrt{2}\\,\\cos(-405^\\circ)$.",
+          "image": null,
+          "answer_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+        },
+        {
+          "id": "dz6-p2",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{18\\sin 15^\\circ\\cos 15^\\circ}{\\sin 30^\\circ}$.",
+          "image": null,
+          "answer_hash": "19581e27de7ced00ff1ce50b2047e7a567c76b1cbaebabe5ef03f7c3017bb5b7"
+        },
+        {
+          "id": "dz6-p3",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\dfrac{8}{\\sin^2 40^\\circ+\\cos^2 140^\\circ}$.",
+          "image": null,
+          "answer_hash": "2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fdefb64a3"
+        },
+        {
+          "id": "dz6-p4",
+          "task_number": 7,
+          "statement": "Найдите $\\operatorname{tg}\\alpha$, если $\\sin\\alpha=-\\dfrac{12}{13}$ и $\\alpha\\in\\left(\\pi;\\dfrac{3\\pi}{2}\\right)$.",
+          "image": null,
+          "answer_hash": "0814305f8cfb2f14744b7c7ce9da6768802df7bdd801d62be3e0d7caa0d84c81"
+        },
+        {
+          "id": "dz6-p5",
+          "task_number": 7,
+          "statement": "Найдите $\\cos 2\\alpha$, если $\\sin\\alpha=-0{,}4$.",
+          "image": null,
+          "answer_hash": "dfef75e45d0c9d092d626ebb63a6fbab6a034d94d12807a17ef19bd6374a5f1c"
+        },
+        {
+          "id": "dz6-p6",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $4\\sqrt{3}\\,\\operatorname{tg}(-120^\\circ)$.",
+          "image": null,
+          "answer_hash": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918"
+        },
+        {
+          "id": "dz6-p7",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $\\log_3 1{,}8+\\log_3 5$.",
+          "image": null,
+          "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+        },
+        {
+          "id": "dz6-p8",
+          "task_number": 7,
+          "statement": "Найдите значение выражения $(1-\\log_2 12)(1-\\log_6 12)$.",
+          "image": null,
+          "answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "id": "dz6-p9",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\log_3(x-2)=2$.",
+          "image": null,
+          "answer_hash": "4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8"
+        },
+        {
+          "id": "dz6-p10",
+          "task_number": 6,
+          "statement": "Найдите корень уравнения $\\log_7(2x+3)=\\log_7(x+10)$.",
+          "image": null,
+          "answer_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+        },
+        {
+          "id": "dz6-p11",
+          "task_number": 13,
+          "mode": "written",
+          "answer_hash": null,
+          "image": null,
+          "statement": "(вспомогательный угол) а) Решите уравнение $\\sqrt{3}\\cos x-\\sin x=2$.<br>б) Найдите все его корни из промежутка $[-\\pi;\\ 3{,}5\\pi]$."
+        },
+        {
+          "id": "dz6-p12",
+          "task_number": 13,
+          "mode": "written",
+          "answer_hash": null,
+          "image": null,
+          "statement": "(вспомогательный угол) а) Решите уравнение $\\cos\\dfrac{\\pi}{3}\\cos x-\\cos\\left(\\dfrac{\\pi}{2}-x\\right)\\sin\\dfrac{\\pi}{3}=\\dfrac{1}{2}$.<br>б) Найдите все его корни из промежутка $(-1;\\ \\sqrt{2})$."
+        },
+        {
+          "id": "dz6-p13",
+          "task_number": 13,
+          "mode": "written",
+          "answer_hash": null,
+          "image": null,
+          "statement": "(вспомогательный угол) а) Решите уравнение $\\cos 2x-\\sin 2x=0{,}5\\sqrt{6}$.<br>б) Найдите все его корни из промежутка $\\left[-\\dfrac{\\pi}{2};\\ \\pi\\right]$."
+        },
+        {
+          "id": "dz6-p14",
+          "task_number": 13,
+          "mode": "written",
+          "answer_hash": null,
+          "image": null,
+          "statement": "(разложение на множители) а) Решите уравнение $\\sin x+\\cos x+\\cos^2 x=\\sin^2 x$.<br>б) Найдите корни этого уравнения, принадлежащие отрезку $[-\\pi;\\ 0]$."
+        },
+        {
+          "id": "dz6-p15",
+          "task_number": 13,
+          "mode": "written",
+          "answer_hash": null,
+          "image": null,
+          "statement": "(двойной угол + вспомогательный угол) а) Решите уравнение $\\sin 2x=1+\\sqrt{2}\\cos x+\\cos 2x$.<br>б) Найдите все корни этого уравнения, принадлежащие отрезку $\\left[\\dfrac{\\pi}{2};\\ 2\\pi\\right]$."
+        }
+      ]
+    },
+    {
       "id": "krisdz1",
       "title": "ДЗ №1 — равнобедренные треугольники, тренировочный вариант и наиб/наим значение",
       "students": [
@@ -1416,7 +1542,8 @@
       "id": "trenvar1",
       "title": "Тренировочный вариант 1",
       "students": [
-        "kristina"
+        "kristina",
+        "valera"
       ],
       "task_numbers": [
         1,
