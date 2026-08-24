@@ -2281,6 +2281,161 @@
      "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
     }
    ]
+  },
+  {
+   "id": "kamdz2",
+   "title": "ДЗ №2 — алгебра: уравнения (№6) и преобразования (№7)",
+   "students": [
+    "kamil"
+   ],
+   "task_numbers": [
+    6,
+    7
+   ],
+   "deadline": "2026-08-28T09:55:00",
+   "intro": "20 задач с автопроверкой: 10 на уравнения (№6) и 10 на вычисление выражений (№7). Ответ вводится числом, дробь через точку или запятую. Дедлайн в пятницу к 9:55.",
+   "problems": [
+    {
+     "id": "kamdz2-01",
+     "task_number": 6,
+     "section": "Часть 1: уравнения (№6)",
+     "statement": "Найдите корень уравнения $x^2+9=(x+9)^2$.",
+     "answer_hash": "e5e0093f285a4fb94c3fcc2ad7fd04edd10d429ccda87a9aa5e4718efadf182e"
+    },
+    {
+     "id": "kamdz2-02",
+     "task_number": 6,
+     "section": "Часть 1: уравнения (№6)",
+     "statement": "Решите уравнение $x=\\dfrac{6x-15}{x-2}$. Если уравнение имеет более одного корня, в ответе запишите больший из них.",
+     "answer_hash": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+    },
+    {
+     "id": "kamdz2-03",
+     "task_number": 6,
+     "section": "Часть 1: уравнения (№6)",
+     "statement": "Решите уравнение $\\dfrac{x+8}{5x+7}=\\dfrac{x+8}{7x+5}$. Если уравнение имеет более одного корня, в ответе запишите больший из них.",
+     "answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+     "id": "kamdz2-04",
+     "task_number": 6,
+     "section": "Часть 1: уравнения (№6)",
+     "statement": "Решите уравнение $\\sqrt{6+5x}=x$. Если уравнение имеет более одного корня, в ответе запишите меньший из них.",
+     "answer_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+    },
+    {
+     "id": "kamdz2-05",
+     "task_number": 6,
+     "section": "Часть 1: уравнения (№6)",
+     "statement": "Решите уравнение $\\sqrt{-72-17x}=-x$. Если уравнение имеет более одного корня, в ответе запишите меньший из них.",
+     "answer_hash": "d5c534fde62beb89c745a59952c8efed8b7523cbd047e682782e4367de9ea3bf"
+    },
+    {
+     "id": "kamdz2-06",
+     "task_number": 6,
+     "section": "Часть 1: уравнения (№6)",
+     "statement": "Найдите корень уравнения $\\left(\\dfrac{1}{2}\\right)^{x-8}=2^{x}$.",
+     "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    {
+     "id": "kamdz2-07",
+     "task_number": 6,
+     "section": "Часть 1: уравнения (№6)",
+     "statement": "Найдите корень уравнения $8^{9-x}=64^{x}$.",
+     "answer_hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+    },
+    {
+     "id": "kamdz2-08",
+     "task_number": 6,
+     "section": "Часть 1: уравнения (№6)",
+     "statement": "Решите уравнение $\\log_{x-5}49=2$. Если уравнение имеет более одного корня, в ответе запишите меньший из них.",
+     "answer_hash": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918"
+    },
+    {
+     "id": "kamdz2-09",
+     "task_number": 6,
+     "section": "Часть 1: уравнения (№6)",
+     "statement": "Найдите корень уравнения $3^{\\log_{9}(5x-5)}=5$.",
+     "answer_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+    },
+    {
+     "id": "kamdz2-10",
+     "task_number": 6,
+     "section": "Часть 1: уравнения (№6)",
+     "statement": "Решите уравнение $\\cos\\dfrac{\\pi(x-7)}{3}=\\dfrac{1}{2}$. В ответе запишите наибольший отрицательный корень.",
+     "answer_hash": "e5e0093f285a4fb94c3fcc2ad7fd04edd10d429ccda87a9aa5e4718efadf182e"
+    },
+    {
+     "id": "kamdz2-11",
+     "task_number": 7,
+     "section": "Часть 2: вычисления и преобразования (№7)",
+     "statement": "Найдите значение выражения $(4a^{2}-9)\\left(\\dfrac{1}{2a-3}-\\dfrac{1}{2a+3}\\right)$.",
+     "answer_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+    },
+    {
+     "id": "kamdz2-12",
+     "task_number": 7,
+     "section": "Часть 2: вычисления и преобразования (№7)",
+     "statement": "Найдите значение выражения $\\dfrac{(5a^{2})^{3}\\cdot(6b)^{2}}{(30a^{3}b)^{2}}$.",
+     "answer_hash": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+    },
+    {
+     "id": "kamdz2-13",
+     "task_number": 7,
+     "section": "Часть 2: вычисления и преобразования (№7)",
+     "statement": "Найдите значение выражения $\\dfrac{7(m^{5})^{6}+11(m^{3})^{10}}{(3m^{15})^{2}}$.",
+     "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+     "id": "kamdz2-14",
+     "task_number": 7,
+     "section": "Часть 2: вычисления и преобразования (№7)",
+     "statement": "Найдите значение выражения $\\dfrac{(3x)^{3}\\cdot x^{-9}}{x^{-10}\\cdot 2x^{4}}$.",
+     "answer_hash": "49dd409d9fb9b718d70f9b826b855a65202b6d3a47378e0ac0501c928fe5ba92"
+    },
+    {
+     "id": "kamdz2-15",
+     "task_number": 7,
+     "section": "Часть 2: вычисления и преобразования (№7)",
+     "statement": "Найдите значение выражения $\\dfrac{\\log_{7}13}{\\log_{49}13}$.",
+     "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+     "id": "kamdz2-16",
+     "task_number": 7,
+     "section": "Часть 2: вычисления и преобразования (№7)",
+     "statement": "Найдите значение выражения $\\log_{5}9\\cdot\\log_{3}25$.",
+     "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    {
+     "id": "kamdz2-17",
+     "task_number": 7,
+     "section": "Часть 2: вычисления и преобразования (№7)",
+     "statement": "Найдите значение выражения $\\dfrac{\\log_{3}18}{2+\\log_{3}2}$.",
+     "answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+     "id": "kamdz2-18",
+     "task_number": 7,
+     "section": "Часть 2: вычисления и преобразования (№7)",
+     "statement": "Найдите значение выражения $5^{\\log_{25}49}$.",
+     "answer_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+    },
+    {
+     "id": "kamdz2-19",
+     "task_number": 7,
+     "section": "Часть 2: вычисления и преобразования (№7)",
+     "statement": "Найдите $24\\cos 2\\alpha$, если $\\sin\\alpha=-0{,}2$.",
+     "answer_hash": "5dcb5fb6d8af46edb11e59b7c05ac2476df88679721d5cec6171bc155c38f5d1"
+    },
+    {
+     "id": "kamdz2-20",
+     "task_number": 7,
+     "section": "Часть 2: вычисления и преобразования (№7)",
+     "statement": "Найдите $\\sin\\left(\\dfrac{7\\pi}{2}-\\alpha\\right)$, если $\\sin\\alpha=0{,}8$ и $\\alpha\\in\\left(\\dfrac{\\pi}{2};\\,\\pi\\right)$.",
+     "answer_hash": "b4af4e0d40391d3a00179d935c63b7e15ba8cd3dfa29f218dedc270bd3eb3e79"
+    }
+   ]
   }
  ]
 }
