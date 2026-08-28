@@ -2130,7 +2130,8 @@
      "statement": "Найдите $\\sin\\left(\\dfrac{7\\pi}{2}-\\alpha\\right)$, если $\\sin\\alpha=0{,}8$ и $\\alpha\\in\\left(\\dfrac{\\pi}{2};\\,\\pi\\right)$.",
      "answer_hash": "b4af4e0d40391d3a00179d935c63b7e15ba8cd3dfa29f218dedc270bd3eb3e79"
     }
-   ]
+   ],
+   "completed": true
   },
   {
    "id": "kamdz1",
@@ -2284,7 +2285,8 @@
      "mode": "written"
     }
    ],
-   "kind": "variant"
+   "kind": "variant",
+   "completed": true
   },
   {
    "id": "aminadz1",
