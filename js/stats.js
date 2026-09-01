@@ -30,15 +30,15 @@ async function logAttempt(row) {
   }
 }
 
-// Восстановление прогресса с сервера: какие задачи ученик уже решил верно.
+// ----- Чтение данных с сервера через JSONP -----
 // Обычный fetch к Apps Script GET упирается в CORS/редиректы, поэтому читаем
-// через JSONP (тег <script> с ?callback=…). Возвращает массив id задач.
-// Если endpoint пуст, id нет или ответ не пришёл за 8 сек — возвращает [].
-function fetchServerProgress(studentId) {
+// через JSONP (тег <script> с ?callback=…). Возвращает разобранный ответ или
+// null, если endpoint пуст, произошла ошибка или ответ не пришёл за 12 секунд.
+function jsonpGet(params, timeoutMs) {
   return new Promise(resolve => {
-    if (!CONFIG.endpoint || !studentId) return resolve([]);
+    if (!CONFIG.endpoint) return resolve(null);
 
-    const cb = "__prog_" + Math.random().toString(36).slice(2);
+    const cb = "__jp_" + Math.random().toString(36).slice(2);
     const script = document.createElement("script");
     let done = false;
 
@@ -49,18 +49,37 @@ function fetchServerProgress(studentId) {
       if (script.parentNode) script.parentNode.removeChild(script);
     }
 
-    const timer = setTimeout(() => { if (!done) { cleanup(); resolve([]); } }, 8000);
+    const timer = setTimeout(() => { if (!done) { cleanup(); resolve(null); } }, timeoutMs || 12000);
 
-    window[cb] = data => {
-      if (done) return;
-      cleanup();
-      resolve((data && Array.isArray(data.solved)) ? data.solved : []);
-    };
+    window[cb] = data => { if (!done) { cleanup(); resolve(data || null); } };
 
+    const qs = Object.keys(params)
+      .map(k => encodeURIComponent(k) + "=" + encodeURIComponent(params[k]))
+      .join("&");
     const sep = CONFIG.endpoint.indexOf("?") === -1 ? "?" : "&";
-    script.src = CONFIG.endpoint + sep + "action=progress&student_id=" +
-      encodeURIComponent(studentId) + "&callback=" + cb;
-    script.onerror = () => { if (!done) { cleanup(); resolve([]); } };
+    script.src = CONFIG.endpoint + sep + qs + "&callback=" + cb;
+    script.onerror = () => { if (!done) { cleanup(); resolve(null); } };
     document.body.appendChild(script);
   });
+}
+
+// Какие задачи ученик уже решил верно. Возвращает массив id задач ([] при сбое).
+async function fetchServerProgress(studentId) {
+  if (!studentId) return [];
+  const data = await jsonpGet({ action: "progress", student_id: studentId }, 8000);
+  return (data && Array.isArray(data.solved)) ? data.solved : [];
+}
+
+// Отчёт учителя: все попытки одного ученика по одному заданию.
+// prefix — начало id задач задания (например "dz7-"), key — ключ учителя.
+// Возвращает { ok, rows, error }: rows — [{ p, a, c, o, n, t }, …].
+async function fetchAttempts(studentId, prefix, key) {
+  const data = await jsonpGet({
+    action: "attempts",
+    student_id: studentId || "",
+    prefix: prefix || "",
+    key: key || ""
+  }, 15000);
+  if (!data) return { ok: false, rows: [], error: "no_response" };
+  return { ok: !!data.ok, rows: Array.isArray(data.rows) ? data.rows : [], error: data.error || "" };
 }

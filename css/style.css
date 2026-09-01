@@ -220,3 +220,51 @@ h1 { font-size: 22px; margin: 24px 0 8px; }
 }
 .tab.active .tab-count { background: rgba(255,255,255,.28); color: #fff; }
 .empty-tab { color: var(--muted); text-align: center; padding: 26px 0; }
+
+/* ---- Отчёт учителя внутри задания (виден только админу) ---- */
+.teacher-panel {
+  margin: 0 0 18px; padding: 12px 14px;
+  background: #fff4e0; border: 1px solid #f0d9a8; border-radius: 10px;
+  color: #6f4e00; font-size: 14px;
+}
+.tp-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.tp-title { font-weight: 700; margin-right: 4px; }
+.tp-students { display: flex; gap: 6px; flex-wrap: wrap; }
+.tp-student {
+  padding: 4px 12px; font-size: 13px; font-weight: 600; cursor: pointer;
+  color: #8a6100; background: #fffaf0; border: 1px solid #f0d9a8; border-radius: 999px;
+}
+.tp-student.active { color: #fff; background: var(--amber); border-color: var(--amber); }
+.tp-reload {
+  margin-left: auto; padding: 4px 12px; font-size: 13px; cursor: pointer;
+  color: #8a6100; background: #fffaf0; border: 1px solid #f0d9a8; border-radius: 8px;
+}
+.tp-summary { margin-top: 9px; line-height: 1.6; }
+.tp-summary .tp-reload { margin-left: 6px; }
+
+.tp-report {
+  margin: 12px -16px -16px; padding: 10px 16px;
+  border-top: 1px solid var(--line); border-radius: 0 0 10px 10px;
+  font-size: 13px;
+}
+.tp-report.tp-solved    { background: #f1fbf6; }
+.tp-report.tp-failed    { background: #fdf2f2; }
+.tp-report.tp-untouched { background: #f7f8fa; }
+.tp-status { font-weight: 600; }
+.tp-report.tp-solved .tp-status    { color: var(--green); }
+.tp-report.tp-failed .tp-status    { color: var(--red); }
+.tp-report.tp-untouched .tp-status { color: var(--muted); }
+.tp-attempts { list-style: none; margin: 7px 0 0; padding: 0; display: flex;
+  flex-direction: column; gap: 4px; }
+.tp-attempts li { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.tp-t { color: var(--muted); font-size: 12px; min-width: 96px; }
+.tp-ans {
+  padding: 1px 7px; border-radius: 6px; background: #fff;
+  border: 1px solid var(--line); font-size: 13px; word-break: break-word;
+}
+.tp-attempts li.ok  .tp-mark { color: var(--green); font-weight: 700; }
+.tp-attempts li.bad .tp-mark { color: var(--red); font-weight: 700; }
+.tp-late { color: var(--red); font-size: 12px; }
+
+.problem.tp-solved { border-left: 4px solid var(--green); }
+.problem.tp-failed { border-left: 4px solid var(--red); }

@@ -112,6 +112,181 @@ async function syncProgressFromServer(student, assignments) {
   });
 }
 
+// ----- Отчёт учителя -----
+// Ключ учителя хранится только в браузере учителя (в Apps Script лежит его копия
+// в переменной ADMIN_KEY). Без него сервер не отдаёт чужие ответы.
+function getAdminKey() { return localStorage.getItem("adminKey") || ""; }
+function setAdminKey(k) {
+  if (k) localStorage.setItem("adminKey", k);
+  else localStorage.removeItem("adminKey");
+}
+
+// Кому адресовано задание: список объектов учеников из CONFIG.
+function audienceStudents(assignment) {
+  const aud = assignment.students;
+  const all = CONFIG.students || [];
+  if (!aud || aud === "all") return all;
+  return all.filter(s => aud.includes(s.id));
+}
+
+function fmtAttemptTime(iso) {
+  const d = new Date(iso);
+  if (isNaN(d)) return String(iso || "").slice(0, 16);
+  return d.toLocaleString("ru-RU", {
+    day: "numeric", month: "short", hour: "2-digit", minute: "2-digit"
+  });
+}
+
+function escapeHtml(str) {
+  return String(str === null || str === undefined ? "" : str)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// Рисует панель учителя над задачами и подписывает под каждой задачей,
+// решена она или нет и какие ответы ученик вводил.
+function setupTeacherPanel(a, panel, blocksById) {
+  const students = audienceStudents(a);
+  let current = (students[0] && students[0].id) || "";
+
+  panel.innerHTML = `
+    <div class="tp-head">
+      <span class="tp-title">Отчёт учителя</span>
+      <span class="tp-students"></span>
+      <button class="tp-reload" type="button">Обновить</button>
+    </div>
+    <div class="tp-summary">…</div>`;
+
+  const tabsEl = panel.querySelector(".tp-students");
+  const sumEl = panel.querySelector(".tp-summary");
+
+  function renderTabs() {
+    tabsEl.innerHTML = "";
+    students.forEach(st => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "tp-student" + (st.id === current ? " active" : "");
+      b.textContent = st.name;
+      b.addEventListener("click", () => { current = st.id; renderTabs(); load(); });
+      tabsEl.appendChild(b);
+    });
+    if (!students.length) tabsEl.textContent = "задание никому не адресовано";
+  }
+
+  function clearReports() {
+    Object.keys(blocksById).forEach(pid => {
+      const old = blocksById[pid].querySelector(".tp-report");
+      if (old) old.remove();
+      blocksById[pid].classList.remove("tp-solved", "tp-failed", "tp-untouched");
+    });
+  }
+
+  function renderRows(rows) {
+    clearReports();
+
+    const byProblem = {};
+    let finished = null;
+    rows.forEach(r => {
+      if (String(r.p).indexOf("__finished__") !== -1) { finished = r; return; }
+      (byProblem[r.p] = byProblem[r.p] || []).push(r);
+    });
+    Object.keys(byProblem).forEach(k =>
+      byProblem[k].sort((x, y) => new Date(x.t) - new Date(y.t)));
+
+    let solved = 0, touched = 0, attemptsTotal = 0, late = 0, lastTime = null;
+
+    a.problems.forEach(pr => {
+      const list = byProblem[pr.id] || [];
+      const ok = list.some(r => r.c);
+      if (list.length) touched++;
+      if (ok) solved++;
+      attemptsTotal += list.length;
+      list.forEach(r => {
+        if (!r.o) late++;
+        const t = new Date(r.t);
+        if (!isNaN(t) && (!lastTime || t > lastTime)) lastTime = t;
+      });
+
+      const block = blocksById[pr.id];
+      if (!block) return;
+
+      let cls, label;
+      if (ok) {
+        cls = "tp-solved";
+        label = list.length === 1 ? "решено с первой попытки"
+                                  : "решено, попыток: " + list.length;
+      } else if (list.length) {
+        cls = "tp-failed";
+        label = "не решено, попыток: " + list.length;
+      } else {
+        cls = "tp-untouched";
+        label = "не пробовал";
+      }
+      block.classList.add(cls);
+
+      const items = list.map(r => `
+        <li class="${r.c ? "ok" : "bad"}">
+          <span class="tp-t">${fmtAttemptTime(r.t)}</span>
+          <code class="tp-ans">${escapeHtml(r.a)}</code>
+          <span class="tp-mark">${r.c ? "✓" : "✗"}</span>
+          ${r.o ? "" : '<span class="tp-late">после дедлайна</span>'}
+        </li>`).join("");
+
+      const rep = document.createElement("div");
+      rep.className = "tp-report " + cls;
+      rep.innerHTML = `<div class="tp-status">${label}</div>` +
+        (items ? `<ul class="tp-attempts">${items}</ul>` : "");
+      block.appendChild(rep);
+    });
+
+    const name = (students.find(s => s.id === current) || {}).name || current;
+    const parts = [
+      `<b>${escapeHtml(name)}</b>: решено ${solved} из ${a.problems.length}`,
+      `задач с попытками: ${touched}`,
+      `попыток всего: ${attemptsTotal}`
+    ];
+    if (late) parts.push(`после дедлайна: ${late}`);
+    if (finished) parts.push("нажал «Закончить»");
+    if (lastTime) parts.push("последняя активность " + fmtAttemptTime(lastTime.toISOString()));
+    sumEl.innerHTML = parts.join(" · ");
+  }
+
+  async function load() {
+    if (!current) { sumEl.textContent = "Задание никому не адресовано."; return; }
+    let key = getAdminKey();
+    if (!key) {
+      key = (prompt("Ключ учителя (тот, что вписан в Apps Script в ADMIN_KEY):") || "").trim();
+      if (!key) { sumEl.innerHTML = 'Без ключа ответы не показываются. <button class="tp-reload" type="button">Ввести ключ</button>'; wireRetry(); return; }
+      setAdminKey(key);
+    }
+    sumEl.textContent = "Загружаю ответы…";
+    const res = await fetchAttempts(current, a.id + "-", key);
+    if (!res.ok) {
+      if (res.error === "bad_key") {
+        setAdminKey("");
+        sumEl.innerHTML = 'Ключ не подошёл. <button class="tp-reload" type="button">Ввести заново</button>';
+      } else if (res.error === "no_key_configured") {
+        sumEl.textContent = "В Apps Script не задан ADMIN_KEY — впиши его там и переразверни скрипт.";
+      } else {
+        sumEl.innerHTML = 'Не удалось получить данные. <button class="tp-reload" type="button">Повторить</button>';
+      }
+      wireRetry();
+      clearReports();
+      return;
+    }
+    renderRows(res.rows);
+  }
+
+  function wireRetry() {
+    const b = sumEl.querySelector(".tp-reload");
+    if (b) b.addEventListener("click", load);
+  }
+
+  panel.querySelector(".tp-head .tp-reload").addEventListener("click", load);
+  renderTabs();
+  load();
+}
+
 // ----- Страница со списком заданий -----
 async function renderIndex() {
   const student = requireStudent();
@@ -290,6 +465,16 @@ async function renderAssignment() {
 
   root.innerHTML = "";
 
+  // Панель отчёта учителя (только для админа) — рисуется над задачами.
+  let teacherPanel = null;
+  const blocksById = {};
+  if (student.admin) {
+    teacherPanel = document.createElement("div");
+    teacherPanel.className = "teacher-panel";
+    teacherPanel.innerHTML = '<div class="tp-summary">Загружаю отчёт…</div>';
+    root.appendChild(teacherPanel);
+  }
+
   // Разбиение задания по темам: когда у задачи меняется поле "section",
   // рисуем заголовок темы (и, если задан, короткий блок теории section_note).
   let currentSection = null;
@@ -313,6 +498,7 @@ async function renderAssignment() {
     const isWritten = p.mode === "written";
     const block = document.createElement("div");
     block.className = "problem" + (solved ? " solved" : "");
+    blocksById[p.id] = block;
 
     const tagText = isWritten ? `№${p.task_number} · письменно` : `№${p.task_number}`;
     const head = `
@@ -520,7 +706,7 @@ async function renderAssignment() {
       student_id: student.id || "",
       assignment_id: a.id,
       assignment_title: a.title,
-      problem_id: "__finished__",
+      problem_id: a.id + "-__finished__",
       task_number: "",
       answer: `решено ${solved}/${total}`,
       correct: solved === total,
@@ -532,4 +718,7 @@ async function renderAssignment() {
   });
 
   if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
+
+  // Отчёт учителя грузится последним, чтобы не задерживать отрисовку задач.
+  if (teacherPanel) setupTeacherPanel(a, teacherPanel, blocksById);
 }
