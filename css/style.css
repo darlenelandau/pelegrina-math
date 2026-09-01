@@ -268,3 +268,4 @@ h1 { font-size: 22px; margin: 24px 0 8px; }
 
 .problem.tp-solved { border-left: 4px solid var(--green); }
 .problem.tp-failed { border-left: 4px solid var(--red); }
+.tp-note { color: var(--amber); font-size: 12px; }

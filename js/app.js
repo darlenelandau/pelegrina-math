@@ -137,6 +137,18 @@ function fmtAttemptTime(iso) {
   });
 }
 
+// Старые строки таблицы: Google Sheets мог прочитать ответ "5.1" как дату
+// 5 января и сохранить ячейку датой. Восстанавливаем исходный вид «день.месяц»,
+// чтобы такие попытки не выглядели неверными. Применяем только к значениям,
+// которые выглядят ровно как дата в записи Sheets, и только если ответ сошёлся.
+function answerFromSheetDate(raw) {
+  const str = String(raw || "").trim();
+  if (!/^[A-Za-z]{3} [A-Za-z]{3} \d{2} \d{4}/.test(str)) return null;
+  const d = new Date(str);
+  if (isNaN(d)) return null;
+  return d.getDate() + "." + (d.getMonth() + 1);
+}
+
 function escapeHtml(str) {
   return String(str === null || str === undefined ? "" : str)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
@@ -181,8 +193,32 @@ function setupTeacherPanel(a, panel, blocksById) {
     });
   }
 
-  function renderRows(rows) {
+  // Верность попытки пересчитываем на месте, по хешу ответа из самого задания:
+  // столбец «верно» в таблице в разное время писался по-разному (строкой "да" и
+  // логическим TRUE), а хеш — надёжный источник. Там, где хеша нет (письменные
+  // задачи, задачи с несколькими полями), берём флаг из таблицы как есть.
+  // «В срок» тоже считаем сами: время попытки против дедлайна задания.
+  async function annotate(rows) {
+    const byId = {};
+    a.problems.forEach(pr => { byId[pr.id] = pr; });
+    const dlTime = new Date(a.deadline).getTime();
+    await Promise.all(rows.map(async r => {
+      const pr = byId[r.p];
+      const hash = pr && pr.answer_hash;
+      r._show = r.a;
+      r._c = hash ? await checkAnswer(r.a, hash) : !!r.c;
+      if (!r._c && hash) {
+        const alt = answerFromSheetDate(r.a);
+        if (alt && await checkAnswer(alt, hash)) { r._c = true; r._show = alt; r._fixed = true; }
+      }
+      const t = new Date(r.t).getTime();
+      r._o = (isNaN(t) || isNaN(dlTime)) ? !!r.o : t <= dlTime;
+    }));
+  }
+
+  async function renderRows(rows) {
     clearReports();
+    await annotate(rows);
 
     const byProblem = {};
     let finished = null;
@@ -197,12 +233,12 @@ function setupTeacherPanel(a, panel, blocksById) {
 
     a.problems.forEach(pr => {
       const list = byProblem[pr.id] || [];
-      const ok = list.some(r => r.c);
+      const ok = list.some(r => r._c);
       if (list.length) touched++;
       if (ok) solved++;
       attemptsTotal += list.length;
       list.forEach(r => {
-        if (!r.o) late++;
+        if (!r._o) late++;
         const t = new Date(r.t);
         if (!isNaN(t) && (!lastTime || t > lastTime)) lastTime = t;
       });
@@ -225,11 +261,12 @@ function setupTeacherPanel(a, panel, blocksById) {
       block.classList.add(cls);
 
       const items = list.map(r => `
-        <li class="${r.c ? "ok" : "bad"}">
+        <li class="${r._c ? "ok" : "bad"}">
           <span class="tp-t">${fmtAttemptTime(r.t)}</span>
-          <code class="tp-ans">${escapeHtml(r.a)}</code>
-          <span class="tp-mark">${r.c ? "✓" : "✗"}</span>
-          ${r.o ? "" : '<span class="tp-late">после дедлайна</span>'}
+          <code class="tp-ans">${escapeHtml(r._show)}</code>
+          <span class="tp-mark">${r._c ? "✓" : "✗"}</span>
+          ${r._fixed ? '<span class="tp-note">таблица сохранила это датой</span>' : ""}
+          ${r._o ? "" : '<span class="tp-late">после дедлайна</span>'}
         </li>`).join("");
 
       const rep = document.createElement("div");
@@ -274,7 +311,7 @@ function setupTeacherPanel(a, panel, blocksById) {
       clearReports();
       return;
     }
-    renderRows(res.rows);
+    await renderRows(res.rows);
   }
 
   function wireRetry() {

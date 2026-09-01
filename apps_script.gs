@@ -29,6 +29,14 @@
 
 var ADMIN_KEY = "";
 
+// Ответ пишем принудительно текстом: иначе Google Sheets превращает "5.1" в
+// 5 января, "1/2" в дату и т.п., и настоящий ответ ученика в таблице теряется.
+// Ведущий апостроф — метка «это текст», в самой таблице он не отображается.
+function textCell(v) {
+  var s = (v === null || v === undefined) ? "" : String(v);
+  return s === "" ? "" : "'" + s;
+}
+
 function doPost(e) {
   var lock = LockService.getScriptLock();
   lock.waitLock(10000);
@@ -48,7 +56,7 @@ function doPost(e) {
       d.student_id || "",
       d.assignment_title || d.assignment_id || "",
       d.task_number || "",
-      d.answer || "",
+      textCell(d.answer),
       d.correct ? "да" : "нет",
       d.attempt || "",
       d.on_time ? "да" : "нет",
@@ -78,6 +86,9 @@ function doGet(e) {
   if (params.action === "attempts") {
     return handleAttempts(params);
   }
+  if (params.action === "raw") {
+    return handleRaw(params);
+  }
   return ContentService.createTextOutput("Платформа ЕГЭ: приёмник статистики работает.");
 }
 
@@ -97,7 +108,7 @@ function handleProgress(params) {
       for (var i = 0; i < values.length; i++) {
         var row = values[i];
         var pid = String(row[10]);
-        if (String(row[2]) === studentId && String(row[6]) === "да" &&
+        if (String(row[2]) === studentId && isYes(row[6]) &&
             pid && !isFinishMark(pid) && !seen[pid]) {
           seen[pid] = true;
           solved.push(pid);
@@ -108,6 +119,18 @@ function handleProgress(params) {
     return jsonpOut(callback, { ok: false, error: String(err), solved: [] });
   }
   return jsonpOut(callback, { ok: true, solved: solved });
+}
+
+// Столбцы «верно» и «в срок» в разное время писались по-разному: сейчас это
+// строки "да"/"нет", а старые строки таблицы содержат логические TRUE/FALSE
+// (их писала прежняя версия doPost). Читаем оба варианта, иначе верные ответы
+// выглядят как неверные, а прогресс с сервера не восстанавливается.
+function isYes(v) {
+  if (v === true) return true;
+  if (v === false || v === null || v === undefined) return false;
+  if (typeof v === "number") return v === 1;
+  var s = String(v).trim().toLowerCase();
+  return s === "да" || s === "true" || s === "истина" || s === "yes" || s === "1";
 }
 
 // Служебная строка «нажал Закончить»: раньше писалась как "__finished__",
@@ -148,8 +171,8 @@ function handleAttempts(params) {
         rows.push({
           p: pid,
           a: String(r[5] === null || r[5] === undefined ? "" : r[5]),
-          c: String(r[6]) === "да",
-          o: String(r[8]) === "да",
+          c: isYes(r[6]),
+          o: isYes(r[8]),
           n: r[7],
           t: (r[0] instanceof Date) ? r[0].toISOString() : String(r[0] || "")
         });
@@ -159,6 +182,36 @@ function handleAttempts(params) {
     return jsonpOut(callback, { ok: false, error: String(err), rows: [] });
   }
   return jsonpOut(callback, { ok: true, rows: rows });
+}
+
+// ?action=raw&key=…&n=5 — диагностика: первые n строк таблицы как есть,
+// вместе с типом каждого значения. Нужна, только когда что-то читается неверно.
+function handleRaw(params) {
+  var callback = params.callback || "";
+  if (!ADMIN_KEY || String(params.key || "") !== ADMIN_KEY) {
+    return jsonpOut(callback, { ok: false, error: "bad_key", rows: [] });
+  }
+  var n = Number(params.n || 5);
+  var out = [];
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+    var lastRow = sheet.getLastRow();
+    var take = Math.min(n, Math.max(0, lastRow - 1));
+    if (take > 0) {
+      var values = sheet.getRange(2, 1, take, 11).getValues();
+      for (var i = 0; i < values.length; i++) {
+        var cells = [];
+        for (var j = 0; j < values[i].length; j++) {
+          var v = values[i][j];
+          cells.push({ v: (v instanceof Date) ? v.toISOString() : String(v), type: typeof v });
+        }
+        out.push(cells);
+      }
+    }
+    return jsonpOut(callback, { ok: true, sheet: sheet.getName(), lastRow: lastRow, rows: out });
+  } catch (err) {
+    return jsonpOut(callback, { ok: false, error: String(err), rows: [] });
+  }
 }
 
 // Отдаёт данные как JSONP (если есть callback) или как обычный JSON.
