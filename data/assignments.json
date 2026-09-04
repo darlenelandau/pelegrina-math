@@ -3504,7 +3504,8 @@
    "id": "kamvar4",
    "title": "Вариант 4",
    "students": [
-    "kamil"
+    "kamil",
+    "kristina"
    ],
    "task_numbers": [
     1,
@@ -3682,7 +3683,8 @@
    "id": "kamvar5",
    "title": "Вариант 5",
    "students": [
-    "kamil"
+    "kamil",
+    "kristina"
    ],
    "kind": "variant",
    "task_numbers": [
@@ -3861,7 +3863,8 @@
    "id": "kamvar6",
    "title": "Вариант 6",
    "students": [
-    "kamil"
+    "kamil",
+    "kristina"
    ],
    "kind": "variant",
    "task_numbers": [
