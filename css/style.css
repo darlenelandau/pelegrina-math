@@ -65,7 +65,7 @@ h1 { font-size: 22px; margin: 24px 0 8px; }
 
 .deadline { color: var(--amber); font-size: 14px; margin: 0 0 4px; }
 .deadline.done { color: var(--green); font-weight: 600; }
-.intro { color: var(--muted); margin: 0 0 20px; }
+.intro { color: var(--muted); margin: 0 0 20px; white-space: pre-line; }
 
 .problem {
   background: var(--card); border: 1px solid var(--line); border-radius: 10px;
