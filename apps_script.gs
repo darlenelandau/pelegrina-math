@@ -44,6 +44,12 @@ function doPost(e) {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
     var d = JSON.parse(e.postData.contents);
 
+    // Досылка локальной резервной копии из браузера ученика (страница backup.html).
+    // Приходит пачкой; строки, которые в таблице уже есть, пропускаются.
+    if (d && d.action === "resend" && d.rows && d.rows.length) {
+      return handleResend(sheet, d.rows);
+    }
+
     // Заголовки при первом запуске
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(["время", "ученик", "id ученика", "задание", "№ задачи",
@@ -72,6 +78,47 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
+}
+
+// Досылка пачки попыток. Дубли отсекаем по тройке «ученик + задача + номер попытки»:
+// именно она означает «эта попытка уже записана». По ответу и времени сверять нельзя,
+// старые строки таблицы могли быть искажены (ответ "5.1" превращался в дату).
+function handleResend(sheet, rows) {
+  var seen = {};
+  var lastRow = sheet.getLastRow();
+  if (lastRow > 1) {
+    var values = sheet.getRange(2, 1, lastRow - 1, 11).getValues();
+    for (var i = 0; i < values.length; i++) {
+      seen[String(values[i][2]) + "|" + String(values[i][10]) + "|" + String(values[i][7])] = true;
+    }
+  }
+
+  var added = 0, skipped = 0, batch = [];
+  for (var j = 0; j < rows.length; j++) {
+    var d = rows[j];
+    var key = String(d.student_id || "") + "|" + String(d.problem_id || "") + "|" + String(d.attempt || "");
+    if (seen[key]) { skipped++; continue; }
+    seen[key] = true;
+    batch.push([
+      d.time || new Date().toISOString(),
+      d.student || "",
+      d.student_id || "",
+      d.assignment_title || d.assignment_id || "",
+      d.task_number || "",
+      textCell(d.answer),
+      d.correct ? "да" : "нет",
+      d.attempt || "",
+      d.on_time ? "да" : "нет",
+      d.deadline || "",
+      d.problem_id || ""
+    ]);
+    added++;
+  }
+  if (batch.length) {
+    sheet.getRange(sheet.getLastRow() + 1, 1, batch.length, 11).setValues(batch);
+  }
+  return ContentService.createTextOutput(JSON.stringify({ ok: true, added: added, skipped: skipped }))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 // GET-запросы.

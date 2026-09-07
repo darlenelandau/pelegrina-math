@@ -269,3 +269,24 @@ h1 { font-size: 22px; margin: 24px 0 8px; }
 .problem.tp-solved { border-left: 4px solid var(--green); }
 .problem.tp-failed { border-left: 4px solid var(--red); }
 .tp-note { color: var(--amber); font-size: 12px; }
+
+/* ---- Страница восстановления ответов (backup.html) ---- */
+.bk-summary { margin: 16px 0 12px; font-size: 15px; }
+.bk-controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.bk-controls.hidden, .bk-status.hidden, .bk-dump.hidden { display: none; }
+.bk-secondary {
+  padding: 11px 20px; font-size: 15px; font-weight: 600; cursor: pointer;
+  color: var(--accent); background: var(--card); border: 1px solid var(--accent); border-radius: 10px;
+}
+.bk-status { padding: 10px 14px; border-radius: 10px; font-size: 14px; margin-bottom: 14px; }
+.bk-ok   { background: #f1fbf6; border: 1px solid #bfe6cd; color: var(--green); }
+.bk-warn { background: #fff4e0; border: 1px solid #f0d9a8; color: #8a6100; }
+.bk-bad  { background: #fdf2f2; border: 1px solid #f0c9c9; color: var(--red); }
+.bk-dump { width: 100%; height: 120px; font-size: 12px; font-family: Menlo, Consolas, monospace;
+           border: 1px solid var(--line); border-radius: 10px; padding: 8px; margin-bottom: 14px; }
+.bk-block { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+            padding: 12px 14px; margin-bottom: 10px; }
+.bk-title { font-weight: 600; }
+.bk-meta { color: var(--muted); font-size: 13px; margin-top: 4px; }
+.backup-hint { margin: 22px 0 8px; text-align: center; color: var(--muted); font-size: 13px; }
+.backup-hint a { color: var(--accent); }

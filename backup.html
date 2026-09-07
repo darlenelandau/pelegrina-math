@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Восстановление ответов — Pelegrina Math</title>
+  <script>
+    window.__ASSET_V = Date.now();
+    document.write('<link rel="stylesheet" href="css/style.css?v=' + window.__ASSET_V + '">');
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a href="index.html" class="logo back">← К заданиям</a>
+      <span class="user">Ученик: <b id="who">…</b></span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>Восстановление ответов</h1>
+    <p class="intro">
+      Твой браузер хранит копию всех ответов, которые ты вводил, даже если они не дошли до учителя.
+      Эта страница показывает копию и отправляет её заново. Ничего не сотрётся и не задвоится:
+      то, что уже есть у учителя, будет пропущено.
+    </p>
+
+    <div id="summary" class="bk-summary">Читаю копию…</div>
+    <div id="controls" class="bk-controls hidden">
+      <button id="send" class="finish-btn">Отправить ответы учителю</button>
+      <button id="copy" class="bk-secondary">Скопировать данные</button>
+    </div>
+    <div id="status" class="bk-status hidden"></div>
+    <textarea id="dump" class="bk-dump hidden" readonly></textarea>
+    <div id="list"></div>
+  </main>
+
+  <script>
+    (function () {
+      var v = window.__ASSET_V || Date.now();
+      var files = ["js/config.js", "js/check.js", "js/stats.js", "js/app.js"];
+      for (var i = 0; i < files.length; i++) {
+        document.write('<script src="' + files[i] + '?v=' + v + '"><\/script>');
+      }
+    })();
+  </script>
+  <script>
+  (async function () {
+    const student = getStudent();
+    const whoEl = document.getElementById("who");
+    const sumEl = document.getElementById("summary");
+    const listEl = document.getElementById("list");
+    const ctrlEl = document.getElementById("controls");
+    const statEl = document.getElementById("status");
+
+    whoEl.textContent = student ? student.name : "не выбран";
+    if (!student || !student.id) {
+      sumEl.textContent = "Сначала открой главную страницу и войди под своим именем, потом вернись сюда.";
+      return;
+    }
+
+    let backup = [];
+    try { backup = JSON.parse(localStorage.getItem("attempts_backup") || "[]"); } catch (e) { backup = []; }
+    // берём только строки этого ученика и только настоящие задачи
+    const rows = backup.filter(r => r && r.student_id === student.id);
+
+    if (!rows.length) {
+      sumEl.textContent = "В этом браузере копии ответов нет. Возможно, ты решал в другом браузере или на другом устройстве.";
+      return;
+    }
+
+    // группируем по заданию, чтобы человек видел, что именно отправляется
+    const byAssign = {};
+    rows.forEach(r => {
+      const k = r.assignment_title || r.assignment_id || "без задания";
+      (byAssign[k] = byAssign[k] || []).push(r);
+    });
+
+    const problems = new Set(rows.filter(r => r.problem_id && r.problem_id.indexOf("__finished__") === -1)
+                                 .map(r => r.problem_id));
+    sumEl.innerHTML = `В копии <b>${rows.length}</b> ${plural(rows.length, "попытка", "попытки", "попыток")} ` +
+                      `по <b>${problems.size}</b> ${plural(problems.size, "задаче", "задачам", "задачам")} ` +
+                      `из <b>${Object.keys(byAssign).length}</b> ${plural(Object.keys(byAssign).length, "задания", "заданий", "заданий")}.`;
+    ctrlEl.classList.remove("hidden");
+
+    Object.keys(byAssign).forEach(title => {
+      const list = byAssign[title].slice().sort((a, b) => new Date(a.time) - new Date(b.time));
+      const solved = new Set(list.filter(r => r.correct).map(r => r.problem_id)).size;
+      const box = document.createElement("div");
+      box.className = "bk-block";
+      box.innerHTML = `<div class="bk-title">${esc(title)}</div>
+        <div class="bk-meta">попыток ${list.length}, решено задач ${solved}</div>`;
+      listEl.appendChild(box);
+    });
+
+    document.getElementById("copy").addEventListener("click", async () => {
+      const text = JSON.stringify(rows);
+      const dump = document.getElementById("dump");
+      dump.value = text;
+      try {
+        await navigator.clipboard.writeText(text);
+        show("Скопировано. Пришли это учителю в чат, если отправка не сработает.", "ok");
+      } catch (e) {
+        dump.classList.remove("hidden");
+        dump.select();
+        show("Скопируй текст из поля ниже и пришли учителю в чат.", "warn");
+      }
+    });
+
+    document.getElementById("send").addEventListener("click", async () => {
+      const btn = document.getElementById("send");
+      btn.disabled = true;
+      show("Отправляю…", "warn");
+
+      let sent = true;
+      try {
+        await fetch(CONFIG.endpoint, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "resend", rows: rows })
+        });
+      } catch (e) {
+        sent = false;
+      }
+
+      if (!sent) {
+        show("Отправка не прошла: интернет или блокировщик. Нажми «Скопировать данные» и пришли текст учителю.", "bad");
+        btn.disabled = false;
+        return;
+      }
+
+      show("Отправлено, проверяю, что дошло…", "warn");
+      await new Promise(r => setTimeout(r, 2500));
+      const serverSolved = await fetchServerProgress(student.id);
+      // служебная отметка «Закончить» задачей не считается, иначе даже полный успех
+      // выглядел бы как «дошло не всё»
+      const mine = new Set(rows
+        .filter(r => r.correct && r.problem_id && r.problem_id.indexOf("__finished__") === -1)
+        .map(r => r.problem_id));
+      const landed = serverSolved.filter(id => mine.has(id)).length;
+
+      if (landed >= mine.size && mine.size > 0) {
+        show(`Готово. Учитель видит все ${landed} ${plural(landed, "решённую задачу", "решённые задачи", "решённых задач")}.`, "ok");
+      } else if (landed > 0) {
+        show(`Дошло ${landed} из ${mine.size}. Подожди минуту и обнови страницу; если не изменится, нажми «Скопировать данные» и пришли текст учителю.`, "warn");
+        btn.disabled = false;
+      } else {
+        show("Сервер пока ничего не видит. Нажми «Скопировать данные» и пришли текст учителю в чат.", "bad");
+        btn.disabled = false;
+      }
+    });
+
+    function show(text, kind) {
+      statEl.textContent = text;
+      statEl.className = "bk-status bk-" + kind;
+    }
+    function esc(s) {
+      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+    function plural(n, one, few, many) {
+      const n10 = n % 10, n100 = n % 100;
+      if (n10 === 1 && n100 !== 11) return one;
+      if (n10 >= 2 && n10 <= 4 && (n100 < 10 || n100 >= 20)) return few;
+      return many;
+    }
+  })();
+  </script>
+</body>
+</html>
