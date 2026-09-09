@@ -3104,7 +3104,8 @@
      "statement": "Найдите корень уравнения $\\log_{\\frac{1}{7}}(7-x)=-2$.",
      "answer_hash": "fec80006df0542549b4cbaafb8987eee00bb49bca396eefe9ac8be5b5928e8f6"
     }
-   ]
+   ],
+   "completed": true
   },
   {
    "id": "krisdz4",
