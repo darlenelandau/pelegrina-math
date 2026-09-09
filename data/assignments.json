@@ -2745,7 +2745,8 @@
      "mode": "written"
     }
    ],
-   "kind": "variant"
+   "kind": "variant",
+   "completed": true
   },
   {
    "id": "dz7",
