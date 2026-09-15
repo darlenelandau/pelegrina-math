@@ -604,6 +604,7 @@
    "students": [
     "valera"
    ],
+   "completed": true,
    "task_numbers": [
     7,
     6,
@@ -4048,6 +4049,7 @@
    "students": [
     "valera"
    ],
+   "completed": true,
    "task_numbers": [
     5,
     13
