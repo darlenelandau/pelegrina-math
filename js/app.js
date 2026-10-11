@@ -537,9 +537,10 @@ async function renderAssignment() {
     block.className = "problem" + (solved ? " solved" : "");
     blocksById[p.id] = block;
 
-    const tagText = isWritten ? `№${p.task_number} · письменно` : `№${p.task_number}`;
+    const hasNum = p.task_number !== undefined && p.task_number !== null && p.task_number !== "";
+    const tagText = isWritten ? (hasNum ? `№${p.task_number} · ` : "") + "письменно" : (hasNum ? `№${p.task_number}` : "");
     const head = `
-      <div class="problem-head">Задача ${i + 1} <span class="tag">${tagText}</span></div>
+      <div class="problem-head">Задача ${i + 1} ${tagText ? `<span class="tag">${tagText}</span>` : ""}</div>
       <div class="problem-statement">${p.statement}</div>
       ${p.image ? `<img class="problem-img" src="img/${p.image}" alt="рисунок к задаче">` : ""}`;
 

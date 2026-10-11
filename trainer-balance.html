@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Весы и уравнения — Pelegrina Math</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --bg:#eef2f9; --panel:#ffffff; --ink:#1b2333; --muted:#61708a;
+    --line:#d3dce9; --accent:#3d6ee0; --accent-soft:#e7eefc;
+    --good:#1f9d6b; --good-soft:#e3f5ec; --bad:#d94f5c; --bad-soft:#fbe6e8;
+    --warn:#b7791f; --warn-soft:#fdf3e1;
+    --wood:#8a5a32; --metal:#7c8799; --metal-dark:#4d5666;
+    --bag:#c99a5b; --bag-dark:#8d6431; --weight:#5b6577; --weight-top:#7d889b;
+    --shadow:0 1px 2px rgba(27,35,51,.06),0 8px 24px rgba(27,35,51,.07);
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0f141d; --panel:#161d29; --ink:#e2e9f5; --muted:#93a1ba;
+      --line:#28313f; --accent:#6a94f5; --accent-soft:#1b2740;
+      --good:#48c690; --good-soft:#16281f; --bad:#f0707c; --bad-soft:#301a1d;
+      --warn:#e3b05a; --warn-soft:#2f2615;
+      --wood:#b98657; --metal:#8e99ab; --metal-dark:#c3cbd8;
+      --bag:#c99a5b; --bag-dark:#8d6431; --weight:#8a94a6; --weight-top:#a9b2c2;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .topbar{background:var(--panel);border-bottom:1px solid var(--line)}
+  .topbar .row{max-width:880px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .topbar .logo{font-family:var(--serif);font-weight:700;font-size:16px}
+  .topbar .right{font-size:13px;color:var(--muted);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .topbar a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:880px;margin:0 auto;padding:22px 16px 48px}
+  h1{font-family:var(--serif);font-size:clamp(22px,3.6vw,30px);margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 18px;font-size:15px}
+
+  .levels{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .lvl{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);
+    border-radius:11px;padding:8px 14px;cursor:pointer;display:flex;gap:8px;align-items:center}
+  .lvl[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+  .lvl:disabled{opacity:.45;cursor:not-allowed}
+  .lvl .st{font-size:12px;color:var(--muted);font-weight:500}
+  .lvl.done .st{color:var(--good)}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px}
+  .card + .card{margin-top:14px}
+  .task-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .task-head h2{font-size:17px;margin:0}
+  .counter{font-size:13px;color:var(--muted)}
+  .lead{margin:0 0 10px;color:var(--muted);font-size:14.5px}
+
+  .eq{font-family:var(--serif);font-size:clamp(22px,4.4vw,30px);text-align:center;margin:6px 0 2px;letter-spacing:.3px;font-variant-numeric:tabular-nums}
+  .eq.small{font-size:20px}
+  svg.scale{width:100%;height:auto;display:block;user-select:none}
+  .item{cursor:pointer}
+  .item:hover{filter:brightness(1.08)}
+  .beam{fill:var(--wood)}
+  .stand{fill:var(--metal)}
+  .string{stroke:var(--metal);stroke-width:1.6}
+  .dish{fill:var(--metal-dark)}
+  .bag{fill:var(--bag);stroke:var(--bag-dark);stroke-width:1.5}
+  .bag-tie{fill:var(--bag-dark)}
+  .bag-t{fill:#3a2810;font:700 15px var(--serif);text-anchor:middle}
+  .wt{fill:var(--weight)}
+  .wt-top{fill:var(--weight-top)}
+  .wt-t{fill:#fff;font:700 11px var(--sans);text-anchor:middle}
+
+  .tools{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px}
+  .tool{display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:6px 8px}
+  .tool span{font-size:14px}
+  .num{width:52px;font:inherit;font-size:16px;text-align:center;padding:5px 4px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}
+  button.b{font:inherit;font-size:14px;font-weight:600;border:0;border-radius:9px;padding:7px 12px;cursor:pointer;background:var(--accent);color:#fff}
+  button.b:disabled{opacity:.4;cursor:not-allowed}
+  button.b.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+  button.b.good{background:var(--good)}
+  .hint-line{font-size:13px;color:var(--muted);text-align:center;margin-top:8px}
+
+  .msg{margin-top:12px;padding:10px 14px;border-radius:11px;font-size:15px;display:none}
+  .msg.show{display:block}
+  .msg.ok{background:var(--good-soft);color:var(--good)}
+  .msg.bad{background:var(--bad-soft);color:var(--bad)}
+  .msg.warn{background:var(--warn-soft);color:var(--warn)}
+  .msg.info{background:var(--accent-soft);color:var(--ink)}
+  .msg b{color:inherit}
+
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  @media (max-width:560px){.choices{grid-template-columns:1fr}}
+  .choice{font:inherit;font-size:15px;text-align:left;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);cursor:pointer}
+  .choice:hover{border-color:var(--accent)}
+  .choice.right{border-color:var(--good);background:var(--good-soft)}
+  .choice.wrong{border-color:var(--bad);background:var(--bad-soft)}
+  .choice:disabled{cursor:default}
+  .pair{display:grid;grid-template-columns:1fr;gap:4px;justify-items:center;margin:8px 0}
+  .arrow{color:var(--muted);font-size:14px}
+
+  .notebook{margin:10px auto 0;max-width:560px;background:
+      repeating-linear-gradient(0deg,transparent 0 37px,var(--line) 37px 38px);padding:2px 0}
+  .nl{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:38px;gap:12px;padding:0 6px}
+  .nl .e{font-family:var(--serif);font-size:21px;text-align:center;font-variant-numeric:tabular-nums}
+  .nl .o{font-family:var(--serif);font-size:16px;color:var(--accent);min-width:74px;border-left:2px solid var(--accent);padding-left:8px}
+  .op-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin-top:12px}
+  .opbtn{font:inherit;font-size:18px;font-weight:700;width:42px;height:40px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);cursor:pointer}
+  .opbtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+  .txt{font:inherit;font-size:18px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink);font-family:var(--serif)}
+  .txt.amt{width:90px;text-align:center}
+  .txt.line{width:min(320px,100%);text-align:center}
+  .entry{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+  .small-note{font-size:13px;color:var(--muted);text-align:center;margin-top:6px}
+
+  .final{text-align:center;padding:26px 18px}
+  .final .big{font-size:46px;line-height:1.1}
+  .code{display:inline-block;font:700 30px var(--serif);letter-spacing:6px;padding:10px 22px;border:2px dashed var(--accent);border-radius:14px;margin:12px 0;color:var(--accent)}
+  .rules{margin-top:14px;font-size:14px;color:var(--muted)}
+  .rules b{color:var(--ink)}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="row">
+      <span class="logo">Pelegrina Math</span>
+      <span class="right">
+        <span>Ученик: <b id="student-name">…</b></span>
+        <a href="index.html">← К заданиям</a>
+        <a href="#" id="logout">сменить</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h1>Уравнение как весы</h1>
+    <p class="sub">В мешке лежит неизвестное число гирек: это <b>x</b>. Весы в равновесии. Узнай, сколько гирек в мешке, и не дай весам перекоситься.</p>
+
+    <div class="levels" id="levels"></div>
+    <div id="stage"></div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/stats.js"></script>
+  <script>
+  (function(){
+    // ----- ученик -----
+    var student = (typeof requireStudent==="function") ? requireStudent() : { id:null, name:"гость" };
+    document.getElementById("student-name").textContent = student.name + (student.admin ? " (админ)" : "");
+    document.getElementById("logout").addEventListener("click", function(e){
+      e.preventDefault(); localStorage.removeItem("student"); location.reload();
+    });
+
+    var CODE_WORD = "ВАФЛЯ";
+    var me = ((window.CONFIG && CONFIG.students) || []).filter(function(x){ return x.id===student.id; })[0] || {};
+    var fem = me.gender === "f";
+    var SKEY = "balance_progress_" + (student.id || (student.name||"anon").toLowerCase());
+    function loadP(){ try{ return JSON.parse(localStorage.getItem(SKEY)||"{}"); }catch(e){ return {}; } }
+    function saveP(){ try{ localStorage.setItem(SKEY, JSON.stringify(P)); }catch(e){} }
+    var P = loadP(); // { done: {1:true,2:true,3:true} }
+    P.done = P.done || {};
+
+    // ----- статистика в таблицу (как в тренажёре приведения) -----
+    function sendLevel(level, title, summary){
+      if (student && student.admin) return;
+      var row = {
+        student: student.name, student_id: student.id || "",
+        assignment_id: "trainer_balance", assignment_title: "Тренажёр «Весы»",
+        problem_id: "balance_level" + level, task_number: level,
+        answer: title + ": " + summary, correct: true, attempt: 1,
+        on_time: true, deadline: "", time: new Date().toISOString()
+      };
+      try{ var b=JSON.parse(localStorage.getItem("attempts_backup")||"[]"); b.push(row); localStorage.setItem("attempts_backup", JSON.stringify(b)); }catch(e){}
+      if (!window.CONFIG || !CONFIG.endpoint) return;
+      var payload = JSON.stringify(row);
+      try{
+        if (navigator.sendBeacon) navigator.sendBeacon(CONFIG.endpoint, new Blob([payload],{type:"text/plain;charset=utf-8"}));
+        else fetch(CONFIG.endpoint,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:payload});
+      }catch(e){}
+    }
+
+    // ----- общие помощники -----
+    var M = "−"; // настоящий минус
+    function rnd(a,b){ return a + Math.floor(Math.random()*(b-a+1)); }
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+    function n(x){ return x<0 ? M+(-x) : String(x); }
+    function plural(k,one,few,many){ var m10=k%10, m100=k%100; return m10===1&&m100!==11 ? one : (m10>=2&&m10<=4&&(m100<12||m100>14) ? few : many); }
+    function near(a,b){ return Math.abs(a-b) < 1e-9; }
+    // запись ax + b
+    function lin(a,b,cf){
+      if (cf && a<0 && b!==0) return b + " " + M + " " + (a===-1 ? "" : (-a)) + "x";
+      var s = "";
+      if (a !== 0){
+        s = (a===1 ? "" : a===-1 ? M : n(a)) + "x";
+      }
+      if (b !== 0 || a === 0){
+        if (s === "") s = n(b);
+        else s += (b<0 ? " " + M + " " + (-b) : " + " + b);
+      }
+      return s;
+    }
+    function eqText(L,R){ return lin(L.a,L.b,L.cf) + " = " + lin(R.a,R.b,R.cf); }
+    function el(tag, cls, html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e; }
+    function setMsg(box, kind, html){ box.className = "msg show " + kind; box.innerHTML = html; }
+    function clearMsg(box){ box.className = "msg"; box.innerHTML = ""; }
+
+    // Разбор линейного выражения вида 3x − 5, −x + 2, 0,5x, 7. Возвращает {a,b} или null.
+    function parseLin(str){
+      var s = String(str||"").replace(/[−–—]/g,"-").replace(/,/g,".")
+        .replace(/[хХX]/g,"x").replace(/[·*×]/g,"").replace(/\s+/g,"");
+      if (!s) return null;
+      if (!/^[-+0-9.x]+$/.test(s)) return null;
+      if (s[0] !== "-" && s[0] !== "+") s = "+" + s;
+      var re = /([+-])(\d*\.?\d*)(x?)/g, m, a=0, b=0, pos=0;
+      while ((m = re.exec(s)) !== null){
+        if (m.index !== pos || m[0].length === 0) return null;
+        pos = re.lastIndex;
+        var sign = m[1]==="-" ? -1 : 1;
+        if (m[3]){
+          var c = m[2]==="" ? 1 : Number(m[2]);
+          if (!isFinite(c)) return null;
+          a += sign*c;
+        } else {
+          if (m[2]==="" || m[2]===".") return null;
+          var v = Number(m[2]); if (!isFinite(v)) return null;
+          b += sign*v;
+        }
+        if (pos >= s.length) break;
+      }
+      if (pos !== s.length) return null;
+      return {a:a, b:b};
+    }
+    function parseEq(str){
+      var parts = String(str||"").split("=");
+      if (parts.length !== 2) return null;
+      var L = parseLin(parts[0]), R = parseLin(parts[1]);
+      if (!L || !R) return null;
+      return {L:L, R:R};
+    }
+    function same(p,q){ return near(p.a,q.a) && near(p.b,q.b); }
+
+    // ----- уровни -----
+    var LEVELS = [
+      { id:1, title:"Весы" },
+      { id:2, title:"Что сделали?" },
+      { id:3, title:"Решаю сам" }
+    ];
+    var current = 1;
+    function unlocked(id){ return student.admin || id===1 || P.done[id-1]; }
+    function renderLevels(){
+      var box = document.getElementById("levels"); box.innerHTML = "";
+      LEVELS.forEach(function(L){
+        var b = el("button","lvl" + (P.done[L.id] ? " done":""));
+        b.setAttribute("aria-pressed", String(current===L.id));
+        b.disabled = !unlocked(L.id);
+        b.innerHTML = L.id + ". " + L.title + ' <span class="st">' + (P.done[L.id] ? "✓ пройден" : (unlocked(L.id) ? "" : "🔒")) + "</span>";
+        b.addEventListener("click", function(){ current = L.id; start(); });
+        box.appendChild(b);
+      });
+      if (P.done[1] && P.done[2] && P.done[3]){
+        var f = el("button","lvl", "🏁 Финиш");
+        f.setAttribute("aria-pressed", String(current===4));
+        f.addEventListener("click", function(){ current = 4; start(); });
+        box.appendChild(f);
+      }
+    }
+    function start(){
+      renderLevels();
+      var st = document.getElementById("stage"); st.innerHTML = "";
+      if (current===1) level1(st);
+      else if (current===2) level2(st);
+      else if (current===3) level3(st);
+      else finale(st);
+    }
+    function finishLevel(id, summary){
+      var first = !P.done[id];
+      P.done[id] = true; saveP();
+      if (first) sendLevel(id, LEVELS[id-1].title, summary);
+    }
+
+    // =====================================================================
+    // УРОВЕНЬ 1. Весы с мешками и гирьками
+    // =====================================================================
+    var L1_TASKS = [
+      { L:{a:1,b:5},  R:{a:0,b:8}  },
+      { L:{a:2,b:3},  R:{a:0,b:13} },
+      { L:{a:3,b:1},  R:{a:1,b:11} },
+      { L:{a:4,b:6},  R:{a:1,b:15} },
+      { L:{a:2,b:12}, R:{a:5,b:3}  },
+      { L:{a:5,b:2},  R:{a:2,b:14} }
+    ];
+    function solveOf(L,R){ return (R.b-L.b)/(L.a-R.a); }
+
+    function level1(root){
+      var idx = 0, tilts = 0, moves = 0, extra = 0;
+      var card = el("div","card"); root.appendChild(card);
+
+      function task(){
+        var T = L1_TASKS[idx];
+        var X = solveOf(T.L, T.R);
+        var S = { L:{a:T.L.a,b:T.L.b}, R:{a:T.R.a,b:T.R.b} };  // что лежит на чашах
+        var broken = null;   // если сняли с одной чаши: копия состояния до этого
+        var steps = 0, angle = 0, solved = false;
+
+        card.innerHTML =
+          '<div class="task-head"><h2>Весы ' + (idx+1) + ' из ' + L1_TASKS.length + '</h2>' +
+          '<span class="counter">перекосов: <b id="tilts">' + tilts + '</b></span></div>' +
+          '<div class="eq" id="eq"></div>' +
+          '<svg class="scale" id="svg" viewBox="0 0 640 330" role="img" aria-label="весы"></svg>' +
+          '<div class="tools" id="tools">' +
+            '<div class="tool"><span>С обеих чаш снять</span><input class="num" id="nw" type="number" min="1" value="1"><span>гир.</span><button class="b" id="bw">Снять</button></div>' +
+            '<div class="tool"><span>С обеих чаш снять</span><input class="num" id="nb" type="number" min="1" value="1"><span>меш.</span><button class="b" id="bb">Снять</button></div>' +
+            '<div class="tool"><span>Оставить на каждой чаше</span><span>1/</span><input class="num" id="nd" type="number" min="2" value="2"><span>часть</span><button class="b" id="bd">Разделить</button></div>' +
+          '</div>' +
+          '<div class="hint-line">Можно и кликнуть по мешку или гирьке на одной чаше. Посмотри, что будет.</div>' +
+          '<div class="msg" id="msg"></div>';
+
+        var svg = card.querySelector("#svg"), msg = card.querySelector("#msg");
+        var NS = "http://www.w3.org/2000/svg";
+        function mk(tag, attrs, parent){ var e=document.createElementNS(NS,tag); for(var k in attrs) e.setAttribute(k,attrs[k]); if(parent) parent.appendChild(e); return e; }
+
+        function weight(side){ return side.a*X + side.b; }
+
+        function draw(){
+          svg.innerHTML = "";
+          var CX=320, CY=72, ARM=220, rad = angle*Math.PI/180;
+          // стойка
+          mk("rect",{x:CX-60,y:306,width:120,height:12,rx:5,"class":"stand"},svg);
+          mk("rect",{x:CX-6,y:CY,width:12,height:236,"class":"stand"},svg);
+          // коромысло
+          var g = mk("g",{transform:"rotate("+angle+" "+CX+" "+CY+")"},svg);
+          mk("rect",{x:CX-ARM-6,y:CY-5,width:2*ARM+12,height:10,rx:5,"class":"beam"},g);
+          mk("circle",{cx:CX,cy:CY,r:9,"class":"stand"},svg);
+          mk("polygon",{points:(CX-7)+","+(CY-18)+" "+(CX+7)+","+(CY-18)+" "+CX+","+(CY-30),"class":"stand"},svg);
+          // чаши
+          [["L",-1],["R",1]].forEach(function(pr){
+            var key = pr[0], sgn = pr[1];
+            var ex = CX + sgn*ARM*Math.cos(rad), ey = CY + sgn*ARM*Math.sin(rad);
+            var pg = mk("g",{transform:"translate("+ex+","+ey+")"},svg);
+            var PAN = 150;
+            mk("line",{x1:0,y1:0,x2:-82,y2:PAN,"class":"string"},pg);
+            mk("line",{x1:0,y1:0,x2:82,y2:PAN,"class":"string"},pg);
+            mk("path",{d:"M-95,"+PAN+" Q0,"+(PAN+30)+" 95,"+PAN+" Z","class":"dish"},pg);
+            // содержимое: сначала мешки, потом гирьки
+            var side = S[key], items = [];
+            for (var i=0;i<side.a;i++) items.push("bag");
+            for (var j=0;j<side.b;j++) items.push("wt");
+            var y = PAN + 4, rowW = 0, row = [];
+            function flush(){
+              var total = row.reduce(function(s,it){ return s + (it==="bag"?38:23); },0);
+              var x = -total/2, h = 0;
+              row.forEach(function(it){
+                if (it==="bag"){
+                  var bg = mk("g",{transform:"translate("+(x+19)+","+(y)+")","class":"item","data-k":key,"data-t":"bag"},pg);
+                  mk("path",{d:"M-15,0 Q-18,-22 -8,-30 L8,-30 Q18,-22 15,0 Z","class":"bag"},bg);
+                  mk("rect",{x:-7,y:-35,width:14,height:6,rx:2,"class":"bag-tie"},bg);
+                  var t = mk("text",{x:0,y:-9,"class":"bag-t"},bg); t.textContent = solved ? String(X) : "x";
+                  x += 38; h = Math.max(h,37);
+                } else {
+                  var wg = mk("g",{transform:"translate("+(x+11)+","+(y)+")","class":"item","data-k":key,"data-t":"wt"},pg);
+                  mk("rect",{x:-10,y:-18,width:20,height:18,rx:3,"class":"wt"},wg);
+                  mk("rect",{x:-5,y:-22,width:10,height:5,rx:2,"class":"wt-top"},wg);
+                  var tt = mk("text",{x:0,y:-5,"class":"wt-t"},wg); tt.textContent = "1";
+                  x += 23; h = Math.max(h,24);
+                }
+              });
+              y -= h + 2; row = []; rowW = 0;
+            }
+            items.forEach(function(it){
+              var w = it==="bag"?38:23;
+              if (row.length && (rowW + w > 176 || row[row.length-1]!==it)) flush();
+              row.push(it); rowW += w;
+            });
+            if (row.length) flush();
+          });
+          card.querySelector("#eq").textContent = eqText(S.L, S.R);
+          card.querySelector("#tilts").textContent = tilts;
+        }
+
+        function animateTo(target, done){
+          var from = angle, t0 = null;
+          function step(ts){
+            if (!t0) t0 = ts;
+            var k = Math.min(1,(ts-t0)/450);
+            var e = 1 - Math.pow(1-k,3);
+            angle = from + (target-from)*e;
+            draw();
+            if (k<1) requestAnimationFrame(step); else if (done) done();
+          }
+          requestAnimationFrame(step);
+        }
+        function tiltNow(){
+          var d = weight(S.L) - weight(S.R);
+          var target = d===0 ? 0 : (d>0 ? -1 : 1) * Math.min(14, 5 + Math.abs(d));
+          animateTo(target);
+        }
+        function setToolsEnabled(on){
+          card.querySelectorAll("#tools button").forEach(function(b){ b.disabled = !on; });
+        }
+
+        function checkWin(){
+          var Lonly = S.L.a===1 && S.L.b===0 && S.R.a===0;
+          var Ronly = S.R.a===1 && S.R.b===0 && S.L.a===0;
+          if (!(Lonly||Ronly)) return false;
+          solved = true; draw();
+          var best = (T.L.a!==T.R.a && Math.min(T.L.a,T.R.a)>0 ? 1:0) + (Math.min(T.L.b,T.R.b)>0?1:0) + (Math.abs(T.L.a-T.R.a)>1?1:0);
+          var tag = steps <= best ? " Самым коротким путём! ⭐" : "";
+          setMsg(msg,"ok","<b>x = " + X + "</b>. В каждом мешке " + X + " " + plural(X,"гирька","гирьки","гирек") + "." + tag +
+            '<br><span style="color:var(--ink)">Проверка: слева ' + T.L.a + "·" + X + " + " + T.L.b + " = " + weight(T.L) +
+            ", справа " + (T.R.a? T.R.a + "·" + X + " + ":"") + T.R.b + " = " + weight(T.R) + ". Равновесие ✓</span>" +
+            '<div style="margin-top:8px"><button class="b good" id="next">' + (idx+1<L1_TASKS.length ? "Следующие весы →" : "Уровень пройден →") + "</button></div>");
+          setToolsEnabled(false);
+          msg.querySelector("#next").addEventListener("click", function(){
+            idx++;
+            if (idx < L1_TASKS.length) task();
+            else {
+              finishLevel(1, "перекосов " + tilts + ", лишних ходов " + extra);
+              done1();
+            }
+          });
+          if (steps > best) extra += steps - best;
+          return true;
+        }
+
+        function action(fn){
+          if (solved) return;
+          if (broken){ setMsg(msg,"warn","Сначала верни весы в равновесие кнопкой «Вернуть»."); return; }
+          var err = fn();
+          if (err){ setMsg(msg,"warn",err); return; }
+          steps++; moves++;
+          clearMsg(msg); draw();
+          checkWin();
+        }
+
+        card.querySelector("#bw").addEventListener("click", function(){
+          action(function(){
+            var k = parseInt(card.querySelector("#nw").value,10);
+            if (!(k>0)) return "Напиши, сколько гирек снять.";
+            if (S.L.b < k || S.R.b < k) return "На одной из чаш меньше " + k + " гир. Столько с обеих не снять.";
+            S.L.b -= k; S.R.b -= k;
+          });
+        });
+        card.querySelector("#bb").addEventListener("click", function(){
+          action(function(){
+            var k = parseInt(card.querySelector("#nb").value,10);
+            if (!(k>0)) return "Напиши, сколько мешков снять.";
+            if (S.L.a < k || S.R.a < k) return "На одной из чаш меньше " + k + " меш. Столько с обеих не снять.";
+            S.L.a -= k; S.R.a -= k;
+          });
+        });
+        card.querySelector("#bd").addEventListener("click", function(){
+          action(function(){
+            var k = parseInt(card.querySelector("#nd").value,10);
+            if (!(k>=2)) return "Делить имеет смысл на 2, 3, 4 …";
+            if (S.L.a%k || S.L.b%k || S.R.a%k || S.R.b%k)
+              return "Поровну на " + k + " части не делится: какая-то кучка не делится на " + k + ". Может, сначала что-то снять?";
+            S.L.a/=k; S.L.b/=k; S.R.a/=k; S.R.b/=k;
+          });
+        });
+
+        // клик по предмету: снимаем только с одной чаши → весы перекашивает
+        svg.addEventListener("click", function(e){
+          if (solved) return;
+          var it = e.target.closest(".item"); if (!it) return;
+          var key = it.getAttribute("data-k"), type = it.getAttribute("data-t");
+          if (!broken) broken = JSON.parse(JSON.stringify(S));
+          if (type==="bag") S[key].a--; else S[key].b--;
+          tilts++;
+          tiltNow();
+          setToolsEnabled(false);
+          var other = key==="L" ? "правой" : "левой";
+          setMsg(msg,"bad","Ой, весы перекосило! Ты " + (fem ? "сняла " : "снял ") + (type==="bag" ? "мешок" : "гирьку") + " только с одной чаши. " +
+            "Чтобы равновесие сохранилось, то же самое надо сделать и с " + other + " чашей." +
+            '<div style="margin-top:8px"><button class="b ghost" id="undo">↩ Вернуть как было</button></div>');
+          msg.querySelector("#undo").onclick = function(){
+            S = broken; broken = null; setToolsEnabled(true); clearMsg(msg); tiltNow();
+          };
+        });
+
+        angle = 0; draw(); setToolsEnabled(true);
+      }
+
+      function done1(){
+        card.innerHTML = '<div class="final"><div class="big">⚖️</div><h2>Уровень 1 пройден</h2>' +
+          '<p>Главное правило: <b>с обеими чашами делаем одно и то же</b>. Тогда равновесие не нарушится.</p>' +
+          '<button class="b" id="go2">К уровню 2 →</button></div>';
+        card.querySelector("#go2").onclick = function(){ current = 2; start(); };
+        renderLevels();
+      }
+
+      task();
+      var r = el("div","card rules",
+        "<b>Как тут всё устроено.</b> Мешок весит x гирек, все мешки одинаковые. " +
+        "Снимать одно и то же с обеих чаш можно. Делить тоже можно: если на каждой чаше оставить, например, половину, весы останутся в равновесии. " +
+        "Цель: чтобы на одной чаше остался ровно один мешок, а на другой только гирьки.");
+      root.appendChild(r);
+    }
+
+    // =====================================================================
+    // УРОВЕНЬ 2. Что сделали с обеими частями?
+    // =====================================================================
+    function genStep(){
+      // уравнение ax + b = cx + d с целым корнем; знаки любые
+      var x, a, b, c, d;
+      do {
+        x = rnd(-6,9); a = pick([2,3,4,5,6,7,-2,-3]); c = pick([0,1,2,3,-1,-4]);
+        b = rnd(-12,12); d = (a-c)*x + b;
+      } while (a===c || b===0 || Math.abs(d)>40 || Math.abs(a-c)<2 || (c===0 && d===0));
+      // d = (a−c)x + b, значит ax + b = cx + d
+      var kind = c===0 ? pick(["const","div"]) : pick(["var","const","div"]);
+      var before, after, right, wrong;
+      var k = a - c;
+      if (kind==="var"){
+        before = [{a:a,b:b},{a:c,b:d}]; after = [{a:k,b:b},{a:0,b:d}];
+        right = c>0 ? "вычли " + lin(c,0) + " из обеих частей" : "прибавили " + lin(-c,0) + " к обеим частям";
+        wrong = [
+          c>0 ? "прибавили " + lin(c,0) + " к обеим частям" : "вычли " + lin(-c,0) + " из обеих частей",
+          c>0 ? "вычли " + lin(c,0) + " только из правой части" : "прибавили " + lin(-c,0) + " только к правой части",
+          "вычли " + lin(Math.abs(a),0) + " из обеих частей"
+        ];
+      } else if (kind==="const"){
+        before = c===0 ? [{a:a,b:b},{a:0,b:d}] : [{a:k,b:b},{a:0,b:d}];
+        var aa = before[0].a;
+        after = [{a:aa,b:0},{a:0,b:d-b}];
+        right = b>0 ? "вычли " + b + " из обеих частей" : "прибавили " + (-b) + " к обеим частям";
+        wrong = [
+          b>0 ? "прибавили " + b + " к обеим частям" : "вычли " + (-b) + " из обеих частей",
+          b>0 ? "вычли " + b + " только из левой части" : "прибавили " + (-b) + " только к левой части",
+          b>0 ? "прибавили " + b + " к правой и вычли из левой" : "вычли " + (-b) + " из правой и прибавили к левой"
+        ];
+      } else {
+        before = [{a:k,b:0},{a:0,b:k*x}]; after = [{a:1,b:0},{a:0,b:x}];
+        right = "разделили обе части на " + n(k);
+        wrong = [
+          "умножили обе части на " + n(k),
+          "вычли " + lin(k,0) + " из обеих частей",
+          "разделили обе части на " + n(-k)
+        ];
+        if (k*x===0) wrong[2] = "разделили только левую часть на " + n(k);
+      }
+      // уберём случайные совпадения текстов
+      wrong = wrong.filter(function(w,i,arr){ return w!==right && arr.indexOf(w)===i; });
+      return { before:before, after:after, right:right, options: shuffle([right].concat(wrong.slice(0,3))), kind:kind };
+    }
+
+    function level2(root){
+      var NEED = 8, ok = 0, mistakes = 0;
+      var card = el("div","card"); root.appendChild(card);
+      function ask(){
+        var q = genStep();
+        card.innerHTML =
+          '<div class="task-head"><h2>Что сделали с обеими частями?</h2><span class="counter">верно: <b>' + ok + "</b> из " + NEED + "</span></div>" +
+          '<p class="lead">Было одно уравнение, стало другое. Какое действие сделали?</p>' +
+          '<div class="pair"><div class="eq">' + eqText(q.before[0],q.before[1]) + '</div><div class="arrow">↓ ?</div><div class="eq">' + eqText(q.after[0],q.after[1]) + "</div></div>" +
+          '<div class="choices" id="ch"></div><div class="msg" id="msg"></div>';
+        var ch = card.querySelector("#ch"), msg = card.querySelector("#msg");
+        q.options.forEach(function(o){
+          var b = el("button","choice",o);
+          b.addEventListener("click", function(){
+            ch.querySelectorAll("button").forEach(function(x){ x.disabled = true; if (x.textContent===q.right) x.classList.add("right"); });
+            var next = '<div style="margin-top:8px"><button class="b" id="nx">Дальше →</button></div>';
+            if (o===q.right){
+              ok++;
+              setMsg(msg,"ok","Верно! " + pick(["Отлично.","Точно.","Так держать.","Именно так."]) + next);
+            } else {
+              mistakes++;
+              b.classList.add("wrong");
+              var why = /только/.test(o) || /к правой и/.test(o) || /из правой и/.test(o)
+                ? "Так нельзя: если менять только одну часть, «весы» перекосит, и получится уже другое уравнение."
+                : "Проверь: сделай это действие с исходным уравнением и посмотри, что получится. Должна выйти нижняя строчка.";
+              setMsg(msg,"bad",why + next);
+            }
+            msg.querySelector("#nx").onclick = function(){
+              if (ok >= NEED){ finishLevel(2, "верно " + ok + ", ошибок " + mistakes); done2(); }
+              else ask();
+            };
+          });
+          ch.appendChild(b);
+        });
+      }
+      function done2(){
+        card.innerHTML = '<div class="final"><div class="big">🧮</div><h2>Уровень 2 пройден</h2>' +
+          '<p>«Перенести с другим знаком» на самом деле значит <b>прибавить или вычесть одно и то же в обеих частях</b>.</p>' +
+          '<button class="b" id="go3">К уровню 3 →</button></div>';
+        card.querySelector("#go3").onclick = function(){ current = 3; start(); };
+        renderLevels();
+      }
+      ask();
+    }
+
+    // =====================================================================
+    // УРОВЕНЬ 3. Решаю сам: выбираю действие и пишу новую строчку
+    // =====================================================================
+    function genEq(type, easy){
+      var x, a, b, c, d, L, R;
+      for (var tries=0; tries<500; tries++){
+        x = easy ? rnd(2,9) : rnd(-7,9);
+        if (type===1){ a = pick([2,3,4,5,6,-2,-3,-4,-5]); b = rnd(-15,15); if(!b) continue; L={a:a,b:b}; R={a:0,b:a*x+b}; }
+        else if (type===2){ a = pick([2,3,4,5]); b = rnd(1,20); L={a:-a,b:b,cf:true}; R={a:0,b:-a*x+b}; }
+        else { a = rnd(-4,8); c = rnd(-4,8); if (a===c || Math.abs(a-c)<2 || a===0 || c===0) continue; b = rnd(-15,15); d=(a-c)*x+b; if(!b) continue; L={a:a,b:b}; R={a:c,b:d}; }
+        if (Math.abs(R.b)>40 || (R.a===0 && R.b===0)) continue;
+        return {L:L, R:R, x:x};
+      }
+      return {L:{a:3,b:7}, R:{a:5,b:-9}, x:8};
+    }
+
+    function level3(root){
+      var PLAN = [1,2,3,3,3];
+      var idx = 0, lineErr = 0;
+      var card = el("div","card"); root.appendChild(card);
+
+      function task(){
+        var E = genEq(PLAN[idx], idx < 2);
+        var S = { L:E.L, R:E.R }, history = [], op = "-";
+        card.innerHTML =
+          '<div class="task-head"><h2>Уравнение ' + (idx+1) + " из " + PLAN.length + '</h2><span class="counter">ошибок в строчках: <b id="le">' + lineErr + "</b></span></div>" +
+          '<p class="lead">Выбери, что сделать с обеими частями, и запиши, что получилось. Справа за чертой пишем действие, как в тетради.</p>' +
+          '<div class="notebook" id="nb"></div>' +
+          '<div id="ctrl"></div><div class="msg" id="msg"></div>';
+        var nb = card.querySelector("#nb"), ctrl = card.querySelector("#ctrl"), msg = card.querySelector("#msg");
+
+        function renderNotebook(pendingOp){
+          nb.innerHTML = "";
+          var lines = history.map(function(h){ return h; });
+          var all = [{L:E.L,R:E.R,op:null}].concat(lines);
+          all.forEach(function(h,i){
+            var nextOp = i<all.length-1 ? all[i+1].op : (pendingOp||"");
+            var r = el("div","nl",'<div class="e">' + eqText(h.L,h.R) + '</div><div class="o">' + (nextOp||"&nbsp;") + "</div>");
+            nb.appendChild(r);
+          });
+        }
+
+        function opLabel(o, amt){
+          var t = lin(amt.a,amt.b), wrap = (amt.a!==0 && amt.b!==0) || amt.a<0 || (amt.a===0 && amt.b<0);
+          if (o==="+") return "+ " + (wrap ? "(" + t + ")" : t);
+          if (o==="-") return M + " " + (wrap ? "(" + t + ")" : t);
+          if (o==="*") return "· " + (amt.b<0 ? "(" + n(amt.b) + ")" : amt.b);
+          return ": " + (amt.b<0 ? "(" + n(amt.b) + ")" : amt.b);
+        }
+
+        function isSolved(){
+          return (S.L.a===1 && S.L.b===0 && S.R.a===0) || (S.R.a===1 && S.R.b===0 && S.L.a===0);
+        }
+
+        function hint(){
+          if (S.L.a!==0 && S.R.a!==0) return "Иксы есть с обеих сторон. Убери их с одной стороны: например, вычти " + lin(S.R.a,0) + " из обеих частей.";
+          var xs = S.L.a!==0 ? S.L : S.R, other = S.L.a!==0 ? "правой" : "левой";
+          if (xs.b!==0) return "Рядом с иксами стоит число " + n(xs.b) + ". Избавься от него: " + (xs.b>0 ? "вычти " + xs.b : "прибавь " + (-xs.b)) + " в обеих частях.";
+          if (xs.a!==1) return "Осталось " + lin(xs.a,0) + ". Раздели обе части на " + n(xs.a) + ".";
+          return "";
+        }
+
+        function chooseOp(){
+          renderNotebook();
+          ctrl.innerHTML =
+            '<div class="op-row"><span>С обеими частями:</span>' +
+              '<button class="opbtn" data-o="+">+</button><button class="opbtn" data-o="-">' + M + '</button>' +
+              '<button class="opbtn" data-o="*">·</button><button class="opbtn" data-o="/">:</button>' +
+              '<input class="txt amt" id="amt" placeholder="3x или 5" autocomplete="off">' +
+              '<button class="b" id="doop">Сделать</button></div>' +
+            '<div class="op-row">' + (history.length ? '<button class="b ghost" id="undo">↩ Отменить шаг</button>' : "") +
+              '<button class="b ghost" id="hint">💡 Подсказка</button></div>';
+          ctrl.querySelectorAll(".opbtn").forEach(function(b){
+            b.setAttribute("aria-pressed", String(b.dataset.o===op));
+            b.onclick = function(){ op = b.dataset.o; ctrl.querySelectorAll(".opbtn").forEach(function(x){ x.setAttribute("aria-pressed", String(x.dataset.o===op)); }); };
+          });
+          var amtInp = ctrl.querySelector("#amt");
+          amtInp.focus();
+          function go(){
+            var amt = parseLin(amtInp.value);
+            if (!amt){ setMsg(msg,"warn","Не понял, что прибавить или на что делить. Пиши, например, <b>3x</b>, <b>9</b>, <b>" + M + "2</b>."); return; }
+            if ((op==="*"||op==="/") && amt.a!==0){ setMsg(msg,"warn","Умножать и делить будем только на число. На x делить опасно: вдруг x = 0."); return; }
+            if ((op==="*"||op==="/") && amt.b===0){ setMsg(msg,"warn","На ноль так нельзя: " + (op==="/" ? "делить на 0 нельзя совсем." : "после умножения на 0 получится 0 = 0, и уравнение потеряется.")); return; }
+            if ((op==="+"||op==="-") && amt.a===0 && amt.b===0){ setMsg(msg,"warn","Прибавлять ноль бесполезно: ничего не изменится."); return; }
+            if ((op==="*"||op==="/") && amt.b===1){ setMsg(msg,"warn","От умножения или деления на 1 ничего не изменится."); return; }
+            if (amt.b!==Math.round(amt.b) || amt.a!==Math.round(amt.a)){ setMsg(msg,"warn","Давай обойдёмся целыми числами."); return; }
+            var nL, nR;
+            if (op==="+"){ nL={a:S.L.a+amt.a,b:S.L.b+amt.b}; nR={a:S.R.a+amt.a,b:S.R.b+amt.b}; }
+            else if (op==="-"){ nL={a:S.L.a-amt.a,b:S.L.b-amt.b}; nR={a:S.R.a-amt.a,b:S.R.b-amt.b}; }
+            else if (op==="*"){ nL={a:S.L.a*amt.b,b:S.L.b*amt.b}; nR={a:S.R.a*amt.b,b:S.R.b*amt.b}; }
+            else {
+              var k = amt.b;
+              if (S.L.a%k || S.L.b%k || S.R.a%k || S.R.b%k){ setMsg(msg,"warn","Если разделить на " + n(k) + ", появятся дроби. Сначала собери иксы с одной стороны, а числа с другой, или выбери другое число."); return; }
+              nL={a:S.L.a/k,b:S.L.b/k}; nR={a:S.R.a/k,b:S.R.b/k};
+            }
+            clearMsg(msg);
+            writeLine(opLabel(op,amt), nL, nR);
+          }
+          ctrl.querySelector("#doop").onclick = go;
+          amtInp.addEventListener("keydown", function(e){ if (e.key==="Enter") go(); });
+          ctrl.querySelector("#hint").onclick = function(){ setMsg(msg,"info","💡 " + hint()); };
+          var u = ctrl.querySelector("#undo");
+          if (u) u.onclick = function(){ history.pop(); var prev = history.length ? history[history.length-1] : E; S = {L:prev.L,R:prev.R}; clearMsg(msg); chooseOp(); };
+        }
+
+        function writeLine(label, nL, nR){
+          renderNotebook(label);
+          ctrl.innerHTML =
+            '<div class="entry"><input class="txt line" id="ln" placeholder="что получилось? например 2x = 16" autocomplete="off">' +
+            '<button class="b" id="okln">Записать</button><button class="b ghost" id="back">Другое действие</button></div>' +
+            '<div class="small-note">Минус можно набирать обычным дефисом.</div>';
+          var inp = ctrl.querySelector("#ln"); inp.focus();
+          function submit(){
+            var p = parseEq(inp.value);
+            if (!p){ setMsg(msg,"warn","Запиши уравнение целиком, со знаком «=». Например: <b>2x " + M + " 9 = 7</b>."); return; }
+            var okStraight = same(p.L,nL) && same(p.R,nR), okSwap = same(p.L,nR) && same(p.R,nL);
+            if (okStraight || okSwap){
+              S = {L:nL, R:nR};
+              history.push({L:nL, R:nR, op:label});
+              clearMsg(msg);
+              if (isSolved()) return check();
+              chooseOp();
+              return;
+            }
+            lineErr++; card.querySelector("#le").textContent = lineErr;
+            var where;
+            if (same(p.L,nL) || same(p.R,nR)) where = same(p.L,nL) ? "Левая часть верная, а в правой ошибка." : "Правая часть верная, а в левой ошибка.";
+            else if (same(p.L,nR) || same(p.R,nL)) where = "Одна из частей верная, а в другой ошибка.";
+            else where = "Обе части не сходятся.";
+            setMsg(msg,"bad", where + " Сделай «" + label + "» отдельно с левой частью и отдельно с правой. Следи за знаками.");
+          }
+          ctrl.querySelector("#okln").onclick = submit;
+          inp.addEventListener("keydown", function(e){ if (e.key==="Enter") submit(); });
+          ctrl.querySelector("#back").onclick = function(){ clearMsg(msg); chooseOp(); };
+        }
+
+        function check(){
+          renderNotebook();
+          var x = E.x;
+          ctrl.innerHTML =
+            '<p class="lead" style="text-align:center;margin-top:12px">Нашёл x = ' + n(x) + '. Теперь проверка: подставь его в <b>исходное</b> уравнение ' + eqText(E.L,E.R) + '.</p>' +
+            '<div class="entry"><span>левая часть =</span><input class="txt amt" id="cl"><span>правая часть =</span><input class="txt amt" id="cr"><button class="b" id="okc">Проверить</button></div>';
+          function go(){
+            var l = parseLin(ctrl.querySelector("#cl").value), r = parseLin(ctrl.querySelector("#cr").value);
+            var vl = E.L.a*x + E.L.b, vr = E.R.a*x + E.R.b;
+            if (!l || !r || l.a || r.a){ setMsg(msg,"warn","Впиши два числа: чему равна левая часть и чему правая при x = " + n(x) + "."); return; }
+            if (near(l.b,vl) && near(r.b,vr)){
+              setMsg(msg,"ok","Обе части равны " + n(vl) + ". Корень найден верно ✓" +
+                '<div style="margin-top:8px"><button class="b good" id="nx">' + (idx+1<PLAN.length ? "Следующее уравнение →" : "Уровень пройден →") + "</button></div>");
+              ctrl.innerHTML = "";
+              msg.querySelector("#nx").onclick = function(){
+                idx++;
+                if (idx < PLAN.length) task();
+                else { finishLevel(3, "ошибок в строчках " + lineErr); current = 4; start(); }
+              };
+            } else {
+              var bad = !near(l.b,vl) ? "левой" : "правой";
+              setMsg(msg,"bad","В " + bad + " части ошибка в подсчёте. Подставь " + n(x) + (x<0 ? " (в скобках!)" : "") + " вместо x и посчитай ещё раз.");
+            }
+          }
+          ctrl.querySelector("#okc").onclick = go;
+          ctrl.querySelectorAll("input").forEach(function(i){ i.addEventListener("keydown", function(e){ if (e.key==="Enter") go(); }); });
+        }
+
+        chooseOp();
+      }
+      task();
+    }
+
+    // =====================================================================
+    // ФИНИШ
+    // =====================================================================
+    function finale(root){
+      var card = el("div","card final");
+      card.innerHTML = '<div class="big">🏆</div><h2>Все три уровня пройдены!</h2>' +
+        "<p>Вот кодовое слово. Впиши его в домашнем задании в первую задачу:</p>" +
+        '<div class="code">' + CODE_WORD + "</div>" +
+        '<p class="small-note">Уровень 3 можно проходить ещё: уравнения каждый раз новые.</p>' +
+        '<a class="b" style="display:inline-block;text-decoration:none;margin-top:6px;padding:9px 16px;border-radius:9px;background:var(--accent);color:#fff;font-weight:600" href="index.html">← К заданиям</a>';
+      root.appendChild(card);
+    }
+
+    // старт: первый непройденный уровень
+    current = !P.done[1] ? 1 : !P.done[2] ? 2 : !P.done[3] ? 3 : 4;
+    start();
+  })();
+  </script>
+</body>
+</html>
