@@ -35,8 +35,10 @@ function requireStudent() {
 
 // Показывать ли это задание данному ученику.
 // Нет поля "students" или "students": "all" — видят все. Иначе — только перечисленные id.
+// "hidden": true — заготовка: её вижу только я, ученику задание не показывается нигде.
 function assignmentVisibleTo(assignment, student) {
   if (student && student.admin) return true; // админ видит всё
+  if (assignment.hidden) return false;
   const aud = assignment.students;
   if (!aud || aud === "all") return true;
   return Array.isArray(aud) && student && student.id && aud.includes(student.id);
@@ -386,7 +388,7 @@ async function renderIndex() {
     else if (dl.overdue) { statusClass = "status-overdue"; statusText = "просрочено"; }
 
     const firstMeta = isAdmin
-      ? `Для: ${audienceLabel(a)} · задач: ${total}`
+      ? `Для: ${audienceLabel(a)}${a.hidden ? " (скрыто)" : ""} · задач: ${total}`
       : `Задачи: ${solved}/${total}`;
 
     const card = document.createElement("a");
