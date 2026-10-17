@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Минусы и иксы — Pelegrina Math</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --bg:#eef2f9; --panel:#ffffff; --ink:#1b2333; --muted:#61708a;
+    --line:#d3dce9; --accent:#3d6ee0; --accent-soft:#e7eefc;
+    --good:#1f9d6b; --good-soft:#e3f5ec; --bad:#d94f5c; --bad-soft:#fbe6e8;
+    --warn:#b7791f; --warn-soft:#fdf3e1;
+    --wood:#8a5a32; --metal:#7c8799; --metal-dark:#4d5666;
+    --bag:#c99a5b; --bag-dark:#8d6431; --weight:#5b6577; --weight-top:#7d889b;
+    --shadow:0 1px 2px rgba(27,35,51,.06),0 8px 24px rgba(27,35,51,.07);
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0f141d; --panel:#161d29; --ink:#e2e9f5; --muted:#93a1ba;
+      --line:#28313f; --accent:#6a94f5; --accent-soft:#1b2740;
+      --good:#48c690; --good-soft:#16281f; --bad:#f0707c; --bad-soft:#301a1d;
+      --warn:#e3b05a; --warn-soft:#2f2615;
+      --wood:#b98657; --metal:#8e99ab; --metal-dark:#c3cbd8;
+      --bag:#c99a5b; --bag-dark:#8d6431; --weight:#8a94a6; --weight-top:#a9b2c2;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .topbar{background:var(--panel);border-bottom:1px solid var(--line)}
+  .topbar .row{max-width:880px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .topbar .logo{font-family:var(--serif);font-weight:700;font-size:16px}
+  .topbar .right{font-size:13px;color:var(--muted);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .topbar a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:880px;margin:0 auto;padding:22px 16px 48px}
+  h1{font-family:var(--serif);font-size:clamp(22px,3.6vw,30px);margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 18px;font-size:15px}
+
+  .levels{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .lvl{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);
+    border-radius:11px;padding:8px 14px;cursor:pointer;display:flex;gap:8px;align-items:center}
+  .lvl[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+  .lvl:disabled{opacity:.45;cursor:not-allowed}
+  .lvl .st{font-size:12px;color:var(--muted);font-weight:500}
+  .lvl.done .st{color:var(--good)}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px}
+  .card + .card{margin-top:14px}
+  .task-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .task-head h2{font-size:17px;margin:0}
+  .counter{font-size:13px;color:var(--muted)}
+  .lead{margin:0 0 10px;color:var(--muted);font-size:14.5px}
+
+  .eq{font-family:var(--serif);font-size:clamp(22px,4.4vw,30px);text-align:center;margin:6px 0 2px;letter-spacing:.3px;font-variant-numeric:tabular-nums}
+  .eq.small{font-size:20px}
+  svg.scale{width:100%;height:auto;display:block;user-select:none}
+  .item{cursor:pointer}
+  .item:hover{filter:brightness(1.08)}
+  .beam{fill:var(--wood)}
+  .stand{fill:var(--metal)}
+  .string{stroke:var(--metal);stroke-width:1.6}
+  .dish{fill:var(--metal-dark)}
+  .bag{fill:var(--bag);stroke:var(--bag-dark);stroke-width:1.5}
+  .bag-tie{fill:var(--bag-dark)}
+  .bag-t{fill:#3a2810;font:700 15px var(--serif);text-anchor:middle}
+  .wt{fill:var(--weight)}
+  .wt-top{fill:var(--weight-top)}
+  .wt-t{fill:#fff;font:700 11px var(--sans);text-anchor:middle}
+
+  .tools{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px}
+  .tool{display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:6px 8px}
+  .tool span{font-size:14px}
+  .num{width:52px;font:inherit;font-size:16px;text-align:center;padding:5px 4px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}
+  button.b{font:inherit;font-size:14px;font-weight:600;border:0;border-radius:9px;padding:7px 12px;cursor:pointer;background:var(--accent);color:#fff}
+  button.b:disabled{opacity:.4;cursor:not-allowed}
+  button.b.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+  button.b.good{background:var(--good)}
+  .hint-line{font-size:13px;color:var(--muted);text-align:center;margin-top:8px}
+
+  .msg{margin-top:12px;padding:10px 14px;border-radius:11px;font-size:15px;display:none}
+  .msg.show{display:block}
+  .msg.ok{background:var(--good-soft);color:var(--good)}
+  .msg.bad{background:var(--bad-soft);color:var(--bad)}
+  .msg.warn{background:var(--warn-soft);color:var(--warn)}
+  .msg.info{background:var(--accent-soft);color:var(--ink)}
+  .msg b{color:inherit}
+
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  @media (max-width:560px){.choices{grid-template-columns:1fr}}
+  .choice{font:inherit;font-size:15px;text-align:left;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);cursor:pointer}
+  .choice:hover{border-color:var(--accent)}
+  .choice.right{border-color:var(--good);background:var(--good-soft)}
+  .choice.wrong{border-color:var(--bad);background:var(--bad-soft)}
+  .choice:disabled{cursor:default}
+  .pair{display:grid;grid-template-columns:1fr;gap:4px;justify-items:center;margin:8px 0}
+  .arrow{color:var(--muted);font-size:14px}
+
+  .notebook{margin:10px auto 0;max-width:560px;background:
+      repeating-linear-gradient(0deg,transparent 0 37px,var(--line) 37px 38px);padding:2px 0}
+  .nl{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:38px;gap:12px;padding:0 6px}
+  .nl .e{font-family:var(--serif);font-size:21px;text-align:center;font-variant-numeric:tabular-nums}
+  .nl .o{font-family:var(--serif);font-size:16px;color:var(--accent);min-width:74px;border-left:2px solid var(--accent);padding-left:8px}
+  .op-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin-top:12px}
+  .opbtn{font:inherit;font-size:18px;font-weight:700;width:42px;height:40px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);cursor:pointer}
+  .opbtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+  .txt{font:inherit;font-size:18px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink);font-family:var(--serif)}
+  .txt.amt{width:90px;text-align:center}
+  .txt.line{width:min(320px,100%);text-align:center}
+  .entry{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+  .small-note{font-size:13px;color:var(--muted);text-align:center;margin-top:6px}
+
+  .final{text-align:center;padding:26px 18px}
+  .final .big{font-size:46px;line-height:1.1}
+  .code{display:inline-block;font:700 30px var(--serif);letter-spacing:6px;padding:10px 22px;border:2px dashed var(--accent);border-radius:14px;margin:12px 0;color:var(--accent)}
+  .rules{margin-top:14px;font-size:14px;color:var(--muted)}
+  .rules b{color:var(--ink)}
+
+  .goal{display:flex;align-items:center;gap:10px;margin:4px 0 12px}
+  .bar{flex:1;height:10px;border-radius:6px;background:var(--bg);border:1px solid var(--line);overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--good);transition:width .3s}
+  .streak{font-size:13px;color:var(--muted);white-space:nowrap}
+  .streak b{color:var(--warn)}
+  .ask{font-family:var(--serif);font-size:clamp(20px,4vw,26px);text-align:center;margin:10px 0 4px}
+  .ask .v{color:var(--accent)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 6px}
+  .chip{font:inherit;font-family:var(--serif);font-size:24px;padding:6px 14px;border:2px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);cursor:pointer;min-width:56px}
+  .chip:hover{border-color:var(--accent)}
+  .chip.sel{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+  .chip.num-hit{border-color:var(--bad);background:var(--bad-soft)}
+  .sol{max-width:520px;margin:12px auto 0;display:flex;flex-direction:column;gap:6px}
+  .sline{font:inherit;font-family:var(--serif);font-size:21px;text-align:center;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);cursor:pointer;font-variant-numeric:tabular-nums}
+  .sline:hover{border-color:var(--accent)}
+  .sline.cond{cursor:default;background:var(--bg);font-weight:700}
+  .sline.cond:hover{border-color:var(--line)}
+  .sline.okline{border-color:var(--good);background:var(--good-soft)}
+  .sline.found{border-color:var(--bad);background:var(--bad-soft)}
+  .sline:disabled{cursor:default}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="row">
+      <span class="logo">Pelegrina Math</span>
+      <span class="right">
+        <span>Ученик: <b id="student-name">…</b></span>
+        <a href="index.html">← К заданиям</a>
+        <a href="#" id="logout">сменить</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h1>Минусы и иксы</h1>
+    <p class="sub">Три уровня: подставляем отрицательные числа, собираем иксы и ловим чужие ошибки. В конце будет кодовое слово.</p>
+    <div class="levels" id="levels"></div>
+    <div id="stage"></div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/stats.js"></script>
+  <script>
+  (function(){
+    var student = (typeof requireStudent==="function") ? requireStudent() : { id:null, name:"гость" };
+    document.getElementById("student-name").textContent = student.name + (student.admin ? " (админ)" : "");
+    document.getElementById("logout").addEventListener("click", function(e){
+      e.preventDefault(); localStorage.removeItem("student"); location.reload();
+    });
+
+    var CODE_WORD = "СКОБКА";
+    var SKEY = "minus_progress_" + (student.id || (student.name||"anon").toLowerCase());
+    function loadP(){ try{ return JSON.parse(localStorage.getItem(SKEY)||"{}"); }catch(e){ return {}; } }
+    function saveP(){ try{ localStorage.setItem(SKEY, JSON.stringify(P)); }catch(e){} }
+    var P = loadP(); P.done = P.done || {};
+
+    function sendLevel(level, title, summary){
+      if (student && student.admin) return;
+      var row = {
+        student: student.name, student_id: student.id || "",
+        assignment_id: "trainer_minus", assignment_title: "Тренажёр «Минусы и иксы»",
+        problem_id: "minus_level" + level, task_number: level,
+        answer: title + ": " + summary, correct: true, attempt: 1,
+        on_time: true, deadline: "", time: new Date().toISOString()
+      };
+      try{ var b=JSON.parse(localStorage.getItem("attempts_backup")||"[]"); b.push(row); localStorage.setItem("attempts_backup", JSON.stringify(b)); }catch(e){}
+      if (!window.CONFIG || !CONFIG.endpoint) return;
+      var payload = JSON.stringify(row);
+      try{
+        if (navigator.sendBeacon) navigator.sendBeacon(CONFIG.endpoint, new Blob([payload],{type:"text/plain;charset=utf-8"}));
+        else fetch(CONFIG.endpoint,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:payload});
+      }catch(e){}
+    }
+
+    var M = "−";
+    function rnd(a,b){ return a + Math.floor(Math.random()*(b-a+1)); }
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+    function n(x){ return x<0 ? M+(-x) : String(x); }
+    function near(a,b){ return Math.abs(a-b) < 1e-9; }
+    function el(tag, cls, html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e; }
+    function setMsg(box, kind, html){ box.className = "msg show " + kind; box.innerHTML = html; }
+    function clearMsg(box){ box.className = "msg"; box.innerHTML = ""; }
+    function num(str){
+      var s = String(str||"").replace(/[−–—]/g,"-").replace(/,/g,".").replace(/\s+/g,"");
+      if (!/^[-+]?(\d+\.?\d*|\.\d+)$/.test(s)) return null;
+      return Number(s);
+    }
+    // «плюс/минус число» для середины выражения
+    function sgn(x){ return x<0 ? " " + M + " " + (-x) : " + " + x; }
+    // одночлен c·v для первого места и для середины
+    function mono(c, v, first){
+      var abs = Math.abs(c), body = (abs===1 ? "" : abs) + v;
+      if (first) return (c<0 ? M : "") + body;
+      return (c<0 ? " " + M + " " : " + ") + body;
+    }
+    function linText(a,b){
+      if (a===0) return n(b);
+      var s = mono(a,"x",true);
+      if (b!==0) s += sgn(b);
+      return s;
+    }
+    function parseLin(str){
+      var s = String(str||"").replace(/[−–—]/g,"-").replace(/,/g,".")
+        .replace(/[хХX]/g,"x").replace(/[·*×]/g,"").replace(/\s+/g,"");
+      if (!s) return null;
+      if (!/^[-+0-9.x]+$/.test(s)) return null;
+      if (s[0] !== "-" && s[0] !== "+") s = "+" + s;
+      var re = /([+-])(\d*\.?\d*)(x?)/g, m, a=0, b=0, pos=0;
+      while ((m = re.exec(s)) !== null){
+        if (m.index !== pos || m[0].length === 0) return null;
+        pos = re.lastIndex;
+        var sign = m[1]==="-" ? -1 : 1;
+        if (m[3]){ var c = m[2]==="" ? 1 : Number(m[2]); if (!isFinite(c)) return null; a += sign*c; }
+        else { if (m[2]==="" || m[2]===".") return null; var v = Number(m[2]); if (!isFinite(v)) return null; b += sign*v; }
+        if (pos >= s.length) break;
+      }
+      if (pos !== s.length) return null;
+      return {a:a, b:b};
+    }
+
+    var LEVELS = [
+      { id:1, title:"Подстановка" },
+      { id:2, title:"Собери иксы" },
+      { id:3, title:"Найди ошибку" }
+    ];
+    var current = 1;
+    function unlocked(id){ return student.admin || id===1 || P.done[id-1]; }
+    function renderLevels(){
+      var box = document.getElementById("levels"); box.innerHTML = "";
+      LEVELS.forEach(function(L){
+        var b = el("button","lvl" + (P.done[L.id] ? " done":""));
+        b.setAttribute("aria-pressed", String(current===L.id));
+        b.disabled = !unlocked(L.id);
+        b.innerHTML = L.id + ". " + L.title + ' <span class="st">' + (P.done[L.id] ? "✓ пройден" : (unlocked(L.id) ? "" : "🔒")) + "</span>";
+        b.addEventListener("click", function(){ current = L.id; start(); });
+        box.appendChild(b);
+      });
+      if (P.done[1] && P.done[2] && P.done[3]){
+        var f = el("button","lvl", "🏁 Финиш");
+        f.setAttribute("aria-pressed", String(current===4));
+        f.addEventListener("click", function(){ current = 4; start(); });
+        box.appendChild(f);
+      }
+    }
+    function start(){
+      renderLevels();
+      var st = document.getElementById("stage"); st.innerHTML = "";
+      if (current===1) level1(st); else if (current===2) level2(st); else if (current===3) level3(st); else finale(st);
+    }
+    function finishLevel(id, summary){
+      var first = !P.done[id];
+      P.done[id] = true; saveP();
+      if (first) sendLevel(id, LEVELS[id-1].title, summary);
+    }
+
+    // =====================================================================
+    // УРОВЕНЬ 1. Подстановка отрицательных чисел
+    // =====================================================================
+    // Каждый шаблон получает букву L, отрицательное значение v и параметры a, b.
+    // Возвращает текст выражения, запись со скобками, ответ и пояснение.
+    var TPL = [
+      function(L,v,a,b){ return { t: M+L, w: M+"("+n(v)+")", r: -v,
+        why: "Минус перед отрицательным числом даёт плюс." }; },
+      function(L,v,a,b){ return { t: M+b+L, w: M+b+" · ("+n(v)+")", r: -b*v,
+        why: "Минус на минус даёт плюс: " + M+b+" · ("+n(v)+") = " + (-b*v) + "." }; },
+      function(L,v,a,b){ return { t: a+" "+M+" "+L, w: a+" "+M+" ("+n(v)+")", r: a-v,
+        why: a+" "+M+" ("+n(v)+") = " + a + " + " + (-v) + " = " + n(a-v) + "." }; },
+      function(L,v,a,b){ return { t: a+" "+M+" "+b+L, w: a+" "+M+" "+b+" · ("+n(v)+")", r: a-b*v,
+        why: M+b+" · ("+n(v)+") = +" + (-b*v) + ", поэтому " + a + " + " + (-b*v) + " = " + n(a-b*v) + "." }; },
+      function(L,v,a,b){ return { t: L+"²", w: "("+n(v)+")²", r: v*v,
+        why: "(" + n(v) + ") · (" + n(v) + ") = " + (v*v) + ": квадрат отрицательного числа положительный." }; },
+      function(L,v,a,b){ return { t: M+L+"²", w: M+"("+n(v)+")²", r: -v*v,
+        why: "Сначала квадрат, потом минус: (" + n(v) + ")² = " + (v*v) + ", значит ответ " + n(-v*v) + "." }; },
+      function(L,v,a,b){ return { t: "("+M+L+")²", w: "("+M+"("+n(v)+"))²", r: v*v,
+        why: "В скобках " + M + "(" + n(v) + ") = " + (-v) + ", а " + (-v) + "² = " + (v*v) + "." }; },
+      function(L,v,a,b){ return { t: L+"² + "+b+L, w: "("+n(v)+")² + "+b+" · ("+n(v)+")", r: v*v+b*v,
+        why: "(" + n(v) + ")² = " + (v*v) + ", а " + b + " · (" + n(v) + ") = " + n(b*v) + ". Итого " + (v*v) + sgn(b*v) + " = " + n(v*v+b*v) + "." }; },
+      function(L,v,a,b){ return { t: M+L+" + "+a, w: M+"("+n(v)+") + "+a, r: a-v,
+        why: M + "(" + n(v) + ") = " + (-v) + ", и " + (-v) + " + " + a + " = " + (a-v) + "." }; },
+      function(L,v,a,b){ return { t: a+" "+M+" "+L+"²", w: a+" "+M+" ("+n(v)+")²", r: a-v*v,
+        why: "Сначала квадрат: (" + n(v) + ")² = " + (v*v) + ". Потом " + a + " " + M + " " + (v*v) + " = " + n(a-v*v) + "." }; }
+    ];
+    var L1_GOAL = 10;
+
+    function level1(root){
+      var score = 0, streak = 0, best = 0, errors = 0, last = -1;
+      var card = el("div","card"); root.appendChild(card);
+      function task(){
+        var k; do { k = rnd(0, TPL.length-1); } while (k===last); last = k;
+        var L = pick(["x","a","y"]), v = rnd(-6,-1), a = rnd(2,9), b = rnd(2,5);
+        var T = TPL[k](L,v,a,b);
+        card.innerHTML =
+          '<div class="task-head"><h2>Подстановка</h2><span class="counter">верно: <b>' + score + '</b> из ' + L1_GOAL + '</span></div>' +
+          '<div class="goal"><div class="bar"><i style="width:' + (100*score/L1_GOAL) + '%"></i></div><span class="streak">серия: <b>' + streak + '</b>' + (best>1 ? ' · рекорд ' + best : '') + '</span></div>' +
+          '<div class="ask">Найди значение <b>' + T.t + '</b> при <span class="v">' + L + ' = ' + n(v) + '</span></div>' +
+          '<div class="entry"><input class="txt amt" id="ans" inputmode="text" autocomplete="off"><button class="b" id="ok">Проверить</button></div>' +
+          '<div class="small-note">Отрицательное число подставляем в скобках. Минус можно набирать дефисом.</div>' +
+          '<div class="msg" id="msg"></div>';
+        var inp = card.querySelector("#ans"), msg = card.querySelector("#msg"), done = false;
+        inp.focus();
+        function go(){
+          if (done) return;
+          var x = num(inp.value);
+          if (x===null){ setMsg(msg,"warn","Впиши число."); return; }
+          done = true;
+          if (near(x, T.r)){
+            score++; streak++; best = Math.max(best, streak);
+            var praise = streak>=5 ? "🔥 Серия " + streak + "!" : streak>=3 ? "⚡ Серия " + streak + "!" : "Верно ✓";
+            setMsg(msg,"ok", praise + " " + T.w + " = " + n(T.r));
+            setTimeout(next, 900);
+          } else {
+            errors++; streak = 0;
+            setMsg(msg,"bad","Не так. Перепиши со скобками: <b>" + T.w + "</b>.<br>" + T.why +
+              '<div style="margin-top:8px"><button class="b" id="nx">Дальше →</button></div>');
+            msg.querySelector("#nx").onclick = next;
+          }
+        }
+        function next(){
+          if (score >= L1_GOAL){ finishLevel(1, "ошибок " + errors + ", лучшая серия " + best); current = 2; start(); }
+          else task();
+        }
+        card.querySelector("#ok").onclick = go;
+        inp.addEventListener("keydown", function(e){ if (e.key==="Enter") go(); });
+      }
+      task();
+    }
+
+    // =====================================================================
+    // УРОВЕНЬ 2. Собери иксы
+    // =====================================================================
+    // Слагаемые: {c, x}. x=true значит c·x, иначе просто число c.
+    var L2_FIXED = [
+      [{c:6,x:false},{c:-4,x:true},{c:-8,x:false},{c:1,x:true}],
+      [{c:-1,x:true},{c:-3,x:true},{c:5,x:false}],
+      [{c:5,x:false},{c:-2,x:true},{c:2,x:false}]
+    ];
+    function genL2(cancel){
+      var t = [];
+      var c1 = pick([-5,-4,-3,-2,-1,1,2,3,4,5]);
+      var c2 = cancel ? -c1 : pick([-5,-4,-3,-2,-1,1,2,3,4,5].filter(function(c){ return c!==-c1; }));
+      t.push({c:c1,x:true},{c:c2,x:true});
+      if (!cancel && Math.random()<0.4) t.push({c:pick([-3,-2,-1,1,2]),x:true});
+      var nn = Math.random()<0.5 ? 1 : 2;
+      var NUMS = [-9,-7,-6,-5,-4,-3,-2,2,3,4,5,6,7,8,9];
+      var d1 = pick(NUMS); t.push({c:d1,x:false});
+      if (nn===2) t.push({c:pick(NUMS.filter(function(d){ return Math.abs(d)!==Math.abs(d1); })),x:false});
+      shuffle(t);
+      if (t[0].x && t[1].x && t.length>2){ var j = t.findIndex(function(q){ return !q.x; }); var tmp=t[1]; t[1]=t[j]; t[j]=tmp; }
+      return t;
+    }
+    function termText(q, first){ return q.x ? mono(q.c,"x",first) : (first ? n(q.c) : sgn(q.c)); }
+    function exprText(t){ return t.map(function(q,i){ return termText(q, i===0); }).join(""); }
+    function phrase(c){
+      var k = Math.abs(c), word = k===1 ? "одно такое число" : k + " таких числа";
+      if (k>=5) word = k + " таких чисел";
+      return (c>0 ? "добавили " : "забрали ") + word;
+    }
+    function explainX(t, sx){
+      var xs = t.filter(function(q){ return q.x; });
+      var list = xs.map(function(q){ return phrase(q.c); }).join(", потом ");
+      var s = "x это какое-то число. " + list.charAt(0).toUpperCase() + list.slice(1) + ". ";
+      if (sx===0) s += "Сколько добавили, столько и забрали: иксов не осталось.";
+      else s += "Итого " + (sx>0 ? "добавили " : "забрали ") + Math.abs(sx) + ": получается <b>" + mono(sx,"x",true) + "</b>.";
+      return s;
+    }
+
+    function level2(root){
+      var PLAN = L2_FIXED.slice();
+      for (var i=0;i<5;i++) PLAN.push(genL2(i===2));
+      var idx = 0, errors = 0;
+      var card = el("div","card"); root.appendChild(card);
+      function task(){
+        var t = PLAN[idx];
+        var sx = 0, sn = 0;
+        t.forEach(function(q){ if (q.x) sx += q.c; else sn += q.c; });
+        var need = t.filter(function(q){ return q.x; }).length, picked = {};
+        card.innerHTML =
+          '<div class="task-head"><h2>Выражение ' + (idx+1) + ' из ' + PLAN.length + '</h2><span class="counter">ошибок: <b>' + errors + '</b></span></div>' +
+          '<p class="lead">Шаг 1. Нажми на все слагаемые с иксом. Знак перед слагаемым едет вместе с ним.</p>' +
+          '<div class="chips" id="chips"></div>' +
+          '<div id="step2"></div>' +
+          '<div class="msg" id="msg"></div>';
+        var chips = card.querySelector("#chips"), msg = card.querySelector("#msg"), step2 = card.querySelector("#step2");
+        t.forEach(function(q,i){
+          var b = el("button","chip", termText(q, i===0).trim());
+          b.onclick = function(){
+            if (Object.keys(picked).length===need) return;
+            if (!q.x){ b.classList.add("num-hit"); setMsg(msg,"warn","Это просто число, в нём нет икса."); setTimeout(function(){ b.classList.remove("num-hit"); }, 700); return; }
+            if (picked[i]) return;
+            picked[i] = true; b.classList.add("sel"); clearMsg(msg);
+            if (Object.keys(picked).length===need) ask();
+          };
+          chips.appendChild(b);
+        });
+        function ask(){
+          var xs = t.filter(function(q){ return q.x; }), ns = t.filter(function(q){ return !q.x; });
+          step2.innerHTML =
+            '<p class="lead" style="text-align:center">Иксы: <b>' + exprText(xs) + '</b> &nbsp;·&nbsp; числа: <b>' + exprText(ns) + '</b></p>' +
+            '<p class="lead" style="text-align:center">Шаг 2. Собери иксы с иксами, числа с числами и запиши ответ.</p>' +
+            '<div class="entry"><input class="txt line" id="ans" placeholder="например −3x − 2" autocomplete="off"><button class="b" id="ok">Проверить</button></div>';
+          var inp = step2.querySelector("#ans"); inp.focus();
+          function go(){
+            var p = parseLin(inp.value);
+            if (!p){ setMsg(msg,"warn","Запиши выражение с иксом и числом, например <b>" + M + "3x " + M + " 2</b>. Если иксов не осталось, запиши только число."); return; }
+            if (near(p.a,sx) && near(p.b,sn)){
+              setMsg(msg,"ok","Верно ✓ " + exprText(t) + " = <b>" + linText(sx,sn) + "</b>" +
+                '<div style="margin-top:8px"><button class="b good" id="nx">' + (idx+1<PLAN.length ? "Следующее →" : "Уровень пройден →") + "</button></div>");
+              step2.innerHTML = "";
+              msg.querySelector("#nx").onclick = function(){ idx++; if (idx<PLAN.length) task(); else { finishLevel(2, "ошибок " + errors); current = 3; start(); } };
+              return;
+            }
+            errors++; card.querySelector(".counter b").textContent = errors;
+            var parts = [];
+            if (!near(p.a,sx)) parts.push(explainX(t, sx));
+            if (!near(p.b,sn)) parts.push("Числа: " + exprText(ns) + " = <b>" + n(sn) + "</b>.");
+            setMsg(msg,"bad", parts.join("<br>") + "<br>Попробуй ещё раз.");
+          }
+          step2.querySelector("#ok").onclick = go;
+          inp.addEventListener("keydown", function(e){ if (e.key==="Enter") go(); });
+        }
+      }
+      task();
+    }
+
+    // =====================================================================
+    // УРОВЕНЬ 3. Найди ошибку
+    // =====================================================================
+    // bad: номер первой неверной строки (0 это условие).
+    var L3_POOL = [
+      { lines:["5 − 2(x − 1) = 3x − 8","5 − 2x − 2 = 3x − 8","3 − 2x = 3x − 8","11 = 5x","x = 2,2"], bad:1,
+        why:"−2 · (−1) = +2, а не −2. Верно: 5 − 2x + 2 = 3x − 8, то есть 7 − 2x = 3x − 8, 15 = 5x, x = 3." },
+      { lines:["7 − (2x + 3) = x + 10","7 − 2x + 3 = x + 10","10 − 2x = x + 10","x = 0"], bad:1,
+        why:"Минус перед скобкой меняет знаки всех слагаемых: −(2x + 3) = −2x − 3. Верно: 4 − 2x = x + 10, −6 = 3x, x = −2." },
+      { lines:["9 − 4x = 1","4x = 1 − 9","4x = −8","x = −2"], bad:1,
+        why:"Перед 4x стоит минус, он никуда не девается. Верно: −4x = 1 − 9, −4x = −8, x = 2." },
+      { lines:["6 − 2x + 3 = x","4x + 3 = x","3x = −3","x = −1"], bad:1,
+        why:"6 и −2x сложить нельзя: это число и икс. Верно: 9 − 2x = x, 9 = 3x, x = 3." },
+      { lines:["4 − 3x = x + 16","−3x − x = 16 − 4","−2x = 12","x = −6"], bad:2,
+        why:"−3x − x: забрали три таких числа и ещё одно, всего −4x. Верно: −4x = 12, x = −3." },
+      { lines:["−x² при x = −5","= −(−5)²","= 25"], bad:2,
+        why:"Сначала квадрат: (−5)² = 25, потом минус: −25." },
+      { lines:["3 − 2y при y = −6","= 3 − 2 · (−6)","= 3 − 12","= −9"], bad:2,
+        why:"−2 · (−6) = +12, минус на минус даёт плюс. Верно: 3 + 12 = 15." },
+      { lines:["−5x = 20","x = 20 : 5","x = 4"], bad:1,
+        why:"Делим на всё число перед x, вместе со знаком: x = 20 : (−5) = −4." },
+      { lines:["2(x + 3) = x − 1","2x + 3 = x − 1","x = −4"], bad:1,
+        why:"2 умножаем на каждое слагаемое в скобке: 2(x + 3) = 2x + 6. Верно: 2x + 6 = x − 1, x = −7." },
+      { lines:["3x + 5 = x + 9","3x + x = 9 − 5","4x = 4","x = 1"], bad:1,
+        why:"x переносим влево с противоположным знаком: 3x − x = 9 − 5, 2x = 4, x = 2." }
+    ];
+    function level3(root){
+      var PLAN = shuffle(L3_POOL.slice()).slice(0,6), idx = 0, misses = 0;
+      var card = el("div","card"); root.appendChild(card);
+      function task(){
+        var T = PLAN[idx], over = false;
+        card.innerHTML =
+          '<div class="task-head"><h2>Решение ' + (idx+1) + ' из ' + PLAN.length + '</h2><span class="counter">промахов: <b>' + misses + '</b></span></div>' +
+          '<p class="lead">В решении одна ошибка. Нажми на строку, где она появилась впервые.</p>' +
+          '<div class="sol" id="sol"></div><div class="msg" id="msg"></div>';
+        var sol = card.querySelector("#sol"), msg = card.querySelector("#msg");
+        T.lines.forEach(function(line,i){
+          var b = el("button","sline" + (i===0 ? " cond" : ""), line);
+          if (i===0){ b.disabled = true; sol.appendChild(b); return; }
+          b.onclick = function(){
+            if (over) return;
+            if (i===T.bad){
+              over = true; b.classList.add("found");
+              setMsg(msg,"ok","Нашёл ✓ " + T.why +
+                '<div style="margin-top:8px"><button class="b good" id="nx">' + (idx+1<PLAN.length ? "Следующее →" : "Уровень пройден →") + "</button></div>");
+              msg.querySelector("#nx").onclick = function(){ idx++; if (idx<PLAN.length) task(); else { finishLevel(3, "промахов " + misses); current = 4; start(); } };
+            } else if (i<T.bad){
+              misses++; card.querySelector(".counter b").textContent = misses;
+              b.classList.add("okline"); setMsg(msg,"warn","Эта строка верная. Ищи дальше.");
+            } else {
+              misses++; card.querySelector(".counter b").textContent = misses;
+              setMsg(msg,"warn","Эта строка неверная, но ошибка появилась раньше. Ищи выше.");
+            }
+          };
+          sol.appendChild(b);
+        });
+      }
+      task();
+    }
+
+    function finale(root){
+      var card = el("div","card final");
+      card.innerHTML = '<div class="big">🏆</div><h2>Все три уровня пройдены!</h2>' +
+        "<p>Вот кодовое слово. Впиши его в домашнем задании в первую задачу:</p>" +
+        '<div class="code">' + CODE_WORD + "</div>" +
+        '<p class="small-note">Уровни 1 и 2 можно проходить ещё: задания каждый раз новые.</p>' +
+        '<a class="b" style="display:inline-block;text-decoration:none;margin-top:6px;padding:9px 16px;border-radius:9px;background:var(--accent);color:#fff;font-weight:600" href="index.html">← К заданиям</a>';
+      root.appendChild(card);
+    }
+
+    current = !P.done[1] ? 1 : !P.done[2] ? 2 : !P.done[3] ? 3 : 4;
+    start();
+  })();
+  </script>
+</body>
+</html>
