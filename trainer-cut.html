@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Разрежь на части — Pelegrina Math</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --bg:#eef2f9; --panel:#ffffff; --ink:#1b2333; --muted:#61708a;
+    --line:#d3dce9; --accent:#3d6ee0; --accent-soft:#e7eefc;
+    --good:#1f9d6b; --good-soft:#e3f5ec; --bad:#d94f5c; --bad-soft:#fbe6e8;
+    --warn:#b7791f; --warn-soft:#fdf3e1;
+    --wood:#8a5a32; --metal:#7c8799; --metal-dark:#4d5666;
+    --bag:#c99a5b; --bag-dark:#8d6431; --weight:#5b6577; --weight-top:#7d889b;
+    --shadow:0 1px 2px rgba(27,35,51,.06),0 8px 24px rgba(27,35,51,.07);
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0f141d; --panel:#161d29; --ink:#e2e9f5; --muted:#93a1ba;
+      --line:#28313f; --accent:#6a94f5; --accent-soft:#1b2740;
+      --good:#48c690; --good-soft:#16281f; --bad:#f0707c; --bad-soft:#301a1d;
+      --warn:#e3b05a; --warn-soft:#2f2615;
+      --wood:#b98657; --metal:#8e99ab; --metal-dark:#c3cbd8;
+      --bag:#c99a5b; --bag-dark:#8d6431; --weight:#8a94a6; --weight-top:#a9b2c2;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .topbar{background:var(--panel);border-bottom:1px solid var(--line)}
+  .topbar .row{max-width:880px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .topbar .logo{font-family:var(--serif);font-weight:700;font-size:16px}
+  .topbar .right{font-size:13px;color:var(--muted);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .topbar a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:880px;margin:0 auto;padding:22px 16px 48px}
+  h1{font-family:var(--serif);font-size:clamp(22px,3.6vw,30px);margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 18px;font-size:15px}
+
+  .levels{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .lvl{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);
+    border-radius:11px;padding:8px 14px;cursor:pointer;display:flex;gap:8px;align-items:center}
+  .lvl[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+  .lvl:disabled{opacity:.45;cursor:not-allowed}
+  .lvl .st{font-size:12px;color:var(--muted);font-weight:500}
+  .lvl.done .st{color:var(--good)}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px}
+  .card + .card{margin-top:14px}
+  .task-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .task-head h2{font-size:17px;margin:0}
+  .counter{font-size:13px;color:var(--muted)}
+  .lead{margin:0 0 10px;color:var(--muted);font-size:14.5px}
+
+    .msg{margin-top:12px;padding:10px 14px;border-radius:11px;font-size:15px;display:none}
+  .msg.show{display:block}
+  .msg.ok{background:var(--good-soft);color:var(--good)}
+  .msg.bad{background:var(--bad-soft);color:var(--bad)}
+  .msg.warn{background:var(--warn-soft);color:var(--warn)}
+  .msg.info{background:var(--accent-soft);color:var(--ink)}
+  .msg b{color:inherit}
+
+  .small-note{font-size:13px;color:var(--muted);text-align:center;margin-top:6px}
+
+  .final{text-align:center;padding:26px 18px}
+  .final .big{font-size:46px;line-height:1.1}
+  .code{display:inline-block;font:700 30px var(--serif);letter-spacing:6px;padding:10px 22px;border:2px dashed var(--accent);border-radius:14px;margin:12px 0;color:var(--accent)}
+  .rules{margin-top:14px;font-size:14px;color:var(--muted)}
+  .rules b{color:var(--ink)}
+  .rules-box{background:var(--accent-soft);border-radius:12px;padding:12px 14px;margin:0 0 14px;font-size:14.5px}
+  .rules-box p{margin:4px 0}
+  .demo{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:8px}
+  .board{display:grid;gap:0;margin:14px auto 6px;width:max-content;touch-action:none;user-select:none;-webkit-user-select:none}
+  .cell{width:var(--cs,52px);height:var(--cs,52px);border:1.5px solid var(--muted);margin:-0.75px;display:flex;align-items:center;justify-content:center;
+    font:700 calc(var(--cs,52px)*.42) var(--sans);background:var(--panel);color:var(--ink);cursor:pointer;position:relative}
+  .cell.hole{visibility:hidden;cursor:default}
+  .cell.p1{background:#f6c27a;color:#3a2810}
+  .cell.p2{background:#93c3f2;color:#0f2a48}
+  .cell.p3{background:#9ed9ab;color:#11351c}
+  .demo .cell{cursor:default}
+  .palette{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+  .pbtn{font:inherit;font-size:14px;font-weight:600;border:2px solid transparent;border-radius:11px;padding:7px 12px;cursor:pointer;color:#1b2333;display:flex;gap:6px;align-items:center}
+  .pbtn[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--panel) inset}
+  .pbtn.p1{background:#f6c27a}.pbtn.p2{background:#93c3f2}.pbtn.p3{background:#9ed9ab}
+  .pbtn.er{background:var(--bg);color:var(--ink);border-color:var(--line)}
+  .pbtn.er[aria-pressed="true"]{border-color:var(--ink)}
+  .pbtn .s{font-weight:500;font-size:13px;opacity:.85}
+  .actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+  .board.big{--cs:44px}
+  @media (max-width:420px){ .board{--cs:44px} .board.big{--cs:36px} }
+  button.b{font:inherit;font-size:14px;font-weight:600;border:0;border-radius:9px;padding:8px 14px;cursor:pointer;background:var(--accent);color:#fff}
+  button.b.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+  button.b.good{background:var(--good)}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="row">
+      <span class="logo">Pelegrina Math</span>
+      <span class="right">
+        <span>Ученик: <b id="student-name">…</b></span>
+        <a href="index.html">← К заданиям</a>
+        <a href="#" id="logout">сменить</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h1>Разрежь на части</h1>
+    <p class="sub">Раскрась клетки в разные цвета: каждый цвет это одна часть. Суммы чисел во всех частях должны получиться одинаковыми.</p>
+
+    <div class="levels" id="levels"></div>
+    <div id="stage"></div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/stats.js"></script>
+  <script>
+  (function(){
+    var student = (typeof requireStudent==="function") ? requireStudent() : { id:null, name:"гость" };
+    document.getElementById("student-name").textContent = student.name + (student.admin ? " (админ)" : "");
+    document.getElementById("logout").addEventListener("click", function(e){
+      e.preventDefault(); localStorage.removeItem("student"); location.reload();
+    });
+
+    var CODE_WORD = "ЛИСА";
+    var SKEY = "cut_progress_" + (student.id || (student.name||"anon").toLowerCase());
+    function loadP(){ try{ return JSON.parse(localStorage.getItem(SKEY)||"{}"); }catch(e){ return {}; } }
+    function saveP(){ try{ localStorage.setItem(SKEY, JSON.stringify(P)); }catch(e){} }
+    var P = loadP(); P.done = P.done || {};
+
+    function sendLevel(level, title, summary){
+      if (student && student.admin) return;
+      var row = {
+        student: student.name, student_id: student.id || "",
+        assignment_id: "trainer_cut", assignment_title: "Тренажёр «Разрежь на части»",
+        problem_id: "cut_level" + level, task_number: level,
+        answer: title + ": " + summary, correct: true, attempt: 1,
+        on_time: true, deadline: "", time: new Date().toISOString()
+      };
+      try{ var b=JSON.parse(localStorage.getItem("attempts_backup")||"[]"); b.push(row); localStorage.setItem("attempts_backup", JSON.stringify(b)); }catch(e){}
+      if (!window.CONFIG || !CONFIG.endpoint) return;
+      var payload = JSON.stringify(row);
+      try{
+        if (navigator.sendBeacon) navigator.sendBeacon(CONFIG.endpoint, new Blob([payload],{type:"text/plain;charset=utf-8"}));
+        else fetch(CONFIG.endpoint,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:payload});
+      }catch(e){}
+    }
+
+    function el(tag, cls, html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e; }
+    function setMsg(box, kind, html){ box.className = "msg show " + kind; box.innerHTML = html; }
+    function clearMsg(box){ box.className = "msg"; box.innerHTML = ""; }
+    var WORDS = {2:"две", 3:"три"};
+
+    // null = клетки нет (для фигур не прямоугольной формы)
+    var _ = null;
+    var LEVELS = [
+      { id:1, title:"Две части", parts:2, grid:[[1,4,2,3],[3,2,4,1]] },
+      { id:2, title:"Две части, посложнее", parts:2, grid:[[2,5,1],[4,3,6],[1,2,4]] },
+      { id:3, title:"Три части", parts:3, grid:[[3,1,4,2],[2,5,1,6],[4,2,3,3]] },
+      { id:4, title:"★ Как на занятии", parts:3, big:true, grid:[
+        [_,_,_,4,_,_,_],
+        [_,_,4,3,4,_,_],
+        [_,4,3,2,3,4,_],
+        [4,3,2,1,2,3,4],
+        [_,4,3,2,3,4,_],
+        [_,_,4,3,4,_,_],
+        [_,_,_,4,_,_,_]] }
+    ];
+    var MAIN = 3; // после трёх уровней даём кодовое слово, четвёртый по желанию
+    var current = 1;
+    function unlocked(id){ return student.admin || id===1 || P.done[id-1]; }
+    function renderLevels(){
+      var box = document.getElementById("levels"); box.innerHTML = "";
+      LEVELS.forEach(function(L){
+        var b = el("button","lvl" + (P.done[L.id] ? " done":""));
+        b.setAttribute("aria-pressed", String(current===L.id));
+        b.disabled = !unlocked(L.id);
+        b.innerHTML = L.id + ". " + L.title + ' <span class="st">' + (P.done[L.id] ? "✓ пройден" : (unlocked(L.id) ? "" : "🔒")) + "</span>";
+        b.addEventListener("click", function(){ current = L.id; start(); });
+        box.appendChild(b);
+      });
+      if (P.done[MAIN]){
+        var f = el("button","lvl" + (current===0 ? "" : ""));
+        f.setAttribute("aria-pressed", String(current===0));
+        f.innerHTML = "🏆 Кодовое слово";
+        f.addEventListener("click", function(){ current = 0; start(); });
+        box.appendChild(f);
+      }
+    }
+
+    function start(){
+      renderLevels();
+      var root = document.getElementById("stage"); root.innerHTML = "";
+      if (current === 0) return finale(root);
+      play(root, LEVELS[current-1]);
+    }
+
+    function boardHtml(grid, colors, cls){
+      var w = grid[0].length, h = "";
+      for (var r=0;r<grid.length;r++) for (var c=0;c<w;c++){
+        var v = grid[r][c];
+        if (v === null) { h += '<div class="cell hole"></div>'; continue; }
+        var k = colors ? colors[r][c] : 0;
+        h += '<div class="cell' + (k ? " p"+k : "") + '" data-r="'+r+'" data-c="'+c+'">' + v + "</div>";
+      }
+      return '<div class="board ' + (cls||"") + '" style="grid-template-columns:repeat(' + w + ',auto)">' + h + "</div>";
+    }
+
+    function play(root, L){
+      var card = el("div","card");
+      var R = L.grid.length, C = L.grid[0].length;
+      var col = L.grid.map(function(row){ return row.map(function(){ return 0; }); });
+      var brush = 1, hintStep = 0;
+
+      var rules = '<div class="rules-box"><p><b>Что надо сделать.</b> Разрезать фигуру по линиям клеток на <b>' + WORDS[L.parts] + ' части</b>, чтобы в каждой части сумма чисел была одинаковой.</p>' +
+        '<p>Как резать: выбери цвет и нажимай на клетки (можно вести пальцем). Все клетки одного цвета это одна часть. Клетки одной части должны соединяться сторонами, не только уголками.</p>';
+      if (L.id === 1) rules +=
+        '<div class="demo">' + boardHtml([[1,3],[3,1]], [[1,1],[2,2]], "") +
+        '<div style="max-width:380px">Пример: квадрат разрезали на 2 части. В оранжевой 1 + 3 = 4, в голубой 3 + 1 = 4. Суммы равны, значит разрезано правильно.</div></div>';
+      rules += "</div>";
+
+      card.innerHTML = '<div class="task-head"><h2>Уровень ' + L.id + ". " + L.title + '</h2></div>' + rules +
+        '<div id="bwrap"></div><div class="palette" id="pal"></div>' +
+        '<div class="actions"><button class="b ghost" id="hint">Подсказка</button><button class="b ghost" id="clr">Стереть всё</button><button class="b" id="chk">Проверить</button></div>' +
+        '<div class="msg" id="msg"></div>';
+      root.appendChild(card);
+      var msg = card.querySelector("#msg");
+      card.querySelector("#bwrap").innerHTML = boardHtml(L.grid, col, L.big ? "big" : "");
+      var board = card.querySelector("#bwrap .board");
+
+      function sums(){
+        var s = [0,0,0,0];
+        for (var r=0;r<R;r++) for (var c=0;c<C;c++) if (L.grid[r][c]!==null) s[col[r][c]] += L.grid[r][c];
+        return s;
+      }
+      function renderPal(){
+        var s = sums(), pal = card.querySelector("#pal"); pal.innerHTML = "";
+        for (var k=1;k<=L.parts;k++){
+          var b = el("button","pbtn p"+k, "Часть " + k + ' <span class="s">сумма ' + s[k] + "</span>");
+          b.setAttribute("aria-pressed", String(brush===k));
+          (function(k){ b.onclick = function(){ brush = k; renderPal(); }; })(k);
+          pal.appendChild(b);
+        }
+        var er = el("button","pbtn er","Ластик");
+        er.setAttribute("aria-pressed", String(brush===0));
+        er.onclick = function(){ brush = 0; renderPal(); };
+        pal.appendChild(er);
+      }
+      function paint(cellEl, mode){
+        var r = +cellEl.dataset.r, c = +cellEl.dataset.c;
+        col[r][c] = mode;
+        cellEl.className = "cell" + (mode ? " p"+mode : "");
+        clearMsg(msg); renderPal();
+      }
+      var dragMode = null;
+      function cellAt(e){
+        var t = document.elementFromPoint(e.clientX, e.clientY);
+        return (t && t.classList && t.classList.contains("cell") && !t.classList.contains("hole") && board.contains(t)) ? t : null;
+      }
+      board.addEventListener("pointerdown", function(e){
+        var t = cellAt(e); if (!t) return;
+        e.preventDefault();
+        var r = +t.dataset.r, c = +t.dataset.c;
+        // повторное нажатие тем же цветом стирает клетку
+        dragMode = (brush && col[r][c] === brush) ? 0 : brush;
+        paint(t, dragMode);
+      });
+      board.addEventListener("pointermove", function(e){
+        if (dragMode === null) return;
+        var t = cellAt(e); if (t) paint(t, dragMode);
+      });
+      window.addEventListener("pointerup", function(){ dragMode = null; });
+      window.addEventListener("pointercancel", function(){ dragMode = null; });
+
+      card.querySelector("#clr").onclick = function(){
+        for (var r=0;r<R;r++) for (var c=0;c<C;c++) col[r][c] = 0;
+        board.querySelectorAll(".cell").forEach(function(x){ if (!x.classList.contains("hole")) x.className = "cell"; });
+        clearMsg(msg); renderPal();
+      };
+
+      var total = 0;
+      for (var r=0;r<R;r++) for (var c=0;c<C;c++) if (L.grid[r][c]!==null) total += L.grid[r][c];
+      var target = total / L.parts;
+      card.querySelector("#hint").onclick = function(){
+        hintStep++;
+        if (hintStep === 1) setMsg(msg,"info","Сначала узнай, сколько должно быть в каждой части. Сложи <b>все</b> числа фигуры и раздели на " + L.parts + ".");
+        else setMsg(msg,"info","Сумма всех чисел " + total + ". Частей " + L.parts + ", значит в каждой части должно быть " + total + " : " + L.parts + " = <b>" + target + "</b>. Набирай части по " + target + ".");
+      };
+
+      function connected(k){
+        var cells = [];
+        for (var r=0;r<R;r++) for (var c=0;c<C;c++) if (L.grid[r][c]!==null && col[r][c]===k) cells.push([r,c]);
+        if (!cells.length) return true;
+        var seen = {}, st = [cells[0]]; seen[cells[0]] = 1; var n = 1;
+        while (st.length){
+          var p = st.pop();
+          [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){
+            var a = p[0]+d[0], b = p[1]+d[1];
+            if (a>=0 && a<R && b>=0 && b<C && L.grid[a][b]!==null && col[a][b]===k && !seen[[a,b]]){ seen[[a,b]] = 1; n++; st.push([a,b]); }
+          });
+        }
+        return n === cells.length;
+      }
+
+      card.querySelector("#chk").onclick = function(){
+        var empty = 0;
+        for (var r=0;r<R;r++) for (var c=0;c<C;c++) if (L.grid[r][c]!==null && !col[r][c]) empty++;
+        if (empty) return setMsg(msg,"warn","Остались белые клетки (" + empty + "). Каждая клетка должна попасть в какую-то часть.");
+        var s = sums();
+        for (var k=1;k<=L.parts;k++) if (!s[k]) return setMsg(msg,"warn","Нужно " + WORDS[L.parts] + " части, а часть " + k + " пустая.");
+        for (k=1;k<=L.parts;k++) if (!connected(k)) return setMsg(msg,"bad","Часть " + k + " распалась на кусочки. Её клетки должны соединяться сторонами, иначе это уже не одна часть.");
+        var parts = []; for (k=1;k<=L.parts;k++) parts.push(s[k]);
+        if (parts.some(function(x){ return x !== parts[0]; }))
+          return setMsg(msg,"bad","Суммы получились разные: " + parts.join(", ") + ". А должны быть одинаковые. Попробуй перекрасить несколько клеток." + (hintStep < 2 ? " Если не знаешь, с чего начать, нажми «Подсказка»." : ""));
+        var first = !P.done[L.id];
+        P.done[L.id] = true; saveP();
+        if (first) sendLevel(L.id, L.title, "решено, подсказок " + hintStep);
+        var nextTxt = L.id < MAIN ? "Дальше →" : (L.id === MAIN ? "Получить кодовое слово →" : "К кодовому слову →");
+        setMsg(msg,"ok","Верно! В каждой части по " + parts[0] + ". 🎉 " +
+          '<div style="margin-top:8px"><button class="b good" id="nx">' + nextTxt + "</button></div>");
+        msg.querySelector("#nx").onclick = function(){ current = L.id < MAIN ? L.id + 1 : 0; start(); window.scrollTo(0,0); };
+      };
+      renderPal();
+    }
+
+    function finale(root){
+      var card = el("div","card final");
+      card.innerHTML = '<div class="big">🏆</div><h2>Три уровня пройдены!</h2>' +
+        "<p>Вот кодовое слово. Впиши его в домашнем задании:</p>" +
+        '<div class="code">' + CODE_WORD + "</div>" +
+        (P.done[4] ? "<p>И фигура с занятия тоже разрезана. Здорово!</p>" :
+          '<p class="small-note">Хочешь ещё? Попробуй уровень ★: фигуру, которую мы разрезали на занятии.</p>') +
+        '<a class="b" style="display:inline-block;text-decoration:none;margin-top:6px;padding:9px 16px;border-radius:9px;background:var(--accent);color:#fff;font-weight:600" href="index.html">← К заданиям</a>';
+      root.appendChild(card);
+    }
+
+    current = !P.done[1] ? 1 : !P.done[2] ? 2 : !P.done[3] ? 3 : 0;
+    start();
+  })();
+  </script>
+</body>
+</html>
