@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Переводчик на язык математики — Pelegrina Math</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --bg:#eef2f9; --panel:#ffffff; --ink:#1b2333; --muted:#61708a;
+    --line:#d3dce9; --accent:#3d6ee0; --accent-soft:#e7eefc;
+    --good:#1f9d6b; --good-soft:#e3f5ec; --bad:#d94f5c; --bad-soft:#fbe6e8;
+    --warn:#b7791f; --warn-soft:#fdf3e1;
+    --wood:#8a5a32; --metal:#7c8799; --metal-dark:#4d5666;
+    --bag:#c99a5b; --bag-dark:#8d6431; --weight:#5b6577; --weight-top:#7d889b;
+    --shadow:0 1px 2px rgba(27,35,51,.06),0 8px 24px rgba(27,35,51,.07);
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0f141d; --panel:#161d29; --ink:#e2e9f5; --muted:#93a1ba;
+      --line:#28313f; --accent:#6a94f5; --accent-soft:#1b2740;
+      --good:#48c690; --good-soft:#16281f; --bad:#f0707c; --bad-soft:#301a1d;
+      --warn:#e3b05a; --warn-soft:#2f2615;
+      --wood:#b98657; --metal:#8e99ab; --metal-dark:#c3cbd8;
+      --bag:#c99a5b; --bag-dark:#8d6431; --weight:#8a94a6; --weight-top:#a9b2c2;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .topbar{background:var(--panel);border-bottom:1px solid var(--line)}
+  .topbar .row{max-width:880px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .topbar .logo{font-family:var(--serif);font-weight:700;font-size:16px}
+  .topbar .right{font-size:13px;color:var(--muted);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .topbar a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:880px;margin:0 auto;padding:22px 16px 48px}
+  h1{font-family:var(--serif);font-size:clamp(22px,3.6vw,30px);margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 18px;font-size:15px}
+
+  .levels{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .lvl{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);
+    border-radius:11px;padding:8px 14px;cursor:pointer;display:flex;gap:8px;align-items:center}
+  .lvl[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+  .lvl:disabled{opacity:.45;cursor:not-allowed}
+  .lvl .st{font-size:12px;color:var(--muted);font-weight:500}
+  .lvl.done .st{color:var(--good)}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px}
+  .card + .card{margin-top:14px}
+  .task-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .task-head h2{font-size:17px;margin:0}
+  .counter{font-size:13px;color:var(--muted)}
+  .lead{margin:0 0 10px;color:var(--muted);font-size:14.5px}
+
+  .eq{font-family:var(--serif);font-size:clamp(22px,4.4vw,30px);text-align:center;margin:6px 0 2px;letter-spacing:.3px;font-variant-numeric:tabular-nums}
+  .eq.small{font-size:20px}
+  svg.scale{width:100%;height:auto;display:block;user-select:none}
+  .item{cursor:pointer}
+  .item:hover{filter:brightness(1.08)}
+  .beam{fill:var(--wood)}
+  .stand{fill:var(--metal)}
+  .string{stroke:var(--metal);stroke-width:1.6}
+  .dish{fill:var(--metal-dark)}
+  .bag{fill:var(--bag);stroke:var(--bag-dark);stroke-width:1.5}
+  .bag-tie{fill:var(--bag-dark)}
+  .bag-t{fill:#3a2810;font:700 15px var(--serif);text-anchor:middle}
+  .wt{fill:var(--weight)}
+  .wt-top{fill:var(--weight-top)}
+  .wt-t{fill:#fff;font:700 11px var(--sans);text-anchor:middle}
+
+  .tools{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px}
+  .tool{display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:6px 8px}
+  .tool span{font-size:14px}
+  .num{width:52px;font:inherit;font-size:16px;text-align:center;padding:5px 4px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}
+  button.b{font:inherit;font-size:14px;font-weight:600;border:0;border-radius:9px;padding:7px 12px;cursor:pointer;background:var(--accent);color:#fff}
+  button.b:disabled{opacity:.4;cursor:not-allowed}
+  button.b.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+  button.b.good{background:var(--good)}
+  .hint-line{font-size:13px;color:var(--muted);text-align:center;margin-top:8px}
+
+  .msg{margin-top:12px;padding:10px 14px;border-radius:11px;font-size:15px;display:none}
+  .msg.show{display:block}
+  .msg.ok{background:var(--good-soft);color:var(--good)}
+  .msg.bad{background:var(--bad-soft);color:var(--bad)}
+  .msg.warn{background:var(--warn-soft);color:var(--warn)}
+  .msg.info{background:var(--accent-soft);color:var(--ink)}
+  .msg b{color:inherit}
+
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  @media (max-width:560px){.choices{grid-template-columns:1fr}}
+  .choice{font:inherit;font-size:15px;text-align:left;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);cursor:pointer}
+  .choice:hover{border-color:var(--accent)}
+  .choice.right{border-color:var(--good);background:var(--good-soft)}
+  .choice.wrong{border-color:var(--bad);background:var(--bad-soft)}
+  .choice:disabled{cursor:default}
+  .pair{display:grid;grid-template-columns:1fr;gap:4px;justify-items:center;margin:8px 0}
+  .arrow{color:var(--muted);font-size:14px}
+
+  .notebook{margin:10px auto 0;max-width:560px;background:
+      repeating-linear-gradient(0deg,transparent 0 37px,var(--line) 37px 38px);padding:2px 0}
+  .nl{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:38px;gap:12px;padding:0 6px}
+  .nl .e{font-family:var(--serif);font-size:21px;text-align:center;font-variant-numeric:tabular-nums}
+  .nl .o{font-family:var(--serif);font-size:16px;color:var(--accent);min-width:74px;border-left:2px solid var(--accent);padding-left:8px}
+  .op-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin-top:12px}
+  .opbtn{font:inherit;font-size:18px;font-weight:700;width:42px;height:40px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);cursor:pointer}
+  .opbtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+  .txt{font:inherit;font-size:18px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink);font-family:var(--serif)}
+  .txt.amt{width:90px;text-align:center}
+  .txt.line{width:min(320px,100%);text-align:center}
+  .entry{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+  .small-note{font-size:13px;color:var(--muted);text-align:center;margin-top:6px}
+
+  .final{text-align:center;padding:26px 18px}
+  .final .big{font-size:46px;line-height:1.1}
+  .code{display:inline-block;font:700 30px var(--serif);letter-spacing:6px;padding:10px 22px;border:2px dashed var(--accent);border-radius:14px;margin:12px 0;color:var(--accent)}
+  .rules{margin-top:14px;font-size:14px;color:var(--muted)}
+  .rules b{color:var(--ink)}
+
+  .goal{display:flex;align-items:center;gap:10px;margin:4px 0 12px}
+  .bar{flex:1;height:10px;border-radius:6px;background:var(--bg);border:1px solid var(--line);overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--good);transition:width .3s}
+  .streak{font-size:13px;color:var(--muted);white-space:nowrap}
+  .streak b{color:var(--warn)}
+  .ask{font-family:var(--serif);font-size:clamp(20px,4vw,26px);text-align:center;margin:10px 0 4px}
+  .ask .v{color:var(--accent)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 6px}
+  .chip{font:inherit;font-family:var(--serif);font-size:24px;padding:6px 14px;border:2px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);cursor:pointer;min-width:56px}
+  .chip:hover{border-color:var(--accent)}
+  .chip.sel{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+  .chip.num-hit{border-color:var(--bad);background:var(--bad-soft)}
+  .sol{max-width:520px;margin:12px auto 0;display:flex;flex-direction:column;gap:6px}
+  .sline{font:inherit;font-family:var(--serif);font-size:21px;text-align:center;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);cursor:pointer;font-variant-numeric:tabular-nums}
+  .sline:hover{border-color:var(--accent)}
+  .sline.cond{cursor:default;background:var(--bg);font-weight:700}
+  .sline.cond:hover{border-color:var(--line)}
+  .sline.okline{border-color:var(--good);background:var(--good-soft)}
+  .sline.found{border-color:var(--bad);background:var(--bad-soft)}
+  .sline:disabled{cursor:default}
+  .q{font-size:clamp(18px,3.6vw,21px);text-align:center;margin:10px 0 2px;line-height:1.4}
+  .q .m{font-family:var(--serif);white-space:nowrap}
+  .choice.m{font-family:var(--serif);font-size:19px;text-align:center}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="row">
+      <span class="logo">Pelegrina Math</span>
+      <span class="right">
+        <span>Ученик: <b id="student-name">…</b></span>
+        <a href="index.html">← К заданиям</a>
+        <a href="#" id="logout">сменить</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h1>Переводчик на язык математики</h1>
+    <p class="sub">Только выбирать, печатать ничего не нужно. Три уровня: фразы, уравнения к задачам и дроби. Ошибся, вопрос вернётся в конце. В финале кодовое слово.</p>
+    <div class="levels" id="levels"></div>
+    <div id="stage"></div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/stats.js"></script>
+  <script>
+  (function(){
+    var student = (typeof requireStudent==="function") ? requireStudent() : { id:null, name:"гость" };
+    document.getElementById("student-name").textContent = student.name + (student.admin ? " (админ)" : "");
+    document.getElementById("logout").addEventListener("click", function(e){
+      e.preventDefault(); localStorage.removeItem("student"); location.reload();
+    });
+
+    var CODE_WORD = "ПЕРЕВОД";
+    var DATA = {"L1": [{"q": "x увеличили на 4, а результат утроили", "a": "3(x + 4)", "w": ["3x + 4", "x + 12", "4x + 3"], "why": "Сначала x + 4, потом всё это умножаем на 3, поэтому нужны скобки: 3(x + 4)."}, {"q": "x утроили, а потом увеличили на 4", "a": "3x + 4", "w": ["3(x + 4)", "x + 7", "4(x + 3)"], "why": "Сначала 3x, потом прибавляем 4: 3x + 4. Скобки не нужны."}, {"q": "число на 7 меньше x", "a": "x − 7", "w": ["7 − x", "x : 7", "7x"], "why": "На 7 меньше значит из x вычли 7: x − 7."}, {"q": "число в 5 раз больше x", "a": "5x", "w": ["x + 5", "x : 5", "x − 5"], "why": "В 5 раз больше значит умножить на 5: 5x. «На 5 больше» было бы x + 5."}, {"q": "половина x", "a": "x/2", "w": ["2x", "x − 2", "x + 2"], "why": "Половина значит разделить на 2: x/2."}, {"q": "число, следующее за x", "a": "x + 1", "w": ["x − 1", "2x", "x + x"], "why": "Следующее число на 1 больше: x + 1."}, {"q": "сумма x и следующего за ним числа", "a": "x + (x + 1)", "w": ["x + 1", "2x", "x(x + 1)"], "why": "Следующее за x это x + 1, их сумма x + (x + 1)."}, {"q": "из x вычли 5, а результат разделили на 2", "a": "(x − 5)/2", "w": ["x − 5/2", "x/2 − 5", "2(x − 5)"], "why": "Делим весь результат x − 5, поэтому он целиком в числителе: (x − 5)/2."}, {"q": "сколько лет будет через 6 лет человеку, которому сейчас x", "a": "x + 6", "w": ["6x", "x − 6", "6 − x"], "why": "Через 6 лет станет на 6 больше: x + 6."}, {"q": "сколько лет было 3 года назад человеку, которому сейчас x", "a": "x − 3", "w": ["x + 3", "3x", "3 − x"], "why": "3 года назад было на 3 меньше: x − 3."}, {"q": "стоимость 5 тетрадей по x рублей", "a": "5x", "w": ["x + 5", "x : 5", "5 + x"], "why": "5 тетрадей по x рублей: 5 · x = 5x."}, {"q": "путь за 2 часа со скоростью x км/ч", "a": "2x", "w": ["x + 2", "x : 2", "x − 2"], "why": "Путь = скорость · время = x · 2 = 2x."}, {"q": "удвоенное x минус 7", "a": "2x − 7", "w": ["2(x − 7)", "x − 14", "7 − 2x"], "why": "Сначала удвоили: 2x, потом вычли 7: 2x − 7."}, {"q": "x уменьшили в 4 раза", "a": "x/4", "w": ["x − 4", "4x", "4 − x"], "why": "В 4 раза меньше значит разделить на 4: x/4. «На 4 меньше» было бы x − 4."}], "L2": [{"q": "Я задумал число, прибавил к нему 6, а результат умножил на 5. Получилось 45.", "a": "5(x + 6) = 45", "w": ["5x + 6 = 45", "x + 6 · 5 = 45", "5(x + 45) = 6"], "why": "Умножаем весь результат x + 6, значит в скобках: 5(x + 6) = 45."}, {"q": "Сумма двух чисел 50, одно на 8 больше другого. Меньшее число x.", "a": "x + (x + 8) = 50", "w": ["x + 8 = 50", "8x = 50", "x + 8x = 50"], "why": "Второе число x + 8, вместе x + (x + 8) = 50."}, {"q": "В классе 28 учеников, мальчиков на 4 меньше, чем девочек. Девочек x.", "a": "x + (x − 4) = 28", "w": ["x + (x + 4) = 28", "x − 4 = 28", "4x = 28"], "why": "Мальчиков на 4 меньше: x − 4. Все вместе x + (x − 4) = 28."}, {"q": "Маме 36 лет, дочери 8. Через t лет мама будет в 3 раза старше дочери.", "a": "36 + t = 3(8 + t)", "w": ["36 + t = 3 · 8 + t", "36 = 3(8 + t)", "3(36 + t) = 8 + t"], "why": "Через t лет маме 36 + t, дочери 8 + t. Мамин возраст в 3 раза больше дочкиного: 36 + t = 3(8 + t)."}, {"q": "Ручка стоит x рублей, карандаш на 15 рублей дешевле. 3 ручки и 2 карандаша стоят 155 рублей.", "a": "3x + 2(x − 15) = 155", "w": ["3x + 2x − 15 = 155", "3x + 2(x + 15) = 155", "5x = 155"], "why": "Карандаш x − 15, два карандаша 2(x − 15). Скобки нужны: 15 рублей скидки на каждом карандаше."}, {"q": "Периметр прямоугольника 40 см, ширина x, длина в 3 раза больше ширины.", "a": "2(x + 3x) = 40", "w": ["x + 3x = 40", "3x · x = 40", "2x + 3x = 40"], "why": "Длина 3x. Периметр это две ширины и две длины: 2(x + 3x) = 40."}, {"q": "Два автомобиля выехали навстречу друг другу из городов в 360 км и встретились через 3 часа. Скорость одного x км/ч, другого на 10 км/ч больше.", "a": "3x + 3(x + 10) = 360", "w": ["3(x + 10) = 360", "x + x + 10 = 360", "3x + x + 10 = 360"], "why": "За 3 часа первый проехал 3x, второй 3(x + 10). Вместе они проехали всё расстояние."}, {"q": "Сумма трёх последовательных натуральных чисел равна 63. Меньшее число x.", "a": "x + (x + 1) + (x + 2) = 63", "w": ["x + x + x = 63", "x + 1 + 2 = 63", "3x + 1 = 63"], "why": "Три подряд идущих числа: x, x + 1, x + 2."}], "L3": [{"q": "<span class='m'>x/4 + x/6 = 5</span><br>На какое число удобнее всего умножить обе части?", "a": "12", "w": ["10", "6", "4"], "why": "Нужно число, которое делится и на 4, и на 6. Самое маленькое такое 12."}, {"q": "<span class='m'>x/3 + x/2 = 10</span><br>На какое число удобнее всего умножить обе части?", "a": "6", "w": ["5", "3", "9"], "why": "6 делится и на 3, и на 2."}, {"q": "<span class='m'>x/2 − (x − 1)/5 = 2</span><br>Умножаем обе части на 10. Что получится?", "a": "5x − 2(x − 1) = 20", "w": ["5x − 2x − 1 = 20", "5x − 2(x − 1) = 2", "x − (x − 1) = 20"], "why": "Каждое слагаемое и правую часть умножаем на 10. Числитель x − 1 берём в скобки: 5x − 2(x − 1) = 20."}, {"q": "<span class='m'>x − (x − 3)/2 = 4</span><br>Умножаем обе части на 2. Что получится?", "a": "2x − (x − 3) = 8", "w": ["x − (x − 3) = 8", "2x − x − 3 = 8", "2x − (x − 3) = 4"], "why": "Умножаем на 2 и одиночный x, и 4. Числитель в скобках, минус перед ним относится ко всей скобке."}, {"q": "<span class='m'>(x + 1)/3 − (x − 2)/4 = 1</span><br>Умножаем обе части на 12. Что получится?", "a": "4(x + 1) − 3(x − 2) = 12", "w": ["4(x + 1) − 3x − 6 = 12", "4(x + 1) − 3(x − 2) = 1", "4x + 1 − 3x − 2 = 12"], "why": "12 : 3 = 4, 12 : 4 = 3. Числители в скобках, правая часть тоже умножается: 4(x + 1) − 3(x − 2) = 12."}, {"q": "<span class='m'>(2x − 1)/3 = 5</span><br>Чему равен x?", "a": "8", "w": ["3", "2", "7"], "why": "Умножаем на 3: 2x − 1 = 15, 2x = 16, x = 8."}, {"q": "<span class='m'>x/4 − 2 = 1</span><br>Чему равен x?", "a": "12", "w": ["4", "−4", "3"], "why": "Умножаем на 4 каждое слагаемое: x − 8 = 4, x = 12."}]};
+    var SKEY = "perevod_progress_" + (student.id || (student.name||"anon").toLowerCase());
+    function loadP(){ try{ return JSON.parse(localStorage.getItem(SKEY)||"{}"); }catch(e){ return {}; } }
+    function saveP(){ try{ localStorage.setItem(SKEY, JSON.stringify(P)); }catch(e){} }
+    var P = loadP(); P.done = P.done || {};
+
+    function sendLevel(level, title, summary){
+      if (student && student.admin) return;
+      var row = {
+        student: student.name, student_id: student.id || "",
+        assignment_id: "trainer_perevod", assignment_title: "Тренажёр «Переводчик»",
+        problem_id: "perevod_level" + level, task_number: level,
+        answer: title + ": " + summary, correct: true, attempt: 1,
+        on_time: true, deadline: "", time: new Date().toISOString()
+      };
+      try{ var b=JSON.parse(localStorage.getItem("attempts_backup")||"[]"); b.push(row); localStorage.setItem("attempts_backup", JSON.stringify(b)); }catch(e){}
+      if (!window.CONFIG || !CONFIG.endpoint) return;
+      var payload = JSON.stringify(row);
+      try{
+        if (navigator.sendBeacon) navigator.sendBeacon(CONFIG.endpoint, new Blob([payload],{type:"text/plain;charset=utf-8"}));
+        else fetch(CONFIG.endpoint,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:payload});
+      }catch(e){}
+    }
+
+    function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+    function el(tag, cls, html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e; }
+    function setMsg(box, kind, html){ box.className = "msg show " + kind; box.innerHTML = html; }
+
+    var LEVELS = [
+      { id:1, title:"Переведи фразу", pool:"L1", take:10, lead:"Как записать это выражением?", prefix:"Пусть x это какое-то число. " },
+      { id:2, title:"Выбери уравнение", pool:"L2", take:6, lead:"Какое уравнение подходит к задаче?", prefix:"" },
+      { id:3, title:"Дроби", pool:"L3", take:6, lead:"Выбери верный вариант.", prefix:"" }
+    ];
+    var current = 1;
+    function unlocked(id){ return student.admin || id===1 || P.done[id-1]; }
+    function renderLevels(){
+      var box = document.getElementById("levels"); box.innerHTML = "";
+      LEVELS.forEach(function(L){
+        var b = el("button","lvl" + (P.done[L.id] ? " done":""));
+        b.setAttribute("aria-pressed", String(current===L.id));
+        b.disabled = !unlocked(L.id);
+        b.innerHTML = L.id + ". " + L.title + ' <span class="st">' + (P.done[L.id] ? "✓ пройден" : (unlocked(L.id) ? "" : "🔒")) + "</span>";
+        b.addEventListener("click", function(){ current = L.id; start(); });
+        box.appendChild(b);
+      });
+      if (P.done[1] && P.done[2] && P.done[3]){
+        var f = el("button","lvl", "🏁 Финиш");
+        f.setAttribute("aria-pressed", String(current===4));
+        f.addEventListener("click", function(){ current = 4; start(); });
+        box.appendChild(f);
+      }
+    }
+    function start(){
+      renderLevels();
+      var st = document.getElementById("stage"); st.innerHTML = "";
+      if (current<=3) quiz(st, LEVELS[current-1]); else finale(st);
+    }
+
+    function quiz(root, L){
+      var queue = shuffle(DATA[L.pool].slice()).slice(0, L.take);
+      var total = queue.length, right = 0, errors = 0, streak = 0;
+      var card = el("div","card"); root.appendChild(card);
+      function task(){
+        var T = queue.shift();
+        var opts = shuffle([T.a].concat(T.w));
+        card.innerHTML =
+          '<div class="task-head"><h2>' + L.title + '</h2><span class="counter">верно: <b>' + right + '</b> из ' + total + '</span></div>' +
+          '<div class="goal"><div class="bar"><i style="width:' + (100*right/total) + '%"></i></div><span class="streak">серия: <b>' + streak + '</b></span></div>' +
+          '<p class="lead">' + L.lead + '</p>' +
+          '<div class="q">' + (L.id===1 ? 'Пусть x это какое-то число.<br><b>«' + T.q + '»</b>' : T.q) + '</div>' +
+          '<div class="choices" id="ch"></div><div class="msg" id="msg"></div>';
+        var ch = card.querySelector("#ch"), msg = card.querySelector("#msg"), over = false;
+        opts.forEach(function(o){
+          var b = el("button","choice m", o);
+          b.onclick = function(){
+            if (over) return; over = true;
+            ch.querySelectorAll("button").forEach(function(x){ x.disabled = true; if (x.textContent===T.a) x.classList.add("right"); });
+            if (o===T.a){
+              right++; streak++;
+              setMsg(msg,"ok", (streak>=5 ? "🔥 Серия " + streak + "!" : streak>=3 ? "⚡ Серия " + streak + "!" : "Верно ✓"));
+              setTimeout(next, 700);
+            } else {
+              errors++; streak = 0; b.classList.add("wrong");
+              queue.push(T);
+              setMsg(msg,"bad", T.why + " Этот вопрос вернётся в конце." +
+                '<div style="margin-top:8px"><button class="b" id="nx">Дальше →</button></div>');
+              msg.querySelector("#nx").onclick = next;
+            }
+          };
+          ch.appendChild(b);
+        });
+      }
+      function next(){
+        if (queue.length) task();
+        else {
+          var first = !P.done[L.id];
+          P.done[L.id] = true; saveP();
+          if (first) sendLevel(L.id, L.title, "ошибок " + errors);
+          current = L.id + 1; start();
+        }
+      }
+      task();
+    }
+
+    function finale(root){
+      var card = el("div","card final");
+      card.innerHTML = '<div class="big">🏆</div><h2>Все три уровня пройдены!</h2>' +
+        "<p>Вот кодовое слово. Впиши его в домашнем задании:</p>" +
+        '<div class="code">' + CODE_WORD + "</div>" +
+        '<p class="small-note">Уровни можно проходить ещё: вопросы перемешиваются.</p>' +
+        '<a class="b" style="display:inline-block;text-decoration:none;margin-top:6px;padding:9px 16px;border-radius:9px;background:var(--accent);color:#fff;font-weight:600" href="index.html">← К заданиям</a>';
+      root.appendChild(card);
+    }
+
+    current = !P.done[1] ? 1 : !P.done[2] ? 2 : !P.done[3] ? 3 : 4;
+    start();
+  })();
+  </script>
+</body>
+</html>
