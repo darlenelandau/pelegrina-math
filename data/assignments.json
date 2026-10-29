@@ -9949,7 +9949,8 @@
      "statement": "<b>54.</b> В треугольнике $ABC$ угол $C$ равен $90^\\circ$, $CH$ высота, $BH=12$, $\\sin A=\\dfrac{2}{3}$. Найдите $AB$.",
      "answer_hash": "670671cd97404156226e507973f2ab8330d3022ca96e0c93bdbdb320c41adcaf"
     }
-   ]
+   ],
+   "completed": true
   },
   {
    "id": "krisdz11",
