@@ -10573,6 +10573,914 @@
      "answer_hash": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
     }
    ]
+  },
+  {
+   "id": "nikdz1",
+   "title": "ДЗ №1. Степени, корни, логарифмы, углы треугольника",
+   "students": [
+    "nikitanew"
+   ],
+   "kind": "homework",
+   "task_numbers": [
+    8,
+    7,
+    1
+   ],
+   "deadline": "2026-11-07T23:59:00",
+   "intro": "ДЗ №1 после занятия 1 ноября. Задач много, это нормально: делайте понемногу каждый день, так всё запомнится лучше, чем за один вечер.\n\nПорядок такой же, как на занятии: степени, корни, логарифмы. Потом уравнения, где всё это пригодится, и в конце планиметрия на углы треугольника.\n\nРешения пишите в тетради, в поле на сайте вводится только ответ. Дробный ответ пишется через запятую, например 0,25.",
+   "problems": [
+    {
+     "id": "nikdz1-001",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>1.</b> Найдите значение выражения $\\left(7x^3\\right)^2:\\left(7x^6\\right)$.",
+     "answer_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451",
+     "section_note": "<p><b>Степени</b></p><p>Всё на правила из таблички с занятия. Порядок действий один и тот же: <b>сначала упростить, потом подставлять число</b>. Если в ответе буква не сократилась, где-то ошибка: ответ в задании всегда число.</p><p>Если основания разные, раскладываем их на простые: $4=2^2$, $27=3^3$, $12=2^2\\cdot3$. Корни переписываем дробной степенью: $\\sqrt[n]{a}=a^{\\frac1n}$, $\\sqrt[n]{a^m}=a^{\\frac mn}$.</p><p>Задач много, и они идут от простых к сложным. Ближе к концу будет много корней разных степеней, как в 7в с занятия.</p>"
+    },
+    {
+     "id": "nikdz1-002",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>2.</b> Найдите значение выражения $(4a)^3:a^7\\cdot a^4$.",
+     "answer_hash": "a68b412c4282555f15546cf6e1fc42893b7e07f271557ceb021821098dd66c1b"
+    },
+    {
+     "id": "nikdz1-003",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>3.</b> Найдите значение выражения $\\dfrac{a^{3{,}21}\\cdot a^{7{,}36}}{a^{8{,}57}}$ при $a=12$.",
+     "answer_hash": "5ec1a0c99d428601ce42b407ae9c675e0836a8ba591c8ca6e2a2cf5563d97ff0"
+    },
+    {
+     "id": "nikdz1-004",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>4.</b> Найдите значение выражения $\\dfrac{a^{3{,}33}}{a^{2{,}11}\\cdot a^{2{,}22}}$ при $a=\\dfrac27$.",
+     "answer_hash": "8a199b120cf400d69c300e1dd6eacdc8b0002353e3044bbab21e0125b32c9fd6"
+    },
+    {
+     "id": "nikdz1-005",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>5.</b> Найдите значение выражения $a^{0{,}65}\\cdot a^{0{,}67}\\cdot a^{0{,}68}$ при $a=11$.",
+     "answer_hash": "89aa1e580023722db67646e8149eb246c748e180e34a1cf679ab0b41a416d904"
+    },
+    {
+     "id": "nikdz1-006",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>6.</b> Найдите значение выражения $\\dfrac{6n^{\\frac13}}{n^{\\frac1{12}}\\cdot n^{\\frac14}}$ при $n>0$.",
+     "answer_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+    },
+    {
+     "id": "nikdz1-007",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>7.</b> Найдите значение выражения $\\dfrac{n^{\\frac56}}{n^{\\frac1{12}}\\cdot n^{\\frac14}}$ при $n=64$.",
+     "answer_hash": "2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fdefb64a3"
+    },
+    {
+     "id": "nikdz1-008",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>8.</b> Найдите значение выражения $3^{\\sqrt5+10}\\cdot3^{-5-\\sqrt5}$.",
+     "answer_hash": "72440a20f54075ac43f51a2cf0dbb2a14366b38a5c01b110ae174abc1cb44238"
+    },
+    {
+     "id": "nikdz1-009",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>9.</b> Найдите значение выражения $\\dfrac{x^{-5}\\cdot x^8}{x}$ при $x=4$.",
+     "answer_hash": "b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9"
+    },
+    {
+     "id": "nikdz1-010",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>10.</b> Найдите значение выражения $b^5:b^9\\cdot b^6$ при $b=0{,}01$.",
+     "answer_hash": "e539aebac7fd2ed8aba8854fedeaa65436962f8ee1c82341b394698f085b6496"
+    },
+    {
+     "id": "nikdz1-011",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>11.</b> Найдите значение выражения $\\left(5^{12}\\right)^3:5^{37}$.",
+     "answer_hash": "44896b09365746b5f7167ee4d64988a38f7f4628803cbf86224e74eeb7c69e9d"
+    },
+    {
+     "id": "nikdz1-012",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>12.</b> Найдите значение выражения $b^{\\frac15}\\cdot\\left(b^{\\frac9{10}}\\right)^2$ при $b=7$.",
+     "answer_hash": "0e17daca5f3e175f448bacace3bc0da47d0655a74c8dd0dc497a3afbdad95f1f"
+    },
+    {
+     "id": "nikdz1-013",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>13.</b> Найдите значение выражения $\\dfrac{a^{7{,}4}}{a^{8{,}4}}$ при $a=0{,}4$.",
+     "answer_hash": "b8736b999909049671d0ea075a42b308a5fbe2df1854899123fe09eb0ee9de61"
+    },
+    {
+     "id": "nikdz1-014",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>14.</b> Найдите значение выражения $\\sqrt[3]{49}\\cdot\\sqrt[6]{49}$.",
+     "answer_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+    },
+    {
+     "id": "nikdz1-015",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>15.</b> Найдите значение выражения $5^{3\\sqrt7-1}\\cdot5^{1-\\sqrt7}:5^{2\\sqrt7-1}$.",
+     "answer_hash": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+    },
+    {
+     "id": "nikdz1-016",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>16.</b> Найдите значение выражения $\\dfrac{b^{3\\sqrt2+2}}{\\left(b^{\\sqrt2}\\right)^3}$ при $b=6$.",
+     "answer_hash": "76a50887d8f1c2e9301755428990ad81479ee21c25b43215cf524541e0503269"
+    },
+    {
+     "id": "nikdz1-017",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>17.</b> Найдите значение выражения $\\dfrac{\\left(b^{\\sqrt3}\\right)^{2\\sqrt3}}{b^4}$ при $b=5$.",
+     "answer_hash": "b7a56873cd771f2c446d369b649430b65a756ba278ff97ec81bb6f55b2e73569"
+    },
+    {
+     "id": "nikdz1-018",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>18.</b> Найдите значение выражения $\\dfrac{\\left(5a^2\\right)^3\\cdot(6b)^2}{\\left(30a^3b\\right)^2}$.",
+     "answer_hash": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+    },
+    {
+     "id": "nikdz1-019",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>19.</b> Найдите значение выражения $\\dfrac{7\\left(m^5\\right)^6+11\\left(m^3\\right)^{10}}{\\left(3m^{15}\\right)^2}$.",
+     "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+     "id": "nikdz1-020",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>20.</b> Найдите значение выражения $\\dfrac{(3x)^3\\cdot x^{-9}}{x^{-10}\\cdot2x^4}$.",
+     "answer_hash": "49dd409d9fb9b718d70f9b826b855a65202b6d3a47378e0ac0501c928fe5ba92"
+    },
+    {
+     "id": "nikdz1-021",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>21.</b> Найдите значение выражения $\\dfrac{a^2b^{-6}}{(4a)^3b^{-2}}\\cdot\\dfrac{16}{a^{-1}b^{-4}}$.",
+     "answer_hash": "a30a043314fa89294fa2c1c989a01fbb5329e5c085a5c5a8d27317656de24ae0"
+    },
+    {
+     "id": "nikdz1-022",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>22.</b> Найдите значение выражения $\\left(\\left(2x^3\\right)^4-\\left(x^2\\right)^6\\right):\\left(3x^{12}\\right)$.",
+     "answer_hash": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+    },
+    {
+     "id": "nikdz1-023",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>23.</b> Найдите значение выражения $18x^7\\cdot x^{13}:\\left(3x^{10}\\right)^2$.",
+     "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+     "id": "nikdz1-024",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>24.</b> Найдите значение выражения $(4b)^3:b^9\\cdot b^5$ при $b=128$.",
+     "answer_hash": "d2cbad71ff333de67d07ec676e352ab7f38248eb69c942950157220607c55e84"
+    },
+    {
+     "id": "nikdz1-025",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>25.</b> Найдите значение выражения $6x\\cdot\\left(3x^{12}\\right)^3:\\left(3x^9\\right)^4$ при $x=75$.",
+     "answer_hash": "9ae2bdd7beedc2e766c6b76585530e16925115707dc7a06ab5ee4aa2776b2c7b"
+    },
+    {
+     "id": "nikdz1-026",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>26.</b> Найдите значение выражения $\\left(49^6\\right)^3:\\left(7^7\\right)^5$.",
+     "answer_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+    },
+    {
+     "id": "nikdz1-027",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>27.</b> Найдите значение выражения $\\left(2a^3\\right)^4:\\left(2a^{11}\\right)$ при $a=11$.",
+     "answer_hash": "8b940be7fb78aaa6b6567dd7a3987996947460df1c668e698eb92ca77e425349"
+    },
+    {
+     "id": "nikdz1-028",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>28.</b> Найдите значение выражения $7^{2x-1}:49^x:x$ при $x=\\dfrac1{14}$.",
+     "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+     "id": "nikdz1-029",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>29.</b> Найдите значение выражения $\\dfrac{(4a)^{2{,}5}}{a^2\\sqrt a}$ при $a>0$.",
+     "answer_hash": "e29c9c180c6279b0b02abd6a1801c7c04082cf486ec027aa13515e4f3884bb6b"
+    },
+    {
+     "id": "nikdz1-030",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>30.</b> Найдите значение выражения $\\dfrac{(9b)^{1{,}5}\\cdot b^{2{,}7}}{b^{4{,}2}}$ при $b>0$.",
+     "answer_hash": "670671cd97404156226e507973f2ab8330d3022ca96e0c93bdbdb320c41adcaf"
+    },
+    {
+     "id": "nikdz1-031",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>31.</b> Найдите значение выражения $\\left(11a^6\\cdot b^3-\\left(3a^2b\\right)^3\\right):\\left(4a^6b^6\\right)$ при $b=2$.",
+     "answer_hash": "1b07b0cffa0b3f596b5e048b0115168886cc5183dd518655b5515ee5dddac6d1"
+    },
+    {
+     "id": "nikdz1-032",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>32.</b> Найдите значение выражения $\\dfrac{\\left(\\sqrt[3]{7a^2}\\right)^6}{a^4}$ при $a\\ne0$.",
+     "answer_hash": "0e17daca5f3e175f448bacace3bc0da47d0655a74c8dd0dc497a3afbdad95f1f"
+    },
+    {
+     "id": "nikdz1-033",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>33.</b> Найдите значение выражения $x\\cdot3^{2x+1}\\cdot9^{-x}$ при $x=5$.",
+     "answer_hash": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb"
+    },
+    {
+     "id": "nikdz1-034",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>34.</b> Найдите значение выражения $5^{0{,}36}\\cdot25^{0{,}32}$.",
+     "answer_hash": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+    },
+    {
+     "id": "nikdz1-035",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>35.</b> Найдите значение выражения $\\dfrac{3^{6{,}5}}{9^{2{,}25}}$.",
+     "answer_hash": "19581e27de7ced00ff1ce50b2047e7a567c76b1cbaebabe5ef03f7c3017bb5b7"
+    },
+    {
+     "id": "nikdz1-036",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>36.</b> Найдите значение выражения $7^{\\frac49}\\cdot49^{\\frac5{18}}$.",
+     "answer_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+    },
+    {
+     "id": "nikdz1-037",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>37.</b> Найдите значение выражения $\\dfrac{2^{3{,}5}\\cdot3^{5{,}5}}{6^{4{,}5}}$.",
+     "answer_hash": "9f29a130438b81170b92a42650f9a94291ecad60bd47af2a3886e75f7f728725"
+    },
+    {
+     "id": "nikdz1-038",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>38.</b> Найдите значение выражения $35^{-4{,}7}\\cdot7^{5{,}7}:5^{-3{,}7}$.",
+     "answer_hash": "1a948f1b4374f4e3f02501c7feb43784021718a93c1ed5f9f19adf357bb2d20e"
+    },
+    {
+     "id": "nikdz1-039",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>39.</b> Найдите значение выражения $\\dfrac{\\left(2^{\\frac35}\\cdot5^{\\frac23}\\right)^{15}}{10^9}$.",
+     "answer_hash": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+    },
+    {
+     "id": "nikdz1-040",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>40.</b> Найдите значение выражения $0{,}8^{\\frac17}\\cdot5^{\\frac27}\\cdot20^{\\frac67}$.",
+     "answer_hash": "f5ca38f748a1d6eaf726b8a42fb575c3c71f1864a8143301782de13da2d9202b"
+    },
+    {
+     "id": "nikdz1-041",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>41.</b> Найдите значение выражения $\\dfrac{49^{5{,}2}}{7^{8{,}4}}$.",
+     "answer_hash": "0e17daca5f3e175f448bacace3bc0da47d0655a74c8dd0dc497a3afbdad95f1f"
+    },
+    {
+     "id": "nikdz1-042",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>42.</b> Найдите значение выражения $4^8\\cdot11^{10}:44^8$.",
+     "answer_hash": "89aa1e580023722db67646e8149eb246c748e180e34a1cf679ab0b41a416d904"
+    },
+    {
+     "id": "nikdz1-043",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>43.</b> Найдите значение выражения $2^{3\\sqrt7-1}\\cdot8^{1-\\sqrt7}$.",
+     "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    {
+     "id": "nikdz1-044",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>44.</b> Найдите значение выражения $\\dfrac{0{,}5^{\\sqrt{10}-1}}{2^{-\\sqrt{10}}}$.",
+     "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+     "id": "nikdz1-045",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>45.</b> Найдите значение выражения $\\dfrac{6^{\\sqrt3}\\cdot7^{\\sqrt3}}{42^{\\sqrt3-1}}$.",
+     "answer_hash": "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049"
+    },
+    {
+     "id": "nikdz1-046",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>46.</b> Найдите значение выражения $5\\cdot\\sqrt[3]{9}\\cdot\\sqrt[6]{9}$.",
+     "answer_hash": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb"
+    },
+    {
+     "id": "nikdz1-047",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>47.</b> Найдите значение выражения $\\dfrac{\\sqrt[9]{7}\\cdot\\sqrt[18]{7}}{\\sqrt[6]{7}}$.",
+     "answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+     "id": "nikdz1-048",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>48.</b> Найдите значение выражения $\\dfrac{\\sqrt[5]{10}\\cdot\\sqrt[5]{16}}{\\sqrt[5]{5}}$.",
+     "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+     "id": "nikdz1-049",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>49.</b> Найдите значение выражения $\\left(\\dfrac{2^{\\frac13}\\cdot2^{\\frac14}}{\\sqrt[12]{2}}\\right)^2$.",
+     "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+     "id": "nikdz1-050",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>50.</b> Найдите значение выражения $\\dfrac{12\\sqrt[9]{m}\\cdot\\sqrt[18]{m}}{\\sqrt[6]{m}}$ при $m>0$.",
+     "answer_hash": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918"
+    },
+    {
+     "id": "nikdz1-051",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>51.</b> Найдите значение выражения $\\dfrac{\\sqrt{81\\sqrt[7]{b}}}{\\sqrt[14]{b}}$ при $b>0$.",
+     "answer_hash": "19581e27de7ced00ff1ce50b2047e7a567c76b1cbaebabe5ef03f7c3017bb5b7"
+    },
+    {
+     "id": "nikdz1-052",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>52.</b> Найдите значение выражения $\\dfrac{\\left(\\sqrt3\\,a\\right)^2\\sqrt[5]{a^3}}{a^{2{,}6}}$ при $a>0$.",
+     "answer_hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+    },
+    {
+     "id": "nikdz1-053",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>53.</b> Найдите значение выражения $\\dfrac{\\sqrt[9]{\\sqrt m}}{\\sqrt{16\\sqrt[9]{m}}}$ при $m>0$.",
+     "answer_hash": "a30a043314fa89294fa2c1c989a01fbb5329e5c085a5c5a8d27317656de24ae0"
+    },
+    {
+     "id": "nikdz1-054",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>54.</b> Найдите значение выражения $\\dfrac{15\\sqrt[5]{\\sqrt[28]{a}}-7\\sqrt[7]{\\sqrt[20]{a}}}{2\\sqrt[35]{\\sqrt[4]{a}}}$ при $a>0$.",
+     "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    {
+     "id": "nikdz1-055",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>55.</b> Найдите значение выражения $\\dfrac{\\sqrt m}{\\sqrt[9]{m}\\cdot\\sqrt[18]{m}}$ при $m=64$.",
+     "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    {
+     "id": "nikdz1-056",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>56.</b> Найдите значение выражения $\\dfrac{\\sqrt[9]{a}\\cdot\\sqrt[18]{a}}{a\\sqrt[6]{a}}$ при $a=1{,}25$.",
+     "answer_hash": "1e9d7c27c8bbc8ddf0055c93e064a62fa995d177fee28cc8fa949bc8a4db06f4"
+    },
+    {
+     "id": "nikdz1-057",
+     "task_number": 8,
+     "section": "Степени",
+     "statement": "<b>57.</b> Найдите значение выражения $\\dfrac{g(x-9)}{g(x-11)}$, если $g(x)=8^x$.",
+     "answer_hash": "a68b412c4282555f15546cf6e1fc42893b7e07f271557ceb021821098dd66c1b"
+    },
+    {
+     "id": "nikdz1-058",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>58.</b> Найдите значение выражения $\\left(\\sqrt{13}-\\sqrt7\\right)\\left(\\sqrt{13}+\\sqrt7\\right)$.",
+     "answer_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683",
+     "section_note": "<p><b>Корни</b></p><p>Помним два правила: $\\sqrt{ab}=\\sqrt a\\cdot\\sqrt b$, а корень из суммы так разбить нельзя. Там, где под корнем разность квадратов, раскладываем её на множители, как в $\\sqrt{65^2-56^2}$ на занятии.</p><p>И $\\sqrt{a^2}=|a|$, а не $a$: в задачах с условием вида $x\\le2$ это главное.</p>"
+    },
+    {
+     "id": "nikdz1-059",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>59.</b> Найдите значение выражения $\\dfrac{\\sqrt{2{,}8}\\cdot\\sqrt{4{,}2}}{\\sqrt{0{,}24}}$.",
+     "answer_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+    },
+    {
+     "id": "nikdz1-060",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>60.</b> Найдите значение выражения $\\left(\\sqrt{15}-\\sqrt{60}\\right)\\cdot\\sqrt{15}$.",
+     "answer_hash": "5e37b37c842d8df7106ee92e2e45beefef71ca60f51f7bb5cb50cb1e81c355a8"
+    },
+    {
+     "id": "nikdz1-061",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>61.</b> Найдите значение выражения $\\dfrac{\\left(2\\sqrt7\\right)^2}{14}$.",
+     "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+     "id": "nikdz1-062",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>62.</b> Найдите значение выражения $\\sqrt{65^2-56^2}$.",
+     "answer_hash": "c6f3ac57944a531490cd39902d0f777715fd005efac9a30622d5f5205e7f6894"
+    },
+    {
+     "id": "nikdz1-063",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>63.</b> Найдите значение выражения $\\dfrac{\\left(\\sqrt{13}+\\sqrt7\\right)^2}{10+\\sqrt{91}}$.",
+     "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+     "id": "nikdz1-064",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>64.</b> Найдите значение выражения $\\dfrac{5\\sqrt x+2}{\\sqrt x}-\\dfrac{2\\sqrt x}{x}$ при $x>0$.",
+     "answer_hash": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+    },
+    {
+     "id": "nikdz1-065",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>65.</b> Найдите значение выражения $\\dfrac{7\\sqrt x-5}{\\sqrt x}+\\dfrac{5\\sqrt x}{x}+3x-4$ при $x=3$.",
+     "answer_hash": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918"
+    },
+    {
+     "id": "nikdz1-066",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>66.</b> Найдите значение выражения $\\left(\\sqrt{3\\tfrac67}-\\sqrt{1\\tfrac57}\\right):\\sqrt{\\dfrac{3}{28}}$.",
+     "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+     "id": "nikdz1-067",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>67.</b> Найдите значение выражения $x+\\sqrt{x^2-4x+4}$ при $x\\le2$.",
+     "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+     "id": "nikdz1-068",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>68.</b> Найдите значение выражения $\\sqrt{(a-6)^2}+\\sqrt{(a-10)^2}$ при $6\\le a\\le10$.",
+     "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    {
+     "id": "nikdz1-069",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>69.</b> Найдите $\\dfrac{g(2-x)}{g(2+x)}$, если $g(x)=\\sqrt[3]{x(4-x)}$ при $|x|\\ne2$.",
+     "answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+     "id": "nikdz1-070",
+     "task_number": 8,
+     "section": "Корни",
+     "statement": "<b>70.</b> Найдите $h(5+x)+h(5-x)$, если $h(x)=\\sqrt[3]{x}+\\sqrt[3]{x-10}$.",
+     "answer_hash": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+     "id": "nikdz1-071",
+     "task_number": 8,
+     "section": "Логарифмы",
+     "statement": "<b>71.</b> Найдите значение выражения $\\log_{0{,}25}2$.",
+     "answer_hash": "1b07b0cffa0b3f596b5e048b0115168886cc5183dd518655b5515ee5dddac6d1",
+     "section_note": "<p><b>Логарифмы</b></p><p>Только то, что было на занятии: <b>определение</b> ($\\log_a b$ это степень, в которую нужно возвести $a$, чтобы получить $b$) и <b>основное тождество</b> $a^{\\log_a b}=b$.</p><p>В первых трёх задачах представьте и основание, и число степенью одного и того же числа. В остальных нужно получить $a^{\\log_a b}$, сначала поработав со степенью по обычным правилам: например, $5^{3+\\log_5 2}=5^3\\cdot5^{\\log_5 2}$.</p>"
+    },
+    {
+     "id": "nikdz1-072",
+     "task_number": 8,
+     "section": "Логарифмы",
+     "statement": "<b>72.</b> Найдите значение выражения $\\log_{\\frac1{13}}\\sqrt{13}$.",
+     "answer_hash": "1b07b0cffa0b3f596b5e048b0115168886cc5183dd518655b5515ee5dddac6d1"
+    },
+    {
+     "id": "nikdz1-073",
+     "task_number": 8,
+     "section": "Логарифмы",
+     "statement": "<b>73.</b> Найдите значение выражения $\\log_{\\sqrt[6]{13}}13$.",
+     "answer_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+    },
+    {
+     "id": "nikdz1-074",
+     "task_number": 8,
+     "section": "Логарифмы",
+     "statement": "<b>74.</b> Найдите значение выражения $7\\cdot5^{\\log_5 4}$.",
+     "answer_hash": "59e19706d51d39f66711c2653cd7eb1291c94d9b55eb14bda74ce4dc636d015a"
+    },
+    {
+     "id": "nikdz1-075",
+     "task_number": 8,
+     "section": "Логарифмы",
+     "statement": "<b>75.</b> Найдите значение выражения $\\dfrac{24}{3^{\\log_3 2}}$.",
+     "answer_hash": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918"
+    },
+    {
+     "id": "nikdz1-076",
+     "task_number": 8,
+     "section": "Логарифмы",
+     "statement": "<b>76.</b> Найдите значение выражения $5^{3+\\log_5 2}$.",
+     "answer_hash": "1e472b39b105d349bcd069c4a711b44a2fffb8e274714bb07ecfff69a9a7f67b"
+    },
+    {
+     "id": "nikdz1-077",
+     "task_number": 8,
+     "section": "Логарифмы",
+     "statement": "<b>77.</b> Найдите значение выражения $8^{2\\log_8 3}$.",
+     "answer_hash": "19581e27de7ced00ff1ce50b2047e7a567c76b1cbaebabe5ef03f7c3017bb5b7"
+    },
+    {
+     "id": "nikdz1-078",
+     "task_number": 8,
+     "section": "Логарифмы",
+     "statement": "<b>78.</b> Найдите значение выражения $5^{\\log_{25}49}$.",
+     "answer_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451"
+    },
+    {
+     "id": "nikdz1-079",
+     "task_number": 7,
+     "section": "Показательные уравнения",
+     "statement": "<b>79.</b> Найдите корень уравнения $2^{4-2x}=64$.",
+     "answer_hash": "1bad6b8cf97131fceab8543e81f7757195fbb1d36b376ee994ad1cf17699c464",
+     "section_note": "<p><b>Показательные уравнения</b></p><p>Приводим обе части к одному основанию и приравниваем показатели: если $2^{\\ldots}=2^{\\ldots}$, то и показатели равны. Например, $\\frac19=3^{-2}$, $\\frac12=2^{-1}$, $\\frac18=2^{-3}$.</p>"
+    },
+    {
+     "id": "nikdz1-080",
+     "task_number": 7,
+     "section": "Показательные уравнения",
+     "statement": "<b>80.</b> Найдите корень уравнения $\\left(\\dfrac13\\right)^{x-8}=\\dfrac19$.",
+     "answer_hash": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5"
+    },
+    {
+     "id": "nikdz1-081",
+     "task_number": 7,
+     "section": "Показательные уравнения",
+     "statement": "<b>81.</b> Найдите корень уравнения $9^{-5+x}=729$.",
+     "answer_hash": "2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fdefb64a3"
+    },
+    {
+     "id": "nikdz1-082",
+     "task_number": 7,
+     "section": "Показательные уравнения",
+     "statement": "<b>82.</b> Найдите корень уравнения $5^{x-7}=\\dfrac1{125}$.",
+     "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    {
+     "id": "nikdz1-083",
+     "task_number": 7,
+     "section": "Показательные уравнения",
+     "statement": "<b>83.</b> Найдите корень уравнения $\\left(\\dfrac12\\right)^{6-2x}=4$.",
+     "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    {
+     "id": "nikdz1-084",
+     "task_number": 7,
+     "section": "Показательные уравнения",
+     "statement": "<b>84.</b> Найдите корень уравнения $16^{x-9}=\\dfrac12$.",
+     "answer_hash": "5ee31a6284bcc96d96675a83c8d5ef5fd33ef22ad90f2c51c8e3e6af878fce0c"
+    },
+    {
+     "id": "nikdz1-085",
+     "task_number": 7,
+     "section": "Показательные уравнения",
+     "statement": "<b>85.</b> Найдите корень уравнения $\\left(\\dfrac19\\right)^{x-13}=3$.",
+     "answer_hash": "b902cc4550838229a710bfec4c38cbc7eb11082367a409df9135e7f007a96bda"
+    },
+    {
+     "id": "nikdz1-086",
+     "task_number": 7,
+     "section": "Показательные уравнения",
+     "statement": "<b>86.</b> Найдите корень уравнения $\\left(\\dfrac18\\right)^{-3+x}=512$.",
+     "answer_hash": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+     "id": "nikdz1-087",
+     "task_number": 7,
+     "section": "Показательные уравнения",
+     "statement": "<b>87.</b> Найдите корень уравнения $\\left(\\dfrac12\\right)^{x-8}=2^x$.",
+     "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    {
+     "id": "nikdz1-088",
+     "task_number": 7,
+     "section": "Показательные уравнения",
+     "statement": "<b>88.</b> Найдите корень уравнения $8^{9-x}=64^x$.",
+     "answer_hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+    },
+    {
+     "id": "nikdz1-089",
+     "task_number": 7,
+     "section": "Иррациональные уравнения",
+     "statement": "<b>89.</b> Найдите корень уравнения $\\sqrt{15-2x}=3$.",
+     "answer_hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce",
+     "section_note": "<p><b>Иррациональные уравнения</b></p><p>Возводим обе части в квадрат (в куб, если корень кубический) и решаем, что получилось.</p><p><b>Проверка обязательна.</b> Квадратный корень не бывает отрицательным, поэтому после возведения в квадрат могут появиться лишние корни. В последних двух задачах так и будет: подставьте каждый корень в исходное уравнение.</p>"
+    },
+    {
+     "id": "nikdz1-090",
+     "task_number": 7,
+     "section": "Иррациональные уравнения",
+     "statement": "<b>90.</b> Найдите корень уравнения $\\sqrt{3x-8}=5$.",
+     "answer_hash": "4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8"
+    },
+    {
+     "id": "nikdz1-091",
+     "task_number": 7,
+     "section": "Иррациональные уравнения",
+     "statement": "<b>91.</b> Найдите корень уравнения $\\sqrt[3]{x-4}=3$.",
+     "answer_hash": "eb1e33e8a81b697b75855af6bfcdbcbf7cbbde9f94962ceaec1ed8af21f5a50f"
+    },
+    {
+     "id": "nikdz1-092",
+     "task_number": 7,
+     "section": "Иррациональные уравнения",
+     "statement": "<b>92.</b> Найдите корень уравнения $\\sqrt{\\dfrac{6}{4x-54}}=\\dfrac17$.",
+     "answer_hash": "bdd2d3af3a5a1213497d4f1f7bfcda898274fe9cb5401bbc0190885664708fc2"
+    },
+    {
+     "id": "nikdz1-093",
+     "task_number": 7,
+     "section": "Иррациональные уравнения",
+     "statement": "<b>93.</b> Найдите корень уравнения $\\sqrt{\\dfrac{2x+5}{3}}=5$.",
+     "answer_hash": "9f14025af0065b30e47e23ebb3b491d39ae8ed17d33739e5ff3827ffb3634953"
+    },
+    {
+     "id": "nikdz1-094",
+     "task_number": 7,
+     "section": "Иррациональные уравнения",
+     "statement": "<b>94.</b> Найдите корень уравнения $\\sqrt{\\dfrac{1}{15-4x}}=0{,}2$.",
+     "answer_hash": "20fb508cd069b7fbaf72c798394a7995c9a3ded09ccf19a294fdb9415fd03317"
+    },
+    {
+     "id": "nikdz1-095",
+     "task_number": 7,
+     "section": "Иррациональные уравнения",
+     "statement": "<b>95.</b> Найдите корень уравнения $\\sqrt{\\dfrac{1}{5-2x}}=\\dfrac13$.",
+     "answer_hash": "cf3bae39dd692048a8bf961182e6a34dfd323eeb0748e162eaf055107f1cb873"
+    },
+    {
+     "id": "nikdz1-096",
+     "task_number": 7,
+     "section": "Иррациональные уравнения",
+     "statement": "<b>96.</b> Решите уравнение $\\sqrt{6+5x}=x$. Если уравнение имеет более одного корня, в ответе запишите меньший из корней.",
+     "answer_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+    },
+    {
+     "id": "nikdz1-097",
+     "task_number": 7,
+     "section": "Иррациональные уравнения",
+     "statement": "<b>97.</b> Решите уравнение $\\sqrt{-72-17x}=-x$. Если уравнение имеет более одного корня, в ответе запишите меньший из корней.",
+     "answer_hash": "d5c534fde62beb89c745a59952c8efed8b7523cbd047e682782e4367de9ea3bf"
+    },
+    {
+     "id": "nikdz1-098",
+     "task_number": 7,
+     "section": "Логарифмические уравнения",
+     "statement": "<b>98.</b> Найдите корень уравнения $\\log_2(4-x)=7$.",
+     "answer_hash": "4951ec3a7db84cfe42546a0c1ddf57982f0863e6ba05a84622638460c9907ba4",
+     "section_note": "<p><b>Логарифмические уравнения</b></p><p>Здесь хватит определения: $\\log_2(4-x)=7$ значит, что $2^7=4-x$.</p>"
+    },
+    {
+     "id": "nikdz1-099",
+     "task_number": 7,
+     "section": "Логарифмические уравнения",
+     "statement": "<b>99.</b> Найдите корень уравнения $\\log_5(4+x)=2$.",
+     "answer_hash": "6f4b6612125fb3a0daecd2799dfd6c9c299424fd920f9b308110a2c1fbd8f443"
+    },
+    {
+     "id": "nikdz1-100",
+     "task_number": 7,
+     "section": "Логарифмические уравнения",
+     "statement": "<b>100.</b> Найдите корень уравнения $\\log_{\\frac17}(7-x)=-2$.",
+     "answer_hash": "fec80006df0542549b4cbaafb8987eee00bb49bca396eefe9ac8be5b5928e8f6"
+    },
+    {
+     "id": "nikdz1-101",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>101.</b> В треугольнике $ABC$ угол $C$ равен $118^\\circ$, стороны $AC$ и $BC$ равны. Найдите угол $A$. Ответ дайте в градусах.",
+     "answer_hash": "eb1e33e8a81b697b75855af6bfcdbcbf7cbbde9f94962ceaec1ed8af21f5a50f",
+     "image": "nikdz1_01.png",
+     "section_note": "<p><b>Углы треугольника</b></p><p>Все задачи решаются через сумму углов, внешний угол и равнобедренный треугольник. Начинайте каждую с рисунка: отметьте известные углы и равные стороны. В ответ записывается только число, без знака градуса.</p><p>Ещё два факта, которые понадобятся в нескольких задачах:</p><p>1. <b>Биссектриса</b> делит угол пополам, <b>высота</b> образует со стороной прямой угол.<br>2. <b>Медиана прямоугольного треугольника, проведённая к гипотенузе, равна половине гипотенузы.</b> Значит, она делит прямоугольный треугольник на два равнобедренных.</p>"
+    },
+    {
+     "id": "nikdz1-102",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>102.</b> В треугольнике $ABC$ угол $A$ равен $40^\\circ$, внешний угол при вершине $B$ равен $102^\\circ$. Найдите угол $C$. Ответ дайте в градусах.",
+     "answer_hash": "81b8a03f97e8787c53fe1a86bda042b6f0de9b0ec9c09357e107c99ba4d6948a",
+     "image": "nikdz1_02.png"
+    },
+    {
+     "id": "nikdz1-103",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>103.</b> В треугольнике $ABC$ стороны $AC$ и $BC$ равны. Внешний угол при вершине $B$ равен $122^\\circ$. Найдите угол $C$. Ответ дайте в градусах.",
+     "answer_hash": "a68b412c4282555f15546cf6e1fc42893b7e07f271557ceb021821098dd66c1b",
+     "image": "nikdz1_03.png"
+    },
+    {
+     "id": "nikdz1-104",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>104.</b> Один острый угол прямоугольного треугольника в 4 раза больше другого. Найдите больший острый угол. Ответ дайте в градусах.",
+     "answer_hash": "8722616204217eddb39e7df969e0698aed8e599ba62ed2de1ce49b03ade0fede",
+     "image": "nikdz1_04.png"
+    },
+    {
+     "id": "nikdz1-105",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>105.</b> Один острый угол прямоугольного треугольника на $32^\\circ$ больше другого. Найдите больший острый угол. Ответ дайте в градусах.",
+     "answer_hash": "d029fa3a95e174a19934857f535eb9427d967218a36ea014b70ad704bc6c8d1c",
+     "image": "nikdz1_05.png"
+    },
+    {
+     "id": "nikdz1-106",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>106.</b> Один угол равнобедренного треугольника на $90^\\circ$ больше другого. Найдите меньший угол. Ответ дайте в градусах.",
+     "answer_hash": "624b60c58c9d8bfb6ff1886c2fd605d2adeb6ea4da576068201b6c6958ce93f4",
+     "image": "nikdz1_06.png"
+    },
+    {
+     "id": "nikdz1-107",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>107.</b> В треугольнике $ABC$ угол $A$ равен $30^\\circ$, угол $B$ тупой, $CH$ высота, угол $BCH$ равен $22^\\circ$. Найдите угол $ACB$. Ответ дайте в градусах.",
+     "answer_hash": "aea92132c4cbeb263e6ac2bf6c183b5d81737f179f21efdc5863739672f0f470",
+     "image": "nikdz1_07.png"
+    },
+    {
+     "id": "nikdz1-108",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>108.</b> Острый угол прямоугольного треугольника равен $32^\\circ$. Найдите острый угол, образованный биссектрисами этого и прямого углов треугольника. Ответ дайте в градусах.",
+     "answer_hash": "d029fa3a95e174a19934857f535eb9427d967218a36ea014b70ad704bc6c8d1c",
+     "image": "nikdz1_08.png"
+    },
+    {
+     "id": "nikdz1-109",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>109.</b> В треугольнике $ABC$ угол $C$ равен $50^\\circ$, $AD$ биссектриса, угол $CAD$ равен $28^\\circ$. Найдите угол $B$. Ответ дайте в градусах.",
+     "answer_hash": "eb624dbe56eb6620ae62080c10a273cab73ae8eca98ab17b731446a31c79393a",
+     "image": "nikdz1_09.png"
+    },
+    {
+     "id": "nikdz1-110",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>110.</b> В остроугольном треугольнике $ABC$ угол $A$ равен $65^\\circ$. Высоты $BD$ и $CE$ пересекаются в точке $O$. Найдите угол $DOE$. Ответ дайте в градусах.",
+     "answer_hash": "28dae7c8bde2f3ca608f86d0e16a214dee74c74bee011cdfdd46bc04b655bc14",
+     "image": "nikdz1_10.png"
+    },
+    {
+     "id": "nikdz1-111",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>111.</b> Два угла треугольника равны $58^\\circ$ и $72^\\circ$. Найдите тупой угол, который образуют высоты треугольника, выходящие из вершин этих углов. Ответ дайте в градусах.",
+     "answer_hash": "38d66d9692ac590000a91b03a88da1c88d51fab2b78f63171f553ecc551a0c6f",
+     "image": "nikdz1_11.png"
+    },
+    {
+     "id": "nikdz1-112",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>112.</b> В треугольнике $ABC$ проведены высота $CH$ и биссектриса $AD$, $O$ точка пересечения прямых $CH$ и $AD$, угол $BAD$ равен $26^\\circ$. Найдите угол $AOC$. Ответ дайте в градусах.",
+     "answer_hash": "e5b861a6d8a966dfca7e7341cd3eb6be9901688d547a72ebed0b1f5e14f3d08d",
+     "image": "nikdz1_12.png"
+    },
+    {
+     "id": "nikdz1-113",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>113.</b> В треугольнике $ABC$ угол $A$ равен $44^\\circ$, угол $C$ равен $62^\\circ$. На продолжении стороны $AB$ за точку $B$ отложен отрезок $BD$, равный стороне $BC$. Найдите угол $D$ треугольника $BCD$. Ответ дайте в градусах.",
+     "answer_hash": "7a61b53701befdae0eeeffaecc73f14e20b537bb0f8b91ad7c2936dc63562b25",
+     "image": "nikdz1_13.png"
+    },
+    {
+     "id": "nikdz1-114",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>114.</b> Углы треугольника относятся как $2:3:4$. Найдите меньший из них. Ответ дайте в градусах.",
+     "answer_hash": "d59eced1ded07f84c145592f65bdf854358e009c5cd705f5215bf18697fed103",
+     "image": "nikdz1_14.png"
+    },
+    {
+     "id": "nikdz1-115",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>115.</b> В треугольнике $ABC$ угол $C$ равен $90^\\circ$, угол $B$ равен $58^\\circ$, $CD$ медиана. Найдите угол $ACD$. Ответ дайте в градусах.",
+     "answer_hash": "e29c9c180c6279b0b02abd6a1801c7c04082cf486ec027aa13515e4f3884bb6b",
+     "image": "nikdz1_15.png"
+    },
+    {
+     "id": "nikdz1-116",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>116.</b> Острый угол $B$ прямоугольного треугольника $ABC$ равен $61^\\circ$. Найдите угол между высотой $CH$ и биссектрисой $CD$, проведёнными из вершины прямого угла. Ответ дайте в градусах.",
+     "answer_hash": "b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9",
+     "image": "nikdz1_16.png"
+    },
+    {
+     "id": "nikdz1-117",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>117.</b> Острый угол $B$ прямоугольного треугольника равен $66^\\circ$. Найдите угол между высотой $CH$ и медианой $CM$, проведёнными из вершины прямого угла. Ответ дайте в градусах.",
+     "answer_hash": "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049",
+     "image": "nikdz1_17.png"
+    },
+    {
+     "id": "nikdz1-118",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>118.</b> Острый угол $B$ прямоугольного треугольника равен $66^\\circ$. Найдите угол между биссектрисой $CD$ и медианой $CM$, проведёнными из вершины прямого угла. Ответ дайте в градусах.",
+     "answer_hash": "6f4b6612125fb3a0daecd2799dfd6c9c299424fd920f9b308110a2c1fbd8f443",
+     "image": "nikdz1_18.png"
+    },
+    {
+     "id": "nikdz1-119",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>119.</b> В треугольнике $ABC$ угол $A$ равен $60^\\circ$, угол $B$ равен $82^\\circ$. Биссектрисы $AD$, $BE$ и $CF$ пересекаются в точке $O$. Найдите угол $AOF$. Ответ дайте в градусах.",
+     "answer_hash": "0e17daca5f3e175f448bacace3bc0da47d0655a74c8dd0dc497a3afbdad95f1f",
+     "image": "nikdz1_19.png"
+    },
+    {
+     "id": "nikdz1-120",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>120.</b> В треугольнике $ABC$ угол $B$ равен $45^\\circ$, угол $C$ равен $85^\\circ$, $AD$ биссектриса, $E$ такая точка на $AB$, что $AE=AC$. Найдите угол $BDE$. Ответ дайте в градусах.",
+     "answer_hash": "d59eced1ded07f84c145592f65bdf854358e009c5cd705f5215bf18697fed103",
+     "image": "nikdz1_20.png"
+    },
+    {
+     "id": "nikdz1-121",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>121.</b> Найдите острый угол между биссектрисами острых углов прямоугольного треугольника. Ответ дайте в градусах.",
+     "answer_hash": "811786ad1ae74adfdd20dd0372abaaebc6246e343aebd01da0bfc4c02bf0106c",
+     "image": "nikdz1_21.png"
+    },
+    {
+     "id": "nikdz1-122",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>122.</b> В треугольнике $ABC$ угол $C$ равен $58^\\circ$, биссектрисы $AD$ и $BE$ пересекаются в точке $O$. Найдите угол $AOB$. Ответ дайте в градусах.",
+     "answer_hash": "3038bfb575bee6a0e61945eff8784835bb2c720634e42734678c083994b7f018",
+     "image": "nikdz1_22.png"
+    },
+    {
+     "id": "nikdz1-123",
+     "task_number": 1,
+     "section": "Планиметрия: углы треугольника",
+     "statement": "<b>123.</b> В треугольнике $ABC$ проведена биссектриса $AD$, и $AB=AD=CD$. Найдите меньший угол треугольника $ABC$. Ответ дайте в градусах.",
+     "answer_hash": "76a50887d8f1c2e9301755428990ad81479ee21c25b43215cf524541e0503269",
+     "image": "nikdz1_23.png"
+    }
+   ]
   }
  ]
 }
