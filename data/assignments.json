@@ -8114,7 +8114,7 @@
    "students": [
     "valera"
    ],
-   "completed": false,
+   "completed": true,
    "task_numbers": [
     1,
     12
@@ -8501,7 +8501,7 @@
    "students": [
     "valera"
    ],
-   "completed": false,
+   "completed": true,
    "task_numbers": [
     1,
     2
@@ -8700,7 +8700,7 @@
    "students": [
     "valera"
    ],
-   "completed": false,
+   "completed": true,
    "task_numbers": [
     1
    ],
@@ -8860,7 +8860,7 @@
    "students": [
     "valera"
    ],
-   "completed": false,
+   "completed": true,
    "task_numbers": [
     1
    ],
