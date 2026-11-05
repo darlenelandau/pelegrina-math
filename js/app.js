@@ -62,6 +62,10 @@ async function loadData() {
 
 // ----- Дедлайны -----
 function deadlineInfo(deadlineStr) {
+  // Задание без срока: deadline отсутствует или пустой
+  if (!deadlineStr) {
+    return { date: null, overdue: false, daysLeft: Infinity, text: "без срока", none: true };
+  }
   const dl = new Date(deadlineStr);
   const now = new Date();
   const overdue = now > dl;
@@ -203,7 +207,7 @@ function setupTeacherPanel(a, panel, blocksById) {
   async function annotate(rows) {
     const byId = {};
     a.problems.forEach(pr => { byId[pr.id] = pr; });
-    const dlTime = new Date(a.deadline).getTime();
+    const dlTime = a.deadline ? new Date(a.deadline).getTime() : Infinity;
     await Promise.all(rows.map(async r => {
       const pr = byId[r.p];
       const hash = pr && pr.answer_hash;
@@ -401,7 +405,7 @@ async function renderIndex() {
       </div>
       <div class="card-meta">
         <span>${firstMeta}</span>
-        <span>Дедлайн: ${dl.text}${dl.overdue ? "" : " (осталось " + dl.daysLeft + " дн.)"}</span>
+        <span>${dl.none ? "Без срока" : "Дедлайн: " + dl.text + (dl.overdue ? "" : " (осталось " + dl.daysLeft + " дн.)")}</span>
       </div>`;
     return card;
   }
@@ -478,8 +482,10 @@ async function renderAssignment() {
   document.getElementById("assignment-title").textContent = a.title;
   const dlEl = document.getElementById("assignment-deadline");
   if (isDone) {
-    dlEl.textContent = "Выполнено ✓ (дедлайн был " + dl.text + ")";
+    dlEl.textContent = dl.none ? "Выполнено ✓" : "Выполнено ✓ (дедлайн был " + dl.text + ")";
     dlEl.classList.add("done");
+  } else if (dl.none) {
+    dlEl.textContent = "Без срока";
   } else {
     dlEl.textContent = "Дедлайн: " + dl.text + (dl.overdue ? ", просрочено" : " (осталось " + dl.daysLeft + " дн.)");
   }
