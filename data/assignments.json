@@ -13556,6 +13556,217 @@
           "answer_hash": "df239a81a2cf84e94282478361476179f1253de299827baf3782d0d7ca7cc7f8"
         }
       ]
+    },
+    {
+      "id": "kamdz12",
+      "title": "ДЗ №11 — нормаль: углы и расстояния",
+      "students": [
+        "kamil"
+      ],
+      "task_numbers": [
+        15
+      ],
+      "deadline": "2026-11-24T17:00:00",
+      "intro": "14 задач на нормаль: углы и расстояния. Перед решением пройди в лаборатории темы 3.4, 3.5 и 3.7, ссылка в первом блоке. Где у задачи несколько полей, заполни все. Дедлайн: вторник 24 ноября, 17:00.",
+      "problems": [
+        {
+          "id": "kamdz12-01",
+          "task_number": 15,
+          "section": "Задание 15: угол между плоскостями",
+          "statement": "<b>1.</b> Куб $ABCDA_1B_1C_1D_1$ с ребром $2$. Найди угол между плоскостями $ABC_1$ и $ABC$. Ответ в градусах.",
+          "section_note": "<p>Куб и прямоугольный параллелепипед везде расположены одинаково: начало координат в вершине $A$, ось $x$ вдоль $AB$, ось $y$ вдоль $AD$, ось $z$ вдоль $AA_1$.</p><p>Нормаль к плоскости $ax+by+cz+d=0$ это вектор $\\vec n(a;b;c)$: коэффициенты уравнения и есть её координаты.</p><p>Угол между плоскостями равен углу между нормалями: $\\cos\\varphi=\\dfrac{|\\vec n_1\\cdot\\vec n_2|}{|\\vec n_1|\\cdot|\\vec n_2|}$. Модуль обязателен: нормаль можно направить в любую из двух сторон, и без модуля вместо острого угла выйдет тупой.</p><p><b>Сначала лаборатория.</b> Темы 3.4, 3.5 и 3.7, ссылка открывает сразу нужную часть:<br><a href='https://darlenelandau.github.io/math-lessons/vector-lab.html#3' target='_blank'>https://darlenelandau.github.io/math-lessons/vector-lab.html#3</a></p>",
+          "answer_hash": "811786ad1ae74adfdd20dd0372abaaebc6246e343aebd01da0bfc4c02bf0106c"
+        },
+        {
+          "id": "kamdz12-02",
+          "task_number": 15,
+          "section": "Задание 15: угол между плоскостями",
+          "statement": "<b>2.</b> Тот же куб. Найди угол между диагональными сечениями $ACC_1$ и $BDD_1$. Ответ в градусах.",
+          "answer_hash": "69f59c273b6e669ac32a6dd5e1b2cb63333d8b004f9696447aee2d422ce63763"
+        },
+        {
+          "id": "kamdz12-03",
+          "task_number": 15,
+          "section": "Задание 15: угол между плоскостями",
+          "statement": "<b>3.</b> Прямоугольный параллелепипед, $AB=3$, $AD=4$, $AA_1=6$. Найди тангенс угла между плоскостями $A_1BD$ и $ABC$.",
+          "answer_hash": "b8736b999909049671d0ea075a42b308a5fbe2df1854899123fe09eb0ee9de61"
+        },
+        {
+          "id": "kamdz12-04",
+          "task_number": 15,
+          "section": "Задание 15: угол между плоскостями",
+          "statement": "<b>4.</b> Куб с ребром $2$. Плоскость проходит через ребро $AB$ и середину ребра $CC_1$. Найди тангенс угла между этой плоскостью и плоскостью $ABC$.",
+          "answer_hash": "d2cbad71ff333de67d07ec676e352ab7f38248eb69c942950157220607c55e84"
+        },
+        {
+          "id": "kamdz12-05",
+          "task_number": 15,
+          "section": "Задание 15: угол между прямой и плоскостью",
+          "statement": "<b>5.</b> Куб $ABCDA_1B_1C_1D_1$ с ребром $2$. Найди угол между прямой $AB_1$ и плоскостью $ABC$. Ответ в градусах.",
+          "section_note": "<p>Здесь стоит <b>синус</b>, а не косинус: $\\sin\\varphi=\\dfrac{|\\vec s\\cdot\\vec n|}{|\\vec s|\\cdot|\\vec n|}$.</p><p>Причина: нормаль перпендикулярна плоскости, поэтому угол прямой с нормалью и угол прямой с плоскостью дополняют друг друга до $90^\\circ$, а косинус одного равен синусу другого. Это самая частая ошибка в номере 15.</p><p>Если $\\vec s\\cdot\\vec n=0$, то прямая параллельна плоскости или лежит в ней, и угол равен нулю.</p>",
+          "answer_hash": "811786ad1ae74adfdd20dd0372abaaebc6246e343aebd01da0bfc4c02bf0106c"
+        },
+        {
+          "id": "kamdz12-06",
+          "task_number": 15,
+          "section": "Задание 15: угол между прямой и плоскостью",
+          "statement": "<b>6.</b> Тот же куб. Найди угол между прямой $AC_1$ и плоскостью $A_1BD$. Ответ в градусах.",
+          "answer_hash": "69f59c273b6e669ac32a6dd5e1b2cb63333d8b004f9696447aee2d422ce63763"
+        },
+        {
+          "id": "kamdz12-07",
+          "task_number": 15,
+          "section": "Задание 15: угол между прямой и плоскостью",
+          "statement": "<b>7.</b> Направляющий вектор прямой $\\vec s(2;1;2)$, нормаль плоскости $\\vec n(1;2;2)$. Найди <b>синус</b> угла между прямой и плоскостью. Ответ это несократимая дробь $p/q$: впиши $p$ и $q$.",
+          "fields": [
+            {
+              "name": "p",
+              "label": "числитель p",
+              "answer_hash": "2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fdefb64a3"
+            },
+            {
+              "name": "q",
+              "label": "знаменатель q",
+              "answer_hash": "19581e27de7ced00ff1ce50b2047e7a567c76b1cbaebabe5ef03f7c3017bb5b7"
+            }
+          ]
+        },
+        {
+          "id": "kamdz12-08",
+          "task_number": 15,
+          "section": "Задание 15: угол между прямой и плоскостью",
+          "statement": "<b>8.</b> Прямая имеет направляющий вектор $\\vec s(1;2;2)$, плоскость задана уравнением $2x-2y+z+7=0$. Найди угол между прямой и плоскостью. Ответ в градусах.",
+          "answer_hash": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+        },
+        {
+          "id": "kamdz12-09",
+          "task_number": 15,
+          "section": "Задание 15: расстояние от точки до плоскости",
+          "statement": "<b>9.</b> Найди расстояние от точки $M(4;1;2)$ до плоскости $2x-y+2z-5=0$.",
+          "section_note": "<p>$\\rho=\\dfrac{|ax_0+by_0+cz_0+d|}{\\sqrt{a^2+b^2+c^2}}$: подставь координаты точки в левую часть уравнения плоскости и подели на длину нормали.</p><p>Для двух параллельных плоскостей годится та же формула: возьми любую точку одной из них и найди расстояние до другой.</p>",
+          "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+        },
+        {
+          "id": "kamdz12-10",
+          "task_number": 15,
+          "section": "Задание 15: расстояние от точки до плоскости",
+          "statement": "<b>10.</b> Прямоугольный параллелепипед, $AB=6$, $AD=3$, $AA_1=3$. Найди расстояние от вершины $C_1$ до плоскости $A_1BD$.",
+          "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+        },
+        {
+          "id": "kamdz12-11",
+          "task_number": 15,
+          "section": "Задание 15: расстояние от точки до плоскости",
+          "statement": "<b>11.</b> Куб с ребром $2$. Найди расстояние от вершины $C_1$ до плоскости $A_1BD$. Ответ имеет вид $\\dfrac{a\\sqrt3}{b}$, дробь несократима: впиши $a$ и $b$.",
+          "fields": [
+            {
+              "name": "a",
+              "label": "числитель a",
+              "answer_hash": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+            },
+            {
+              "name": "b",
+              "label": "знаменатель b",
+              "answer_hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+            }
+          ]
+        },
+        {
+          "id": "kamdz12-12",
+          "task_number": 15,
+          "section": "Задание 15: расстояние от точки до плоскости",
+          "statement": "<b>12.</b> Куб с ребром $2$. Плоскости $A_1BD$ и $CB_1D_1$ параллельны. Найди расстояние между ними. Ответ имеет вид $\\dfrac{a\\sqrt3}{b}$, дробь несократима: впиши $a$ и $b$.",
+          "fields": [
+            {
+              "name": "a",
+              "label": "числитель a",
+              "answer_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+            },
+            {
+              "name": "b",
+              "label": "знаменатель b",
+              "answer_hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+            }
+          ]
+        },
+        {
+          "id": "kamdz12-13",
+          "task_number": 15,
+          "section": "Задание 15: как подать ответ",
+          "statement": "<b>13.</b> При решении задачи получилось $\\cos\\varphi=\\dfrac{20}{\\sqrt{1769}}$, причём угол $\\varphi$ острый. Найди $\\operatorname{tg}\\varphi$.",
+          "section_note": "<p>Координатный метод часто выдаёт косинус с некрасивым корнем, и кажется, что где-то ошибка. Обычно её нет: числа в задачах подобраны под красивый тангенс.</p><p>Переход занимает одну строку: $\\sin\\varphi=\\sqrt{1-\\cos^2\\varphi}$, дальше $\\operatorname{tg}\\varphi=\\dfrac{\\sin\\varphi}{\\cos\\varphi}$. Подкоренное выражение почти всегда оказывается точным квадратом.</p>",
+          "answer_hash": "8d9f7a82ae43dd2971b77010659a7d307f80b70e9ae1133d6e74a95e46b7090f"
+        },
+        {
+          "id": "kamdz12-14",
+          "task_number": 15,
+          "section": "Задание 15: как подать ответ",
+          "statement": "<b>14.</b> При решении задачи получилось $\\cos\\varphi=\\dfrac{8}{\\sqrt{89}}$, причём угол $\\varphi$ острый. Найди $\\operatorname{tg}\\varphi$.",
+          "answer_hash": "42c2fafec1898f65fdb9c7c4023b4d9df291550d8633028ba1be087a5a3a0715"
+        }
+      ]
+    },
+    {
+      "id": "grdz3",
+      "title": "ДЗ №3: площадь на клетках",
+      "students": [
+        "grisha"
+      ],
+      "kind": "homework",
+      "deadline": "2026-11-19T20:00:00+01:00",
+      "intro": "Сначала пройди тренажёр (задача 1), потом решай задачи с картинками. Задачи идут от простых к сложным. Ответ вводи числом.",
+      "problems": [
+        {
+          "id": "grdz3-01",
+          "section": "Тренажёр «Площадь по клеточкам»",
+          "statement": "<b>1.</b> Пройди тренажёр <a href=\"trainer-area.html\"><b>«Площадь по клеточкам»</b></a>: сначала посмотри теорию, потом пройди три уровня. В конце появится кодовое слово, впиши его сюда. Уровень ★ по желанию.",
+          "answer_hash": "604102caafe6b54355e70b46b20b4ff49a90b98c4834c0c1f1244ab2a058e217",
+          "section_note": "Начни с тренажёра: там теория по шагам и картинки. Потом решай задачи ниже."
+        },
+        {
+          "id": "grdz3-02",
+          "section": "Площадь на клетках",
+          "statement": "<b>2.</b> Найди площадь фигуры.<svg viewBox=\"0 0 168 168\" style=\"width:168px;max-width:100%;height:auto;display:block;margin:8px 0;background:#fff;border-radius:6px\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"28\" y1=\"0\" x2=\"28\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"56\" y1=\"0\" x2=\"56\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"84\" y1=\"0\" x2=\"84\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"112\" y1=\"0\" x2=\"112\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"140\" y1=\"0\" x2=\"140\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"168\" y1=\"0\" x2=\"168\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"0\" x2=\"168\" y2=\"0\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"28\" x2=\"168\" y2=\"28\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"56\" x2=\"168\" y2=\"56\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"84\" x2=\"168\" y2=\"84\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"112\" x2=\"168\" y2=\"112\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"140\" x2=\"168\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"168\" x2=\"168\" y2=\"168\" stroke=\"#cfd8e6\"/><polygon points=\"28,28 84,28 84,84 140,84 140,140 28,140\" fill=\"rgba(61,110,224,.18)\" stroke=\"#3d6ee0\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/></svg>",
+          "answer_hash": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+          "section_note": "Одна клетка это площадь 1. Если фигура сложная, разрежь её на прямоугольники и прямоугольные треугольники. Прямоугольный треугольник это половина прямоугольника. Если получилась половинка, пиши через запятую: 7,5."
+        },
+        {
+          "id": "grdz3-03",
+          "section": "Площадь на клетках",
+          "statement": "<b>3.</b> Найди площадь прямоугольного треугольника.<svg viewBox=\"0 0 280 196\" style=\"width:280px;max-width:100%;height:auto;display:block;margin:8px 0;background:#fff;border-radius:6px\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"28\" y1=\"0\" x2=\"28\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"56\" y1=\"0\" x2=\"56\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"84\" y1=\"0\" x2=\"84\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"112\" y1=\"0\" x2=\"112\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"140\" y1=\"0\" x2=\"140\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"168\" y1=\"0\" x2=\"168\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"196\" y1=\"0\" x2=\"196\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"224\" y1=\"0\" x2=\"224\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"252\" y1=\"0\" x2=\"252\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"280\" y1=\"0\" x2=\"280\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"0\" x2=\"280\" y2=\"0\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"28\" x2=\"280\" y2=\"28\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"56\" x2=\"280\" y2=\"56\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"84\" x2=\"280\" y2=\"84\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"112\" x2=\"280\" y2=\"112\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"140\" x2=\"280\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"168\" x2=\"280\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"196\" x2=\"280\" y2=\"196\" stroke=\"#cfd8e6\"/><polygon points=\"28,28 28,168 252,168\" fill=\"rgba(61,110,224,.18)\" stroke=\"#3d6ee0\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/></svg>",
+          "answer_hash": "f5ca38f748a1d6eaf726b8a42fb575c3c71f1864a8143301782de13da2d9202b"
+        },
+        {
+          "id": "grdz3-04",
+          "section": "Площадь на клетках",
+          "statement": "<b>4.</b> Найди площадь прямоугольного треугольника.<svg viewBox=\"0 0 196 140\" style=\"width:196px;max-width:100%;height:auto;display:block;margin:8px 0;background:#fff;border-radius:6px\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"28\" y1=\"0\" x2=\"28\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"56\" y1=\"0\" x2=\"56\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"84\" y1=\"0\" x2=\"84\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"112\" y1=\"0\" x2=\"112\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"140\" y1=\"0\" x2=\"140\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"168\" y1=\"0\" x2=\"168\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"196\" y1=\"0\" x2=\"196\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"0\" x2=\"196\" y2=\"0\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"28\" x2=\"196\" y2=\"28\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"56\" x2=\"196\" y2=\"56\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"84\" x2=\"196\" y2=\"84\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"112\" x2=\"196\" y2=\"112\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"140\" x2=\"196\" y2=\"140\" stroke=\"#cfd8e6\"/><polygon points=\"28,112 168,112 168,28\" fill=\"rgba(61,110,224,.18)\" stroke=\"#3d6ee0\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/></svg>",
+          "answer_hash": "c4495da75095c64bf4e0587e45d7426f496ca4fc9fe72111715005361cfe0041"
+        },
+        {
+          "id": "grdz3-05",
+          "section": "Площадь на клетках",
+          "statement": "<b>5.</b> Найди площадь фигуры.<svg viewBox=\"0 0 280 168\" style=\"width:280px;max-width:100%;height:auto;display:block;margin:8px 0;background:#fff;border-radius:6px\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"28\" y1=\"0\" x2=\"28\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"56\" y1=\"0\" x2=\"56\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"84\" y1=\"0\" x2=\"84\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"112\" y1=\"0\" x2=\"112\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"140\" y1=\"0\" x2=\"140\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"168\" y1=\"0\" x2=\"168\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"196\" y1=\"0\" x2=\"196\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"224\" y1=\"0\" x2=\"224\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"252\" y1=\"0\" x2=\"252\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"280\" y1=\"0\" x2=\"280\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"0\" x2=\"280\" y2=\"0\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"28\" x2=\"280\" y2=\"28\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"56\" x2=\"280\" y2=\"56\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"84\" x2=\"280\" y2=\"84\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"112\" x2=\"280\" y2=\"112\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"140\" x2=\"280\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"168\" x2=\"280\" y2=\"168\" stroke=\"#cfd8e6\"/><polygon points=\"28,140 252,140 196,56 84,56\" fill=\"rgba(61,110,224,.18)\" stroke=\"#3d6ee0\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/></svg>",
+          "answer_hash": "4ec9599fc203d176a301536c2e091a19bc852759b255bd6818810a42c5fed14a"
+        },
+        {
+          "id": "grdz3-06",
+          "section": "Площадь на клетках",
+          "statement": "<b>6.</b> Найди площадь стрелки.<svg viewBox=\"0 0 280 224\" style=\"width:280px;max-width:100%;height:auto;display:block;margin:8px 0;background:#fff;border-radius:6px\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"224\" stroke=\"#cfd8e6\"/><line x1=\"28\" y1=\"0\" x2=\"28\" y2=\"224\" stroke=\"#cfd8e6\"/><line x1=\"56\" y1=\"0\" x2=\"56\" y2=\"224\" stroke=\"#cfd8e6\"/><line x1=\"84\" y1=\"0\" x2=\"84\" y2=\"224\" stroke=\"#cfd8e6\"/><line x1=\"112\" y1=\"0\" x2=\"112\" y2=\"224\" stroke=\"#cfd8e6\"/><line x1=\"140\" y1=\"0\" x2=\"140\" y2=\"224\" stroke=\"#cfd8e6\"/><line x1=\"168\" y1=\"0\" x2=\"168\" y2=\"224\" stroke=\"#cfd8e6\"/><line x1=\"196\" y1=\"0\" x2=\"196\" y2=\"224\" stroke=\"#cfd8e6\"/><line x1=\"224\" y1=\"0\" x2=\"224\" y2=\"224\" stroke=\"#cfd8e6\"/><line x1=\"252\" y1=\"0\" x2=\"252\" y2=\"224\" stroke=\"#cfd8e6\"/><line x1=\"280\" y1=\"0\" x2=\"280\" y2=\"224\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"0\" x2=\"280\" y2=\"0\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"28\" x2=\"280\" y2=\"28\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"56\" x2=\"280\" y2=\"56\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"84\" x2=\"280\" y2=\"84\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"112\" x2=\"280\" y2=\"112\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"140\" x2=\"280\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"168\" x2=\"280\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"196\" x2=\"280\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"224\" x2=\"280\" y2=\"224\" stroke=\"#cfd8e6\"/><polygon points=\"28,84 140,84 140,28 252,112 140,196 140,140 28,140\" fill=\"rgba(61,110,224,.18)\" stroke=\"#3d6ee0\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/></svg>",
+          "answer_hash": "f5ca38f748a1d6eaf726b8a42fb575c3c71f1864a8143301782de13da2d9202b"
+        },
+        {
+          "id": "grdz3-07",
+          "section": "Площадь на клетках",
+          "statement": "<b>7.</b> ★ Найди площадь треугольника. Подсказка: дострой его до прямоугольника и вычти лишние уголки.<svg viewBox=\"0 0 252 196\" style=\"width:252px;max-width:100%;height:auto;display:block;margin:8px 0;background:#fff;border-radius:6px\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"28\" y1=\"0\" x2=\"28\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"56\" y1=\"0\" x2=\"56\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"84\" y1=\"0\" x2=\"84\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"112\" y1=\"0\" x2=\"112\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"140\" y1=\"0\" x2=\"140\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"168\" y1=\"0\" x2=\"168\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"196\" y1=\"0\" x2=\"196\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"224\" y1=\"0\" x2=\"224\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"252\" y1=\"0\" x2=\"252\" y2=\"196\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"0\" x2=\"252\" y2=\"0\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"28\" x2=\"252\" y2=\"28\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"56\" x2=\"252\" y2=\"56\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"84\" x2=\"252\" y2=\"84\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"112\" x2=\"252\" y2=\"112\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"140\" x2=\"252\" y2=\"140\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"168\" x2=\"252\" y2=\"168\" stroke=\"#cfd8e6\"/><line x1=\"0\" y1=\"196\" x2=\"252\" y2=\"196\" stroke=\"#cfd8e6\"/><polygon points=\"28,56 224,28 112,168\" fill=\"rgba(61,110,224,.18)\" stroke=\"#3d6ee0\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/></svg>",
+          "answer_hash": "64783b31865d39a375be1a54f8aecd26aa00de65e30cc7cef0f3fd8b49b4ac5b"
+        },
+        {
+          "id": "grdz3-08",
+          "section": "Площадь на клетках",
+          "statement": "<b>8.</b> ★ Площадь прямоугольного треугольника 12 клеток. Одна из сторон у прямого угла равна 4 клеткам. Чему равна другая сторона у прямого угла? <small>Нарисуй в тетради.</small>",
+          "answer_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683"
+        }
+      ]
     }
   ]
 }
