@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Площадь по клеточкам — Pelegrina Math</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --bg:#eef2f9; --panel:#ffffff; --ink:#1b2333; --muted:#61708a;
+    --line:#d3dce9; --accent:#3d6ee0; --accent-soft:#e7eefc;
+    --good:#1f9d6b; --good-soft:#e3f5ec; --bad:#d94f5c; --bad-soft:#fbe6e8;
+    --warn:#b7791f; --warn-soft:#fdf3e1;
+    --shadow:0 1px 2px rgba(27,35,51,.06),0 8px 24px rgba(27,35,51,.07);
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0f141d; --panel:#161d29; --ink:#e2e9f5; --muted:#93a1ba;
+      --line:#28313f; --accent:#6a94f5; --accent-soft:#1b2740;
+      --good:#48c690; --good-soft:#16281f; --bad:#f0707c; --bad-soft:#301a1d;
+      --warn:#e3b05a; --warn-soft:#2f2615;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .topbar{background:var(--panel);border-bottom:1px solid var(--line)}
+  .topbar .row{max-width:880px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .topbar .logo{font-family:var(--serif);font-weight:700;font-size:16px}
+  .topbar .right{font-size:13px;color:var(--muted);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .topbar a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:880px;margin:0 auto;padding:22px 16px 48px}
+  h1{font-family:var(--serif);font-size:clamp(22px,3.6vw,30px);margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 18px;font-size:15px}
+
+  .levels{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .lvl{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);
+    border-radius:11px;padding:8px 14px;cursor:pointer;display:flex;gap:8px;align-items:center}
+  .lvl[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+  .lvl:disabled{opacity:.45;cursor:not-allowed}
+  .lvl .st{font-size:12px;color:var(--muted);font-weight:500}
+  .lvl.done .st{color:var(--good)}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px}
+  .card + .card{margin-top:14px}
+  .task-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .task-head h2{font-size:17px;margin:0}
+  .counter{font-size:13px;color:var(--muted)}
+  .lead{margin:0 0 10px;color:var(--muted);font-size:14.5px}
+
+    .msg{margin-top:12px;padding:10px 14px;border-radius:11px;font-size:15px;display:none}
+  .msg.show{display:block}
+  .msg.ok{background:var(--good-soft);color:var(--good)}
+  .msg.bad{background:var(--bad-soft);color:var(--bad)}
+  .msg.warn{background:var(--warn-soft);color:var(--warn)}
+  .msg.info{background:var(--accent-soft);color:var(--ink)}
+  .msg b{color:inherit}
+
+  .small-note{font-size:13px;color:var(--muted);text-align:center;margin-top:6px}
+
+  .final{text-align:center;padding:26px 18px}
+  .final .big{font-size:46px;line-height:1.1}
+  .code{display:inline-block;font:700 30px var(--serif);letter-spacing:6px;padding:10px 22px;border:2px dashed var(--accent);border-radius:14px;margin:12px 0;color:var(--accent)}
+  .rules{margin-top:14px;font-size:14px;color:var(--muted)}
+  .rules b{color:var(--ink)}
+  button.b{font:inherit;font-size:14px;font-weight:600;border:0;border-radius:9px;padding:8px 14px;cursor:pointer;background:var(--accent);color:#fff}
+  button.b.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+  button.b.good{background:var(--good)}
+  button.b:disabled{opacity:.4;cursor:not-allowed}
+
+  details.th{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:14px}
+  details.th > summary{cursor:pointer;padding:14px 18px;font-weight:700;font-size:16px;list-style:none}
+  details.th > summary::before{content:"▸ ";color:var(--accent)}
+  details.th[open] > summary::before{content:"▾ "}
+  .th-body{padding:0 18px 18px}
+  .demo-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:center}
+  @media (max-width:640px){.demo-grid{grid-template-columns:1fr}}
+  .step-text{font-size:15.5px;min-height:96px}
+  .step-text .big{font-size:20px;font-weight:700;font-family:var(--serif);margin-top:6px}
+  .step-nav{display:flex;gap:8px;align-items:center;margin-top:10px}
+  .step-nav .cnt{font-size:13px;color:var(--muted)}
+
+  svg.gridpic{width:100%;height:auto;display:block;max-width:520px;margin:0 auto;touch-action:manipulation;user-select:none}
+  .gl{stroke:#cfd8e6;stroke-width:1}
+  @media (prefers-color-scheme:dark){ .gl{stroke:#2c3646} }
+  .fig{fill:rgba(61,110,224,.16);stroke:var(--accent);stroke-width:3;stroke-linejoin:round}
+  .pc1{fill:rgba(246,180,90,.55)} .pc2{fill:rgba(120,190,240,.55)} .pc3{fill:rgba(130,205,150,.6)} .pc4{fill:rgba(230,140,200,.5)}
+  .pcm{fill:rgba(217,79,92,.28)}
+  .cutl{stroke:#d94f5c;stroke-width:2.5;stroke-dasharray:7 5;fill:none}
+  .boxl{stroke:#7c8799;stroke-width:2.5;stroke-dasharray:8 6;fill:none}
+  .pen{stroke:#e0761b;stroke-width:3;stroke-linecap:round}
+  .pend{fill:#e0761b}
+  .lbl{font:700 17px var(--sans);fill:var(--ink);text-anchor:middle;dominant-baseline:central;paint-order:stroke;stroke:var(--panel);stroke-width:4px}
+  .num-cell{font:600 12px var(--sans);fill:#3d6ee0;text-anchor:middle;dominant-baseline:central}
+
+  .ans-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;margin-top:12px;font-size:16px}
+  .num{width:90px;font:inherit;font-size:18px;text-align:center;padding:6px 8px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink)}
+  .tools-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+  .pen-note{font-size:13px;color:var(--muted);text-align:center;margin-top:6px}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="row">
+      <span class="logo">Pelegrina Math</span>
+      <span class="right">
+        <span>Ученик: <b id="student-name">…</b></span>
+        <a href="index.html">← К заданиям</a>
+        <a href="#" id="logout">сменить</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h1>Площадь по клеточкам</h1>
+    <p class="sub">Сначала посмотри теорию, потом проходи уровни. Одна клетка это площадь 1.</p>
+
+    <details class="th" open id="th1">
+      <summary>Теория: прямоугольник, треугольник, сложная фигура</summary>
+      <div class="th-body"><div class="demo-grid"><div id="d1pic"></div><div><div class="step-text" id="d1txt"></div>
+        <div class="step-nav"><button class="b ghost" id="d1prev">← Назад</button><button class="b" id="d1next">Дальше →</button><span class="cnt" id="d1cnt"></span></div></div></div></div>
+    </details>
+    <details class="th" id="th2">
+      <summary>★ Теория: достроить и вычесть</summary>
+      <div class="th-body"><div class="demo-grid"><div id="d2pic"></div><div><div class="step-text" id="d2txt"></div>
+        <div class="step-nav"><button class="b ghost" id="d2prev">← Назад</button><button class="b" id="d2next">Дальше →</button><span class="cnt" id="d2cnt"></span></div></div></div></div>
+    </details>
+
+    <div class="levels" id="levels"></div>
+    <div id="stage"></div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/stats.js"></script>
+  <script>
+  (function(){
+    var student = (typeof requireStudent==="function") ? requireStudent() : { id:null, name:"гость" };
+    document.getElementById("student-name").textContent = student.name + (student.admin ? " (админ)" : "");
+    document.getElementById("logout").addEventListener("click", function(e){
+      e.preventDefault(); localStorage.removeItem("student"); location.reload();
+    });
+
+    var CODE_WORD = "КЛЕТКА";
+    var SKEY = "area_progress_" + (student.id || (student.name||"anon").toLowerCase());
+    function loadP(){ try{ return JSON.parse(localStorage.getItem(SKEY)||"{}"); }catch(e){ return {}; } }
+    function saveP(){ try{ localStorage.setItem(SKEY, JSON.stringify(P)); }catch(e){} }
+    var P = loadP(); P.done = P.done || {}; P.idx = P.idx || {};
+
+    function sendLevel(level, title, summary){
+      if (student && student.admin) return;
+      var row = {
+        student: student.name, student_id: student.id || "",
+        assignment_id: "trainer_area", assignment_title: "Тренажёр «Площадь по клеточкам»",
+        problem_id: "area_level" + level, task_number: level,
+        answer: title + ": " + summary, correct: true, attempt: 1,
+        on_time: true, deadline: "", time: new Date().toISOString()
+      };
+      try{ var b=JSON.parse(localStorage.getItem("attempts_backup")||"[]"); b.push(row); localStorage.setItem("attempts_backup", JSON.stringify(b)); }catch(e){}
+      if (!window.CONFIG || !CONFIG.endpoint) return;
+      var payload = JSON.stringify(row);
+      try{
+        if (navigator.sendBeacon) navigator.sendBeacon(CONFIG.endpoint, new Blob([payload],{type:"text/plain;charset=utf-8"}));
+        else fetch(CONFIG.endpoint,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:payload});
+      }catch(e){}
+    }
+
+    function el(tag, cls, html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e; }
+    function setMsg(box, kind, html){ box.className = "msg show " + kind; box.innerHTML = html; }
+    function clearMsg(box){ box.className = "msg"; box.innerHTML = ""; }
+    function fmt(x){ return String(Math.round(x*100)/100).replace(".", ","); }
+    function area(p){ var s=0; for (var i=0;i<p.length;i++){ var a=p[i], b=p[(i+1)%p.length]; s += a[0]*b[1]-b[0]*a[1]; } return Math.abs(s)/2; }
+    function center(p){ var x=0,y=0; p.forEach(function(q){ x+=q[0]; y+=q[1]; }); return [x/p.length, y/p.length]; }
+    function bbox(p){ var xs=p.map(function(q){return q[0];}), ys=p.map(function(q){return q[1];});
+      var x0=Math.min.apply(null,xs), x1=Math.max.apply(null,xs), y0=Math.min.apply(null,ys), y1=Math.max.apply(null,ys);
+      return [[x0,y0],[x1,y0],[x1,y1],[x0,y1]]; }
+
+    // ----- рисование клетчатой картинки -----
+    var CS = 40;
+    function pts(p){ return p.map(function(q){ return (q[0]*CS)+","+(q[1]*CS); }).join(" "); }
+    // layers: [{t:"poly",p,cls}, {t:"line",a,b,cls}, {t:"lbl",at,text}, {t:"cells",p}]
+    function svgPic(W, H, layers){
+      var s = '<svg class="gridpic" viewBox="0 0 '+(W*CS)+' '+(H*CS)+'" xmlns="http://www.w3.org/2000/svg">';
+      for (var x=0;x<=W;x++) s += '<line class="gl" x1="'+x*CS+'" y1="0" x2="'+x*CS+'" y2="'+H*CS+'"/>';
+      for (var y=0;y<=H;y++) s += '<line class="gl" x1="0" y1="'+y*CS+'" x2="'+W*CS+'" y2="'+y*CS+'"/>';
+      layers.forEach(function(L){
+        if (L.t==="poly") s += '<polygon class="'+L.cls+'" points="'+pts(L.p)+'"/>';
+        else if (L.t==="line") s += '<line class="'+L.cls+'" x1="'+L.a[0]*CS+'" y1="'+L.a[1]*CS+'" x2="'+L.b[0]*CS+'" y2="'+L.b[1]*CS+'"/>';
+        else if (L.t==="lbl") s += '<text class="lbl" x="'+L.at[0]*CS+'" y="'+L.at[1]*CS+'">'+L.text+'</text>';
+        else if (L.t==="cells"){ var b=bbox(L.p), k=0;
+          for (var yy=b[0][1]; yy<b[2][1]; yy++) for (var xx=b[0][0]; xx<b[1][0]; xx++){ k++; s += '<text class="num-cell" x="'+(xx+.5)*CS+'" y="'+(yy+.5)*CS+'">'+k+'</text>'; } }
+      });
+      return s + "</svg>";
+    }
+    function gridSize(p){ var b=bbox(p); return [b[1][0]+1, b[2][1]+1]; }
+    function edges(p){ var r=[]; for (var i=0;i<p.length;i++) r.push({t:"line",a:p[i],b:p[(i+1)%p.length],cls:"cutl"}); return r; }
+
+    // ----- теория: пошаговые демонстрации -----
+    function stepper(pfx, W, H, steps){
+      var i = 0;
+      function show(){
+        var st = steps[i];
+        document.getElementById(pfx+"pic").innerHTML = svgPic(st.W||W, st.H||H, st.layers);
+        document.getElementById(pfx+"txt").innerHTML = st.text;
+        document.getElementById(pfx+"cnt").textContent = (i+1) + " из " + steps.length;
+        document.getElementById(pfx+"prev").disabled = i===0;
+        document.getElementById(pfx+"next").disabled = i===steps.length-1;
+      }
+      document.getElementById(pfx+"prev").onclick = function(){ if (i>0){ i--; show(); } };
+      document.getElementById(pfx+"next").onclick = function(){ if (i<steps.length-1){ i++; show(); } };
+      show();
+    }
+    var R1=[[1,1],[5,1],[5,4],[1,4]];
+    var T1=[[1,1],[1,4],[5,4]], T1b=[[1,1],[5,1],[5,4]];
+    stepper("d1", 7, 5, [
+      { layers:[{t:"poly",p:R1,cls:"fig"},{t:"cells",p:R1}],
+        text:"<b>Площадь</b> это сколько клеток помещается внутри фигуры. Одна клетка это площадь 1.<div class='big'>Здесь 12 клеток: площадь 12</div>" },
+      { layers:[{t:"poly",p:R1,cls:"fig"},{t:"lbl",at:[3,.55],text:"4"},{t:"lbl",at:[.55,2.5],text:"3"}],
+        text:"У прямоугольника не нужно считать по одной клетке. В ряду 4 клетки, рядов 3.<div class='big'>4 · 3 = 12</div>" },
+      { layers:[{t:"poly",p:T1,cls:"fig"}],
+        text:"А это <b>прямоугольный треугольник</b>: у него есть угол, как у листа тетради. Клетки внутри разрезаны наискосок, считать их по одной неудобно." },
+      { layers:[{t:"poly",p:T1,cls:"fig"},{t:"poly",p:R1,cls:"boxl"}],
+        text:"Достроим его до прямоугольника. Прямоугольник 4 на 3, его площадь<div class='big'>4 · 3 = 12</div>" },
+      { layers:[{t:"poly",p:T1,cls:"pc1"},{t:"poly",p:T1b,cls:"pc2"},{t:"poly",p:R1,cls:"boxl"},{t:"line",a:[1,1],b:[5,4],cls:"cutl"}],
+        text:"Диагональ режет прямоугольник на <b>два одинаковых</b> треугольника. Значит, наш треугольник это половина прямоугольника.<div class='big'>12 : 2 = 6</div>" },
+      { W:7, H:9, layers:[{t:"poly",p:[[1,8],[5,8],[5,4],[3,2],[1,4]],cls:"fig"}],
+        text:"А как найти площадь домика? Целиком он не прямоугольник и не треугольник." },
+      { W:7, H:9, layers:[{t:"poly",p:[[1,4],[5,4],[5,8],[1,8]],cls:"pc2"},{t:"poly",p:[[1,4],[3,2],[3,4]],cls:"pc1"},{t:"poly",p:[[3,2],[5,4],[3,4]],cls:"pc3"},
+                {t:"line",a:[1,4],b:[5,4],cls:"cutl"},{t:"line",a:[3,2],b:[3,4],cls:"cutl"},
+                {t:"lbl",at:[3,6],text:"16"},{t:"lbl",at:[2.35,3.4],text:"2"},{t:"lbl",at:[3.65,3.4],text:"2"}],
+        text:"<b>Режем</b> фигуру на прямоугольники и прямоугольные треугольники. Площадь каждого кусочка находим отдельно, потом складываем.<div class='big'>16 + 2 + 2 = 20</div>" }
+    ]);
+
+    var G=[[1,5],[7,4],[3,1]], GB=[[1,1],[7,1],[7,5],[1,5]];
+    stepper("d2", 8, 6, [
+      { layers:[{t:"poly",p:G,cls:"fig"}],
+        text:"Бывают треугольники, которые неудобно резать: ни одна сторона не идёт по линиям клеток." },
+      { layers:[{t:"poly",p:G,cls:"fig"},{t:"poly",p:GB,cls:"boxl"}],
+        text:"Достроим фигуру до прямоугольника. Его площадь<div class='big'>6 · 4 = 24</div>" },
+      { layers:[{t:"poly",p:G,cls:"fig"},{t:"poly",p:[[1,5],[1,1],[3,1]],cls:"pcm"},{t:"poly",p:[[3,1],[7,1],[7,4]],cls:"pcm"},{t:"poly",p:[[7,4],[7,5],[1,5]],cls:"pcm"},{t:"poly",p:GB,cls:"boxl"},
+                {t:"lbl",at:[1.7,2.4],text:"4"},{t:"lbl",at:[5.7,2],text:"6"},{t:"lbl",at:[5,4.7],text:"3"}],
+        text:"Лишнее в прямоугольнике это три <b>прямоугольных</b> треугольника по углам. Их площади мы уже умеем находить: 2·4:2 = 4, 4·3:2 = 6, 6·1:2 = 3." },
+      { layers:[{t:"poly",p:G,cls:"pc1"},{t:"poly",p:GB,cls:"boxl"},{t:"lbl",at:center(G),text:"11"}],
+        text:"Вычитаем лишнее из прямоугольника:<div class='big'>24 − 4 − 6 − 3 = 11</div>" }
+    ]);
+
+    // ----- уровни -----
+    // pieces: s=+1 складываем, s=-1 вычитаем; mode: cut (режем) | half (половина прямоугольника) | sub (достраиваем)
+    var LEVELS = [
+      { id:1, title:"Прямоугольники", tasks:[
+        { poly:[[1,1],[6,1],[6,4],[1,4]], mode:"cut", pieces:[[[1,1],[6,1],[6,4],[1,4]]] },
+        { poly:[[1,1],[4,1],[4,3],[7,3],[7,5],[1,5]], mode:"cut", pieces:[[[1,1],[4,1],[4,5],[1,5]],[[4,3],[7,3],[7,5],[4,5]]] },
+        { poly:[[1,1],[3,1],[3,2],[5,2],[5,3],[8,3],[8,5],[1,5]], mode:"cut", pieces:[[[1,1],[3,1],[3,5],[1,5]],[[3,2],[5,2],[5,5],[3,5]],[[5,3],[8,3],[8,5],[5,5]]] }
+      ]},
+      { id:2, title:"Треугольник: половина прямоугольника", tasks:[
+        { poly:[[1,4],[5,4],[1,1]], mode:"half", guided:true },
+        { poly:[[1,1],[7,1],[7,4]], mode:"half" },
+        { poly:[[2,5],[2,2],[7,5]], mode:"half" },
+        { poly:[[1,5],[5,5],[5,1]], mode:"half" }
+      ]},
+      { id:3, title:"Режем на кусочки", tasks:[
+        { poly:[[1,8],[5,8],[5,4],[3,2],[1,4]], mode:"cut", pieces:[[[1,4],[5,4],[5,8],[1,8]],[[1,4],[3,2],[3,4]],[[3,2],[5,4],[3,4]]] },
+        { poly:[[1,5],[7,5],[7,2],[4,2]], mode:"cut", pieces:[[[4,2],[7,2],[7,5],[4,5]],[[1,5],[4,2],[4,5]]] },
+        { poly:[[1,5],[6,5],[8,2],[3,2]], mode:"cut", pieces:[[[1,5],[3,2],[3,5]],[[3,2],[6,2],[6,5],[3,5]],[[6,5],[8,2],[6,2]]] },
+        { poly:[[1,1],[5,1],[8,4],[5,6],[1,6]], mode:"cut", pieces:[[[1,1],[5,1],[5,6],[1,6]],[[5,1],[8,4],[5,4]],[[5,4],[8,4],[5,6]]] }
+      ]},
+      { id:4, title:"★ Достроить и вычесть", tasks:[
+        { poly:[[1,5],[7,4],[3,1]], mode:"sub" },
+        { poly:[[2,1],[5,2],[4,5],[1,4]], mode:"sub" },
+        { poly:[[1,1],[6,3],[2,5]], mode:"sub" }
+      ]}
+    ];
+    var MAIN = 3;
+    // для достраивания лишние куски считаем сами: треугольники между сторонами фигуры и рамкой
+    function subPieces(poly){
+      var B = bbox(poly), res = [];
+      for (var i=0;i<poly.length;i++){
+        var a = poly[i], b = poly[(i+1)%poly.length];
+        if (a[0]===b[0] || a[1]===b[1]) continue;
+        // вершина прямого угла: выбираем угол рамки, лежащий снаружи фигуры
+        var c1 = [a[0], b[1]], c2 = [b[0], a[1]];
+        var c = inside(poly, [(a[0]+b[0]+2*c1[0])/4, (a[1]+b[1]+2*c1[1])/4]) ? c2 : c1;
+        res.push([a, c, b]);
+      }
+      return { box:B, cut:res };
+    }
+    function inside(p, q){
+      var c = false;
+      for (var i=0,j=p.length-1;i<p.length;j=i++){
+        var xi=p[i][0], yi=p[i][1], xj=p[j][0], yj=p[j][1];
+        if (((yi>q[1])!==(yj>q[1])) && (q[0] < (xj-xi)*(q[1]-yi)/(yj-yi)+xi)) c = !c;
+      }
+      return c;
+    }
+
+    var current = 1;
+    function unlocked(id){ return student.admin || id===1 || P.done[id-1]; }
+    function renderLevels(){
+      var box = document.getElementById("levels"); box.innerHTML = "";
+      LEVELS.forEach(function(L){
+        var b = el("button","lvl" + (P.done[L.id] ? " done":""));
+        b.setAttribute("aria-pressed", String(current===L.id));
+        b.disabled = !unlocked(L.id);
+        b.innerHTML = L.id + ". " + L.title + ' <span class="st">' + (P.done[L.id] ? "✓ пройден" : (unlocked(L.id) ? "" : "🔒")) + "</span>";
+        b.addEventListener("click", function(){ current = L.id; start(); });
+        box.appendChild(b);
+      });
+      if (P.done[MAIN]){
+        var f = el("button","lvl");
+        f.setAttribute("aria-pressed", String(current===0));
+        f.innerHTML = "🏆 Кодовое слово";
+        f.addEventListener("click", function(){ current = 0; start(); });
+        box.appendChild(f);
+      }
+    }
+    function start(){
+      renderLevels();
+      var root = document.getElementById("stage"); root.innerHTML = "";
+      if (current === 0) return finale(root);
+      var L = LEVELS[current-1];
+      var k = P.idx[L.id] || 0; if (P.done[L.id] || k >= L.tasks.length) k = 0;
+      play(root, L, k);
+    }
+
+    function play(root, L, k){
+      var T = L.tasks[k], poly = T.poly, S = area(poly);
+      var WH = gridSize(poly), W = Math.max(WH[0], 9), H = WH[1];
+      var B = bbox(poly), BA = area(B);
+      var pen = [], penStart = null, hintStep = 0, errs = 0;
+
+      var lead = {
+        cut: "Найди площадь фигуры. Можно провести свои линии карандашом: нажми на один узел сетки, потом на другой.",
+        half: "Найди площадь прямоугольного треугольника. Подсказка в теории: он половина прямоугольника.",
+        sub: "Найди площадь фигуры: дострой её до прямоугольника и вычти лишние уголки."
+      }[T.mode];
+
+      var card = el("div","card");
+      card.innerHTML = '<div class="task-head"><h2>' + L.title + '</h2><span class="counter">Задача ' + (k+1) + " из " + L.tasks.length + "</span></div>" +
+        '<p class="lead">' + lead + "</p>" +
+        '<div id="pic"></div><div class="pen-note">✏️ Карандаш: нажми на два узла сетки, чтобы провести линию.</div>' +
+        '<div class="tools-row"><button class="b ghost" id="hint">Подсказка</button><button class="b ghost" id="erase">Стереть линии</button></div>' +
+        '<div class="ans-row" id="ans"></div><div class="msg" id="msg"></div>';
+      root.appendChild(card);
+      var msg = card.querySelector("#msg"), ans = card.querySelector("#ans");
+
+      function baseLayers(){
+        var Ls = [{t:"poly",p:poly,cls:"fig"}];
+        if (T.guided) Ls.push({t:"poly",p:B,cls:"boxl"});
+        return Ls;
+      }
+      function hintLayers(){
+        var Ls = [];
+        if (T.mode==="cut"){
+          if (hintStep>=1) T.pieces.forEach(function(p){ Ls = Ls.concat(edges(p)); });
+          if (hintStep>=2) T.pieces.forEach(function(p,i){ Ls.unshift({t:"poly",p:p,cls:"pc"+(i%4+1)}); Ls.push({t:"lbl",at:center(p),text:fmt(area(p))}); });
+        } else if (T.mode==="half"){
+          if (hintStep>=1) Ls.push({t:"poly",p:B,cls:"boxl"});
+          if (hintStep>=2) Ls.push({t:"lbl",at:center(poly),text:fmt(S)});
+        } else {
+          var sp = subPieces(poly);
+          if (hintStep>=1) Ls.push({t:"poly",p:sp.box,cls:"boxl"});
+          if (hintStep>=2) sp.cut.forEach(function(p){ Ls.unshift({t:"poly",p:p,cls:"pcm"}); Ls.push({t:"lbl",at:center(p),text:fmt(area(p))}); });
+        }
+        return Ls;
+      }
+      function draw(){
+        var Ls = baseLayers().concat(hintLayers());
+        pen.forEach(function(l){ Ls.push({t:"line",a:l[0],b:l[1],cls:"pen"}); });
+        var html = svgPic(W, H, Ls);
+        if (penStart) html = html.replace("</svg>", '<circle class="pend" cx="'+penStart[0]*CS+'" cy="'+penStart[1]*CS+'" r="7"/></svg>');
+        card.querySelector("#pic").innerHTML = html;
+        card.querySelector("#pic svg").addEventListener("pointerdown", onTap);
+      }
+      function onTap(e){
+        var svg = e.currentTarget, pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+        var m = svg.getScreenCTM(); if (!m) return;
+        var q = pt.matrixTransform(m.inverse());
+        var gx = Math.round(q.x/CS), gy = Math.round(q.y/CS);
+        if (Math.abs(q.x/CS-gx) > .4 || Math.abs(q.y/CS-gy) > .4) return;
+        if (!penStart) penStart = [gx,gy];
+        else { if (penStart[0]!==gx || penStart[1]!==gy) pen.push([penStart,[gx,gy]]); penStart = null; }
+        draw();
+      }
+      card.querySelector("#erase").onclick = function(){ pen = []; penStart = null; draw(); };
+
+      var hintTexts = {
+        cut: ["Красным пунктиром показано, как можно разрезать фигуру. Найди площадь каждого кусочка.",
+              "Площадь каждого кусочка подписана. Осталось сложить."],
+        half: ["Дострой треугольник до прямоугольника (серый пунктир). Сколько клеток в прямоугольнике?",
+               ""],
+        sub: ["Серым пунктиром нарисован прямоугольник вокруг фигуры. Найди его площадь.",
+              "Лишние уголки закрашены, их площади подписаны. Вычти их из прямоугольника."]
+      }[T.mode];
+      if (T.mode==="half"){
+        var a = B[1][0]-B[0][0], b = B[2][1]-B[0][1];
+        hintTexts[1] = "Прямоугольник " + a + " на " + b + ", его площадь " + a + " · " + b + " = " + (a*b) + ". Треугольник это половина.";
+      }
+      card.querySelector("#hint").onclick = function(){
+        if (hintStep < 2) hintStep++;
+        setMsg(msg, "info", hintTexts[hintStep-1]);
+        draw();
+      };
+
+      function parse(v){ v = String(v||"").trim().replace(",", ".").replace(/\s+/g,""); if (!/^\d+(\.\d+)?$/.test(v)) return null; return Number(v); }
+      function solved(){
+        var first = k+1 >= L.tasks.length;
+        hintStep = 2; draw();
+        if (first){
+          var wasDone = P.done[L.id];
+          P.done[L.id] = true; P.idx[L.id] = 0; saveP();
+          if (!wasDone) sendLevel(L.id, L.title, "решено");
+          var nextTxt = L.id < MAIN ? "Следующий уровень →" : "К кодовому слову →";
+          setMsg(msg,"ok","Верно! Площадь " + fmt(S) + ". Уровень пройден! 🎉" + '<div style="margin-top:8px"><button class="b good" id="nx">' + nextTxt + "</button></div>");
+          msg.querySelector("#nx").onclick = function(){ current = L.id < MAIN ? L.id + 1 : 0; start(); window.scrollTo(0, document.getElementById("levels").offsetTop - 10); };
+        } else {
+          P.idx[L.id] = k+1; saveP();
+          setMsg(msg,"ok","Верно! Площадь " + fmt(S) + ". 🎉" + '<div style="margin-top:8px"><button class="b good" id="nx">Дальше →</button></div>');
+          msg.querySelector("#nx").onclick = function(){ start(); };
+        }
+        ans.querySelectorAll("input,button").forEach(function(x){ x.disabled = true; });
+      }
+
+      if (T.guided){
+        ans.innerHTML = '<span>Прямоугольник:</span><input class="num" id="v1" inputmode="decimal"><span>Треугольник:</span><input class="num" id="v2" inputmode="decimal" disabled><button class="b" id="ok">Проверить</button>';
+        card.querySelector(".lead").innerHTML = "Треугольник уже достроен до прямоугольника (серый пунктир). Сначала найди площадь прямоугольника, потом треугольника.";
+        var stage = 1;
+        card.querySelector("#ok").onclick = function(){
+          if (stage === 1){
+            var v = parse(card.querySelector("#v1").value);
+            if (v === null) return setMsg(msg,"warn","Впиши число.");
+            if (v !== BA) return setMsg(msg,"bad","Не так. Сколько клеток в одном ряду прямоугольника и сколько рядов? Перемножь.");
+            stage = 2; card.querySelector("#v1").disabled = true; card.querySelector("#v2").disabled = false; card.querySelector("#v2").focus();
+            setMsg(msg,"ok","Верно, прямоугольник " + fmt(BA) + ". А треугольник какую часть прямоугольника занимает?");
+          } else {
+            var w = parse(card.querySelector("#v2").value);
+            if (w === null) return setMsg(msg,"warn","Впиши число.");
+            if (Math.abs(w - S) < 1e-9) return solved();
+            setMsg(msg,"bad","Не так. Диагональ режет прямоугольник на два одинаковых треугольника. Значит, треугольник это половина: " + fmt(BA) + " : 2.");
+          }
+        };
+      } else {
+        ans.innerHTML = '<span>Площадь =</span><input class="num" id="v" inputmode="decimal"><button class="b" id="ok">Проверить</button>';
+        var go = function(){
+          var v = parse(card.querySelector("#v").value);
+          if (v === null) return setMsg(msg,"warn","Впиши число. Если получилась половинка, пиши через запятую: 7,5.");
+          if (Math.abs(v - S) < 1e-9) return solved();
+          errs++;
+          var t = "Пока не так.";
+          if (T.mode==="half" && Math.abs(v - 2*S) < 1e-9) t = "Это площадь всего прямоугольника. А треугольник занимает только половину.";
+          else if (T.mode==="sub" && Math.abs(v - BA) < 1e-9) t = "Это площадь всего прямоугольника. Теперь вычти из него лишние уголки.";
+          else if (T.mode==="half") t = "Пока не так. Дострой треугольник до прямоугольника, найди площадь прямоугольника и раздели пополам.";
+          else if (T.mode==="sub") t = "Пока не так. Найди площадь прямоугольника вокруг фигуры, потом площадь каждого лишнего уголка и вычти их.";
+          else if (T.mode==="cut" && T.pieces.length===1) t = "Пока не так. Сколько клеток в одном ряду? Сколько рядов? Перемножь.";
+          else if (T.mode==="cut" && T.pieces.length>1) t = "Пока не так. Разрежь фигуру на прямоугольники и прямоугольные треугольники, найди площадь каждого кусочка и сложи.";
+          if (errs >= 2 && hintStep < 2) t += " Если не получается, нажми «Подсказка».";
+          setMsg(msg,"bad",t);
+        };
+        card.querySelector("#ok").onclick = go;
+        card.querySelector("#v").addEventListener("keydown", function(e){ if (e.key==="Enter") go(); });
+      }
+      draw();
+    }
+
+    function finale(root){
+      var card = el("div","card final");
+      card.innerHTML = '<div class="big">🏆</div><h2>Три уровня пройдены!</h2>' +
+        "<p>Вот кодовое слово. Впиши его в домашнем задании:</p>" +
+        '<div class="code">' + CODE_WORD + "</div>" +
+        (P.done[4] ? "<p>И уровень ★ тоже пройден. Здорово!</p>" :
+          '<p class="small-note">Хочешь ещё? Попробуй уровень ★: там фигуру нужно достроить до прямоугольника и вычесть лишнее. Перед ним открой теорию со звёздочкой.</p>') +
+        '<a class="b" style="display:inline-block;text-decoration:none;margin-top:6px;padding:9px 16px;border-radius:9px;background:var(--accent);color:#fff;font-weight:600" href="index.html">← К заданиям</a>';
+      root.appendChild(card);
+    }
+
+    current = !P.done[1] ? 1 : !P.done[2] ? 2 : !P.done[3] ? 3 : 0;
+    start();
+  })();
+  </script>
+</body>
+</html>
